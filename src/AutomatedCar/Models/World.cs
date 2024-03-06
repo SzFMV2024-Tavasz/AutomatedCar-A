@@ -145,7 +145,7 @@
             }
         }
 
-        private List<System.Drawing.PointF> ToDotNetPoints(Avalonia.Points points)
+        private List<System.Drawing.PointF> ToDotNetPoints(IList<Avalonia.Point> points)
         {
             var result = new List<System.Drawing.PointF>();
             foreach (var p in points)
@@ -156,7 +156,7 @@
             return result;
         }
 
-        private List<System.Drawing.PointF> ToDotNetPoints(Avalonia.Points points, int x, int y)
+        private List<System.Drawing.PointF> ToDotNetPoints(IList<Avalonia.Point> points, int x, int y)
         {
             var result = new List<System.Drawing.PointF>();
             foreach (var p in points)
