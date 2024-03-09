@@ -19,6 +19,21 @@ namespace AutomatedCar.Models
         public int Revolution { get; set; }
 
         public int Velocity { get; set; }
+        
+        public enum Transmission
+        {
+            P, // Park
+            R, // Reverse
+            N, // Neutral
+            D  // Drive
+        }
+        private Transmission transmission;
+
+        public Transmission CarTransmission
+        {
+            get { return transmission; }
+            set { transmission = value; }
+        }
 
         public PolylineGeometry Geometry { get; set; }
 

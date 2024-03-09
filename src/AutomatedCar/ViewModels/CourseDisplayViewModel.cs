@@ -81,6 +81,23 @@ namespace AutomatedCar.ViewModels
         {
             this.DebugStatus.Camera = !this.DebugStatus.Camera;
         }
+        //Transmission  controllers
+        public void TransmissionToP()
+        { 
+        
+        }
+        public void TransmissionToR()
+        {
+
+        }
+        public void TransmissionToN()
+        {
+
+        }
+        public void TransmissionToD()
+        {
+
+        }
 
         public void ToggleRadar()
         {
