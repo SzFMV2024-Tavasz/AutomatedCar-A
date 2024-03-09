@@ -45,7 +45,7 @@ namespace AutomatedCar.ViewModels
         public void KeyUp()
         {
             World.Instance.ControlledCar.Y -= 5;
-            if (World.Instance.ControlledCar.Throttle < 0 || World.Instance.ControlledCar.Throttle > 100)
+            if (World.Instance.ControlledCar.Throttle !< 0 || World.Instance.ControlledCar.Throttle !> 100)
             {
                 World.Instance.ControlledCar.Throttle = World.Instance.ControlledCar.Throttle + 1;
             }
