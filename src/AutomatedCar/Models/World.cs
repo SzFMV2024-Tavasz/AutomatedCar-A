@@ -33,7 +33,7 @@
                 this.controlledCarPointer = value;
             }
         }
-
+       
         public void AddControlledCar(AutomatedCar controlledCar)
         {
             this.controlledCars.Add(controlledCar);
