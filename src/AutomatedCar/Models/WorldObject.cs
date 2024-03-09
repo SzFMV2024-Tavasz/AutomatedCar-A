@@ -74,7 +74,7 @@ namespace AutomatedCar.Models
             set
             {
                 this.throttle = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Throttle)));
             }
         }
        
