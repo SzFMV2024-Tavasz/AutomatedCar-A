@@ -41,7 +41,7 @@
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="Gear" TextAlignment="Center"/>
                             </Grid>
                             <Separator Height="15"></Separator>
-                            <TextBlock Text="Throttle"/>
+                            <TextBlock Text="{Binding }"/>
                             <ProgressBar Value="50"></ProgressBar>
                             <TextBlock Text="Brake"/>
                             <ProgressBar Value="50"></ProgressBar>
