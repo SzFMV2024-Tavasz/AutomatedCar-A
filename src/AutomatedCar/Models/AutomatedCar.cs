@@ -19,7 +19,10 @@ namespace AutomatedCar.Models
         public int Revolution { get; set; }
 
         public int Velocity { get; set; }
-        
+        public bool CanGoUp { get; set; }
+        public bool CanGoDown { get; set; }
+        public bool CanRotate { get; set; }
+
         public enum Transmission
         {
             P, // Park
@@ -34,6 +37,9 @@ namespace AutomatedCar.Models
             get { return transmission; }
             set { transmission = value; }
         }
+        //Check if car can go up or down, or rotate
+        
+
 
         public PolylineGeometry Geometry { get; set; }
 
