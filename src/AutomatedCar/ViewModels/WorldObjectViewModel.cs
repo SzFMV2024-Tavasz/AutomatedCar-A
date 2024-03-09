@@ -82,5 +82,9 @@
         {
             get => this.worldObject.WorldObjectType;
         }
+        public int Throttle
+        {
+            get=>this.worldObject.Throttle;
+        }
     }
 }
