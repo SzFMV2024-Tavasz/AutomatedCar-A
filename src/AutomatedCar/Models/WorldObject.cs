@@ -26,7 +26,7 @@ namespace AutomatedCar.Models
 
         private double rotation;
 
-        public WorldObject(int x, int y, string filename, int zindex = 1, bool collideable = false, WorldObjectType worldObjectType = WorldObjectType.Other)
+        public WorldObject(int x, int y, string filename, int zindex = 1, bool collideable = false, WorldObjectType worldObjectType = WorldObjectType.Other,int throttle=0)
         {
             this.X = x;
             this.Y = y;
@@ -34,6 +34,7 @@ namespace AutomatedCar.Models
             this.ZIndex = zindex;
             this.Collideable = collideable;
             this.WorldObjectType = worldObjectType;
+            this.Throttle = throttle;
         }
 
         public int ZIndex { get; set; }
