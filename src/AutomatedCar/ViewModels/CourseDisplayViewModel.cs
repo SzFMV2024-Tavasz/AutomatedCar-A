@@ -45,6 +45,7 @@ namespace AutomatedCar.ViewModels
         public void KeyUp()
         {
             World.Instance.ControlledCar.Y -= 5;
+            if(World.Instance.ControlledCar.)
         }
 
         public void KeyDown()
@@ -103,5 +104,7 @@ namespace AutomatedCar.ViewModels
             var offsetY = World.Instance.ControlledCar.Y - (scrollViewer.Viewport.Height / 2);
             this.Offset = new Avalonia.Vector(offsetX, offsetY);
         }
+
+       
     }
 }
