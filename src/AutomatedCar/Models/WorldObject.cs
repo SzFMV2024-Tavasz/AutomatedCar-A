@@ -21,6 +21,7 @@ namespace AutomatedCar.Models
 
         private int x;
         private int y;
+        private int throttle;
 
 
         private double rotation;
@@ -63,6 +64,15 @@ namespace AutomatedCar.Models
             set
             {
                 this.y = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
+            }
+        }
+        public int Throttle
+        {
+            get => this.throttle;
+            set
+            {
+                this.throttle = value;
                 this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
             }
         }

@@ -31,7 +31,7 @@
         {
             get => this.worldObject.X;
         }
-
+        
         public int Y
         {
             get => this.worldObject.Y;
