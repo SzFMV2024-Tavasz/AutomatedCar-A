@@ -106,30 +106,52 @@ namespace AutomatedCar.ViewModels
 
         public void Accelerate()
         {
-            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100 && World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            // Inceaseing Throttle
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
+            {
+                World.Instance.ControlledCar.Throttle++; 
+            }
+
+            if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle+1 == 100)
             {
                 World.Instance.ControlledCar.Throttle++;
+                
+            }
+
+
+            // Decreasing Brake
+            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            {
                 World.Instance.ControlledCar.Brake--;
             }
 
-            if ((World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle+1 == 100) && (World.Instance.ControlledCar.Brake-1 == 0 || World.Instance.ControlledCar.Brake==100))
+            if (World.Instance.ControlledCar.Brake - 1 == 0 || World.Instance.ControlledCar.Brake == 100)
             {
-                World.Instance.ControlledCar.Throttle++;
                 World.Instance.ControlledCar.Brake--;
             }
         }
 
         public void Deccelerte()
         {
-            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100 && World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            // Decreasing Throttle
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
             {
                 World.Instance.ControlledCar.Throttle--;
+            }
+
+            if (World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100)
+            {
+                World.Instance.ControlledCar.Throttle--;
+            }
+
+            // Increasing Brake
+            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            {
                 World.Instance.ControlledCar.Brake++;
             }
 
-            if ((World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100) && (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 1 == 100))
+            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 1 == 100)
             {
-                World.Instance.ControlledCar.Throttle--;
                 World.Instance.ControlledCar.Brake++;
             }
         }

@@ -44,7 +44,7 @@
                             <TextBlock Text="Throttle"/>
                             <ProgressBar Value="{Binding Throttle}"></ProgressBar>
                             <TextBlock Text="Brake"/>
-                            <ProgressBar Value="50"></ProgressBar>
+                            <ProgressBar Value="{Binding Brake}"></ProgressBar>
                             <Separator Height="12"></Separator>
                             <Image
                                 Width="90" Height="90"
