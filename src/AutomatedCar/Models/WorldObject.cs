@@ -21,7 +21,7 @@ namespace AutomatedCar.Models
         public event EventHandler<PropertyChangedEventArgs> PropertyChangedEvent;
 
         private int x;
-        private double y;
+        private int y;
         private int throttle;
         private int brake;
 
@@ -61,7 +61,7 @@ namespace AutomatedCar.Models
             }
         }
 
-        public double Y
+        public int Y
         {
             get => this.y;
             set

@@ -32,7 +32,7 @@
             get => this.worldObject.X;
         }
         
-        public double Y
+        public int Y
         {
             get => this.worldObject.Y;
         }

@@ -18,7 +18,7 @@ namespace AutomatedCar.Models
 
         public int Revolution { get; set; }
 
-        public double Velocity { get; set; }
+        public int Velocity { get; set; }
 
         public PolylineGeometry Geometry { get; set; }
 
