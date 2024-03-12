@@ -80,7 +80,16 @@ namespace AutomatedCar.Models
                 this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Throttle)));
             }
         }
-       
+
+        public int Brake
+        {
+            get => this.brake;
+            set
+            {
+                this.brake = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Brake)));
+            }
+        }
 
         public Point RotationPoint { get; set; }
 

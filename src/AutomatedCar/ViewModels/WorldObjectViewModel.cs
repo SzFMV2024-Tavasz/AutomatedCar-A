@@ -86,5 +86,9 @@
         {
             get=>this.worldObject.Throttle;
         }
+        public int Brake
+        {
+            get => this.worldObject.Brake;
+        }
     }
 }
