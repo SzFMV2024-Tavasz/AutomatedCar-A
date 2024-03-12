@@ -22,8 +22,8 @@ namespace AutomatedCar.Models
 
         private int x;
         private int y;
-        private int throttle;
-        private int brake;
+        private double throttle;
+        private double brake;
 
 
         private double rotation;
@@ -71,7 +71,7 @@ namespace AutomatedCar.Models
             }
         }
 
-        public int Throttle
+        public double Throttle
         {
             get => this.throttle;
             set
@@ -81,7 +81,7 @@ namespace AutomatedCar.Models
             }
         }
 
-        public int Brake
+        public double Brake
         {
             get => this.brake;
             set

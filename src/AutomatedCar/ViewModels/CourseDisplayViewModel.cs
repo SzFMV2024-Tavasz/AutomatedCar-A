@@ -51,6 +51,7 @@ namespace AutomatedCar.ViewModels
         public void KeyDown()
         {
             Deccelerte();
+            movementBackvard();
         }
 
         public void KeyLeft()
@@ -159,10 +160,25 @@ namespace AutomatedCar.ViewModels
 
         public void MovementForvard()
         {
-            int baseValue = 50;
-            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100;
-            World.Instance.ControlledCar.Speed=baseValue*World.Instance.ControlledCar.Velocity;
-            World.Instance.ControlledCar.Y -= World.Instance.ControlledCar.Speed;
+            int baseValue = 35;
+            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100.00;
+            double velocity = World.Instance.ControlledCar.Velocity;
+            World.Instance.ControlledCar.Speed = baseValue * velocity;
+            double speed = World.Instance.ControlledCar.Speed;
+            //double velocity = World.Instance.ControlledCar.Throttle / 100.00;
+            //int speed = (int)(baseValue * velocity);
+            World.Instance.ControlledCar.Y -= (int)speed;
+        }
+
+        public void movementBackvard()
+        {
+            int baseValue = 35;
+            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
+            double velocity = World.Instance.ControlledCar.Velocity;
+            World.Instance.ControlledCar.Speed = baseValue * velocity;
+            double speed = World.Instance.ControlledCar.Speed;
+            World.Instance.ControlledCar.Y += (int)speed;
+
         }
 
 

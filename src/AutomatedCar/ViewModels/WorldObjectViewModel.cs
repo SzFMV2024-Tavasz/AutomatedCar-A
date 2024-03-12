@@ -82,11 +82,11 @@
         {
             get => this.worldObject.WorldObjectType;
         }
-        public int Throttle
+        public double Throttle
         {
             get=>this.worldObject.Throttle;
         }
-        public int Brake
+        public double Brake
         {
             get => this.worldObject.Brake;
         }
