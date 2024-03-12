@@ -159,7 +159,7 @@ namespace AutomatedCar.ViewModels
 
         public void MovementForvard()
         {
-            int baseValue = 5;
+            int baseValue = 50;
             World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100;
             World.Instance.ControlledCar.Speed=baseValue*World.Instance.ControlledCar.Velocity;
             World.Instance.ControlledCar.Y -= World.Instance.ControlledCar.Speed;
