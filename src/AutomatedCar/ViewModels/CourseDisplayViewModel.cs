@@ -44,16 +44,12 @@ namespace AutomatedCar.ViewModels
 
         public void KeyUp()
         {
-            World.Instance.ControlledCar.Y -= 5;
-            if (World.Instance.ControlledCar.Throttle >= 0 || World.Instance.ControlledCar.Throttle <= 100)
-            {
-                World.Instance.ControlledCar.Throttle++;
-            }
+            Accelerate();
         }
 
         public void KeyDown()
         {
-            World.Instance.ControlledCar.Y += 5;
+            Deccelerte();
         }
 
         public void KeyLeft()
@@ -108,6 +104,23 @@ namespace AutomatedCar.ViewModels
             this.Offset = new Avalonia.Vector(offsetX, offsetY);
         }
 
-       
+        public void Accelerate()
+        {
+            if (World.Instance.ControlledCar.Throttle >= 0 && World.Instance.ControlledCar.Throttle <= 100)
+            {
+                World.Instance.ControlledCar.Throttle++;
+            }
+        }
+
+        public void Deccelerte()
+        {
+            if (World.Instance.ControlledCar.Throttle >= 0 && World.Instance.ControlledCar.Throttle <= 100)
+            {
+                World.Instance.ControlledCar.Throttle--;
+            }
+        }
+
+
+
     }
 }
