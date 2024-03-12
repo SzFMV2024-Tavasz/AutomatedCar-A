@@ -14,7 +14,7 @@ namespace AutomatedCar.ViewModels
     public class CourseDisplayViewModel : ViewModelBase
     {
         public ObservableCollection<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
-      
+
         private Avalonia.Vector offset;
 
         public CourseDisplayViewModel(World world)
@@ -45,6 +45,7 @@ namespace AutomatedCar.ViewModels
         public void KeyUp()
         {
             Accelerate();
+            MovementForvard();
         }
 
         public void KeyDown()
@@ -109,13 +110,13 @@ namespace AutomatedCar.ViewModels
             // Inceaseing Throttle
             if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
             {
-                World.Instance.ControlledCar.Throttle++; 
+                World.Instance.ControlledCar.Throttle++;
             }
 
-            if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle+1 == 100)
+            if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle + 1 == 100)
             {
                 World.Instance.ControlledCar.Throttle++;
-                
+
             }
 
 
@@ -156,6 +157,13 @@ namespace AutomatedCar.ViewModels
             }
         }
 
+        public void MovementForvard()
+        {
+            int baseValue = 5;
+            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100;
+            World.Instance.ControlledCar.Speed=baseValue*World.Instance.ControlledCar.Velocity;
+            World.Instance.ControlledCar.Y -= World.Instance.ControlledCar.Speed;
+        }
 
 
     }
