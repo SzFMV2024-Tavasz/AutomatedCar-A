@@ -106,7 +106,12 @@ namespace AutomatedCar.ViewModels
 
         public void Accelerate()
         {
-            if (World.Instance.ControlledCar.Throttle >= 0 && World.Instance.ControlledCar.Throttle <= 100)
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
+            {
+                World.Instance.ControlledCar.Throttle++;
+            }
+
+            if (World.Instance.ControlledCar.Throttle == 0||World.Instance.ControlledCar.Throttle+1 == 100)
             {
                 World.Instance.ControlledCar.Throttle++;
             }
@@ -114,7 +119,12 @@ namespace AutomatedCar.ViewModels
 
         public void Deccelerte()
         {
-            if (World.Instance.ControlledCar.Throttle >= 0 && World.Instance.ControlledCar.Throttle <= 100)
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
+            {
+                World.Instance.ControlledCar.Throttle--;
+            }
+
+            if (World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100)
             {
                 World.Instance.ControlledCar.Throttle--;
             }
