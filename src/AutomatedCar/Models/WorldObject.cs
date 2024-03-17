@@ -3,6 +3,7 @@ namespace AutomatedCar.Models
     using Avalonia.Media;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Drawing;
 
     public class PropertyChangedEventArgs : EventArgs
@@ -21,6 +22,9 @@ namespace AutomatedCar.Models
 
         private int x;
         private int y;
+        private double throttle;
+        private double brake;
+
 
         private double rotation;
 
@@ -32,6 +36,7 @@ namespace AutomatedCar.Models
             this.ZIndex = zindex;
             this.Collideable = collideable;
             this.WorldObjectType = worldObjectType;
+            //this.Throttle = throttle;
         }
 
         public int ZIndex { get; set; }
@@ -66,6 +71,26 @@ namespace AutomatedCar.Models
             }
         }
 
+        public double Throttle
+        {
+            get => this.throttle;
+            set
+            {
+                this.throttle = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Throttle)));
+            }
+        }
+
+        public double Brake
+        {
+            get => this.brake;
+            set
+            {
+                this.brake = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Brake)));
+            }
+        }
+
         public Point RotationPoint { get; set; }
 
         public string RenderTransformOrigin { get; set; }
@@ -79,5 +104,7 @@ namespace AutomatedCar.Models
         public bool Collideable { get; set; }
 
         public WorldObjectType WorldObjectType { get; set; }
+
+        
     }
 }

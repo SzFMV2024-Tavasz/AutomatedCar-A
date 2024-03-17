@@ -14,7 +14,7 @@ namespace AutomatedCar.ViewModels
     public class CourseDisplayViewModel : ViewModelBase
     {
         public ObservableCollection<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
-      
+
         private Avalonia.Vector offset;
 
         public CourseDisplayViewModel(World world)
@@ -47,6 +47,8 @@ namespace AutomatedCar.ViewModels
             if (World.Instance.ControlledCar.CanGoUp)
             {
                 World.Instance.ControlledCar.Y -= 5;
+                Accelerate();
+                MovementForvard();
             }
         }
 
@@ -55,6 +57,8 @@ namespace AutomatedCar.ViewModels
             if (World.Instance.ControlledCar.CanGoDown)
             {
                 World.Instance.ControlledCar.Y += 5;
+                Deccelerte();
+                movementBackvard();
             }
         }
 
@@ -152,5 +156,82 @@ namespace AutomatedCar.ViewModels
             var offsetY = World.Instance.ControlledCar.Y - (scrollViewer.Viewport.Height / 2);
             this.Offset = new Avalonia.Vector(offsetX, offsetY);
         }
+
+        public void Accelerate()
+        {
+            // Inceaseing Throttle
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
+            {
+                World.Instance.ControlledCar.Throttle++;
+            }
+
+            if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle + 1 == 100)
+            {
+                World.Instance.ControlledCar.Throttle++;
+
+            }
+
+
+            // Decreasing Brake
+            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            {
+                World.Instance.ControlledCar.Brake--;
+            }
+
+            if (World.Instance.ControlledCar.Brake - 1 == 0 || World.Instance.ControlledCar.Brake == 100)
+            {
+                World.Instance.ControlledCar.Brake--;
+            }
+        }
+
+        public void Deccelerte()
+        {
+            // Decreasing Throttle
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
+            {
+                World.Instance.ControlledCar.Throttle--;
+            }
+
+            if (World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100)
+            {
+                World.Instance.ControlledCar.Throttle--;
+            }
+
+            // Increasing Brake
+            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            {
+                World.Instance.ControlledCar.Brake++;
+            }
+
+            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 1 == 100)
+            {
+                World.Instance.ControlledCar.Brake++;
+            }
+        }
+
+        public void MovementForvard()
+        {
+            int baseValue = 35;
+            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100.00;
+            double velocity = World.Instance.ControlledCar.Velocity;
+            World.Instance.ControlledCar.Speed = baseValue * velocity;
+            double speed = World.Instance.ControlledCar.Speed;
+            //double velocity = World.Instance.ControlledCar.Throttle / 100.00;
+            //int speed = (int)(baseValue * velocity);
+            World.Instance.ControlledCar.Y -= (int)speed;
+        }
+
+        public void movementBackvard()
+        {
+            int baseValue = 35;
+            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
+            double velocity = World.Instance.ControlledCar.Velocity;
+            World.Instance.ControlledCar.Speed = baseValue * velocity;
+            double speed = World.Instance.ControlledCar.Speed;
+            World.Instance.ControlledCar.Y += (int)speed;
+
+        }
+
+
     }
 }

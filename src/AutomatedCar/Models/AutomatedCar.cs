@@ -17,9 +17,9 @@ namespace AutomatedCar.Models
         public VirtualFunctionBus VirtualFunctionBus { get => this.virtualFunctionBus; }
 
         public int Revolution { get; set; }
-
-        public int Velocity { get; set; }
-        public bool CanGoUp { get; set; }
+       
+        public double Velocity { get; set; }
+        public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }
 
@@ -37,7 +37,7 @@ namespace AutomatedCar.Models
             get { return transmission; }
             set { transmission = value; }
         }
-        //Check if car can go up or down, or rotate
+
         
 
 

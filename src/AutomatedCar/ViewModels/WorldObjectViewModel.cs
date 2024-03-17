@@ -31,7 +31,7 @@
         {
             get => this.worldObject.X;
         }
-
+        
         public int Y
         {
             get => this.worldObject.Y;
@@ -81,6 +81,14 @@
         public WorldObjectType WorldObjectType
         {
             get => this.worldObject.WorldObjectType;
+        }
+        public double Throttle
+        {
+            get=>this.worldObject.Throttle;
+        }
+        public double Brake
+        {
+            get => this.worldObject.Brake;
         }
     }
 }
