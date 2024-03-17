@@ -44,11 +44,18 @@ namespace AutomatedCar.ViewModels
 
         public void KeyUp()
         {
+            
             if (World.Instance.ControlledCar.CanGoUp)
             {
                 World.Instance.ControlledCar.Y -= 5;
                 Accelerate();
                 MovementForward();
+            }
+            if (World.Instance.ControlledCar.CanGoDown)
+            {
+                World.Instance.ControlledCar.Y += 5;
+                Deccelerte();
+                movementBackward();
             }
         }
 
@@ -274,7 +281,7 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
             double velocity = World.Instance.ControlledCar.Velocity;
             World.Instance.ControlledCar.Speed = baseValue * velocity;
-            double speed = World.Instance.ControlledCar.Speed;
+            double speed = World.Instance.ControlledCar.Speed*0.8; //*0,8 car goes backwards slower
             World.Instance.ControlledCar.Y += (int)speed;
 
         }
