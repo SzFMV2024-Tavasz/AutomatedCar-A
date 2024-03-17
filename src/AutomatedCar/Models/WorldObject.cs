@@ -18,12 +18,26 @@ namespace AutomatedCar.Models
 
     public class WorldObject
     {
+
         public event EventHandler<PropertyChangedEventArgs> PropertyChangedEvent;
 
         private int x;
         private int y;
         private double throttle;
         private double brake;
+        public enum Transmission
+        {
+            P, // Park
+            R, // Reverse
+            N, // Neutral
+            D,  // Drive
+            X //null value, to show nothing if cant transmissionup or down 
+        }
+        private Transmission transmission;
+        private Transmission transmissionL;
+        private Transmission transmissionR;
+
+
 
 
         private double rotation;
@@ -36,7 +50,6 @@ namespace AutomatedCar.Models
             this.ZIndex = zindex;
             this.Collideable = collideable;
             this.WorldObjectType = worldObjectType;
-            //this.Throttle = throttle;
         }
 
         public int ZIndex { get; set; }
@@ -90,6 +103,34 @@ namespace AutomatedCar.Models
                 this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Brake)));
             }
         }
+        public Transmission CarTransmission
+        {
+            get { return transmission; }
+            set
+            {
+                this.transmission = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmission)));
+            }
+        }
+        public Transmission CarTransmissionL
+        {
+            get { return transmissionL; }
+            set
+            {
+                this.transmissionL = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmissionL)));
+            }
+        }
+        public Transmission CarTransmissionR
+        {
+            get { return transmissionR; }
+            set
+            {
+                this.transmissionR = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmissionR)));
+            }
+        }
+        
 
         public Point RotationPoint { get; set; }
 

@@ -141,39 +141,45 @@ namespace AutomatedCar.ViewModels
 
          void TransmissionToP()
          {
-            if (World.Instance.ControlledCar.Velocity == 0)//&& World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.R)
+            if (World.Instance.ControlledCar.Velocity == 0)
             {
                 World.Instance.ControlledCar.CanGoUp = false;
                 World.Instance.ControlledCar.CanGoDown = false;
                 World.Instance.ControlledCar.CanRotate = false;
                 World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.P;
+                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.X;
+                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.R;
             }
          }
          void TransmissionToR()
          {
-            if (World.Instance.ControlledCar.Velocity==0)//&&(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.P|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N))
+            if (World.Instance.ControlledCar.Velocity==0)
             {
                 World.Instance.ControlledCar.CanGoDown = true;
                 World.Instance.ControlledCar.CanGoUp = false;
                 World.Instance.ControlledCar.CanRotate = true;
                 World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.R;
+                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.P;
+                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.N;
             }
          }
          void TransmissionToN()
         {
-            //if(World.Instance.ControlledCar.CarTransmission)==AutomatedCar.Transmission.R|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.D)
             World.Instance.ControlledCar.CanGoDown = false;
             World.Instance.ControlledCar.CanGoUp = false;
             World.Instance.ControlledCar.CanRotate = true;
             World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.N;
+            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.R;
+            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.D;
         }
          void TransmissionToD()
         {
-            //if(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N)
             World.Instance.ControlledCar.CanGoDown = false;
             World.Instance.ControlledCar.CanGoUp = true;
             World.Instance.ControlledCar.CanRotate = true;
             World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.D;
+            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.N;
+            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.X;
         }
 
         public void ToggleRadar()

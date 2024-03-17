@@ -2,13 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 
              xmlns:viewmodels="clr-namespace:AutomatedCar.ViewModels;assembly=AutomatedCar"
              Width="320" Height="720"
              x:Class="AutomatedCar.Views.DashboardView"
              DataContext="{Binding Dashboard}"
              xmlns:visualization="clr-namespace:AutomatedCar.Visualization;assembly=AutomatedCar"
              >
-
     <UserControl.Styles>
         <Style Selector="ContentControl#Dashboard">
             <Setter Property="Background" Value="#424242"/>
@@ -35,9 +35,9 @@
                             </Grid>
                             <Separator Height="15"></Separator>
                             <Grid ColumnDefinitions="2*,6*,2*" RowDefinitions="30,15">
-                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="L" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="R" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CarTransmission}" FontSize="20" TextAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding CarTransmissionL}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding CarTransmissionR}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
+								<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CarTransmission}" FontSize="20" TextAlignment="Center"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="Gear" TextAlignment="Center"/>
                             </Grid>
                             <Separator Height="15"></Separator>

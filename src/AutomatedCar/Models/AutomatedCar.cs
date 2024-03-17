@@ -23,23 +23,6 @@ namespace AutomatedCar.Models
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }
 
-        public enum Transmission
-        {
-            P, // Park
-            R, // Reverse
-            N, // Neutral
-            D  // Drive
-        }
-        private Transmission transmission;
-
-        public Transmission CarTransmission
-        {
-            get { return transmission; }
-            set { transmission = value; }
-        }
-
-        
-
 
         public PolylineGeometry Geometry { get; set; }
 
