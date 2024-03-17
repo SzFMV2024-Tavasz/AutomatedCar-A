@@ -98,37 +98,78 @@ namespace AutomatedCar.ViewModels
             this.DebugStatus.Camera = !this.DebugStatus.Camera;
         }
         //Transmission  controllers
-        public void TransmissionToP()
+        public void TransmissionUp()
         {
-            if (World.Instance.ControlledCar.Velocity == 0&& World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.R)
+            
+            switch (World.Instance.ControlledCar.CarTransmission)
+            {
+                case AutomatedCar.Transmission.P:
+                    break;
+                case AutomatedCar.Transmission.R:
+                    TransmissionToP();
+                    break;
+                case AutomatedCar.Transmission.N:
+                    TransmissionToR();
+                    break;
+                case AutomatedCar.Transmission.D:
+                    TransmissionToN();
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void TransmissionDown()
+        {
+            
+            switch (World.Instance.ControlledCar.CarTransmission)
+            {
+                case AutomatedCar.Transmission.P:
+                    TransmissionToR();
+                    break;
+                case AutomatedCar.Transmission.R:
+                    TransmissionToN();
+                    break;
+                case AutomatedCar.Transmission.N:
+                    TransmissionToD();
+                    break;
+                case AutomatedCar.Transmission.D:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+         void TransmissionToP()
+         {
+            if (World.Instance.ControlledCar.Velocity == 0)//&& World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.R)
             {
                 World.Instance.ControlledCar.CanGoUp = false;
                 World.Instance.ControlledCar.CanGoDown = false;
                 World.Instance.ControlledCar.CanRotate = false;
                 World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.P;
             }
-        }
-        public void TransmissionToR()
-        {
-            if (World.Instance.ControlledCar.Velocity==0&&(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.P|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N))
+         }
+         void TransmissionToR()
+         {
+            if (World.Instance.ControlledCar.Velocity==0)//&&(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.P|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N))
             {
                 World.Instance.ControlledCar.CanGoDown = true;
                 World.Instance.ControlledCar.CanGoUp = false;
                 World.Instance.ControlledCar.CanRotate = true;
                 World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.R;
             }
-        }
-        public void TransmissionToN()
+         }
+         void TransmissionToN()
         {
-            if(World.Instance.ControlledCar.CarTransmission==AutomatedCar.Transmission.R|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.D)
+            //if(World.Instance.ControlledCar.CarTransmission)==AutomatedCar.Transmission.R|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.D)
             World.Instance.ControlledCar.CanGoDown = false;
             World.Instance.ControlledCar.CanGoUp = false;
             World.Instance.ControlledCar.CanRotate = true;
             World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.N;
         }
-        public void TransmissionToD()
+         void TransmissionToD()
         {
-            if(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N)
+            //if(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N)
             World.Instance.ControlledCar.CanGoDown = false;
             World.Instance.ControlledCar.CanGoUp = true;
             World.Instance.ControlledCar.CanRotate = true;
