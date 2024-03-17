@@ -48,7 +48,7 @@ namespace AutomatedCar.ViewModels
             {
                 World.Instance.ControlledCar.Y -= 5;
                 Accelerate();
-                MovementForvard();
+                MovementForward();
             }
         }
 
@@ -58,7 +58,7 @@ namespace AutomatedCar.ViewModels
             {
                 World.Instance.ControlledCar.Y += 5;
                 Deccelerte();
-                movementBackvard();
+                movementBackward();
             }
         }
 
@@ -209,7 +209,7 @@ namespace AutomatedCar.ViewModels
             }
         }
 
-        public void MovementForvard()
+        public void MovementForward()
         {
             int baseValue = 35;
             World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100.00;
@@ -221,7 +221,7 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.Y -= (int)speed;
         }
 
-        public void movementBackvard()
+        public void movementBackward()
         {
             int baseValue = 35;
             World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
