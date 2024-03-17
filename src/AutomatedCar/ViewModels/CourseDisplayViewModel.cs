@@ -44,14 +44,22 @@ namespace AutomatedCar.ViewModels
 
         public void KeyUp()
         {
-            Accelerate();
-            MovementForvard();
+            if (World.Instance.ControlledCar.CanGoUp)
+            {
+                World.Instance.ControlledCar.Y -= 5;
+                Accelerate();
+                MovementForvard();
+            }
         }
 
         public void KeyDown()
         {
-            Deccelerte();
-            movementBackvard();
+            if (World.Instance.ControlledCar.CanGoDown)
+            {
+                World.Instance.ControlledCar.Y += 5;
+                Deccelerte();
+                movementBackvard();
+            }
         }
 
         public void KeyLeft()
@@ -66,12 +74,18 @@ namespace AutomatedCar.ViewModels
 
         public void PageUp()
         {
-            World.Instance.ControlledCar.Rotation += 5;
+            if (World.Instance.ControlledCar.CanRotate && World.Instance.ControlledCar.Velocity != 0)
+            {
+                World.Instance.ControlledCar.Rotation += 5;
+            }
         }
 
         public void PageDown()
         {
-            World.Instance.ControlledCar.Rotation -= 5;
+            if (World.Instance.ControlledCar.CanRotate && World.Instance.ControlledCar.Velocity != 0)
+            {
+                World.Instance.ControlledCar.Rotation -= 5;
+            }
         }
 
         public void ToggleDebug()
@@ -82,6 +96,43 @@ namespace AutomatedCar.ViewModels
         public void ToggleCamera()
         {
             this.DebugStatus.Camera = !this.DebugStatus.Camera;
+        }
+        //Transmission  controllers
+        public void TransmissionToP()
+        {
+            if (World.Instance.ControlledCar.Velocity == 0&& World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.R)
+            {
+                World.Instance.ControlledCar.CanGoUp = false;
+                World.Instance.ControlledCar.CanGoDown = false;
+                World.Instance.ControlledCar.CanRotate = false;
+                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.P;
+            }
+        }
+        public void TransmissionToR()
+        {
+            if (World.Instance.ControlledCar.Velocity==0&&(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.P|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N))
+            {
+                World.Instance.ControlledCar.CanGoDown = true;
+                World.Instance.ControlledCar.CanGoUp = false;
+                World.Instance.ControlledCar.CanRotate = true;
+                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.R;
+            }
+        }
+        public void TransmissionToN()
+        {
+            if(World.Instance.ControlledCar.CarTransmission==AutomatedCar.Transmission.R|| World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.D)
+            World.Instance.ControlledCar.CanGoDown = false;
+            World.Instance.ControlledCar.CanGoUp = false;
+            World.Instance.ControlledCar.CanRotate = true;
+            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.N;
+        }
+        public void TransmissionToD()
+        {
+            if(World.Instance.ControlledCar.CarTransmission == AutomatedCar.Transmission.N)
+            World.Instance.ControlledCar.CanGoDown = false;
+            World.Instance.ControlledCar.CanGoUp = true;
+            World.Instance.ControlledCar.CanRotate = true;
+            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.D;
         }
 
         public void ToggleRadar()
