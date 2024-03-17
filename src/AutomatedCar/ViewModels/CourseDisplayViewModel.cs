@@ -54,19 +54,16 @@ namespace AutomatedCar.ViewModels
             if (World.Instance.ControlledCar.CanGoDown)
             {
                 World.Instance.ControlledCar.Y += 5;
-                Deccelerte();
+                //Deccelerte();
+                Accelerate();
                 movementBackward();
             }
         }
 
         public void KeyDown()
         {
-            if (World.Instance.ControlledCar.CanGoDown)
-            {
-                World.Instance.ControlledCar.Y += 5;
-                Deccelerte();
-                movementBackward();
-            }
+            Deccelerte();
+            SimulateBraking();
         }
 
         public void KeyLeft()
@@ -262,6 +259,26 @@ namespace AutomatedCar.ViewModels
                 World.Instance.ControlledCar.Brake++;
             }
         }
+        public void SimulateBraking()
+        {
+            double brakeIntensity = World.Instance.ControlledCar.Brake / 100.0;
+            double velocity = World.Instance.ControlledCar.Velocity;
+
+            if (velocity == 0)
+            {
+                return;
+            }
+            double brakingEffect = brakeIntensity * velocity;
+
+            velocity -= brakingEffect;
+
+            if (velocity < 0)
+            {
+                velocity = 0;
+            }
+            World.Instance.ControlledCar.Velocity = velocity;
+        }
+
 
         public void MovementForward()
         {
