@@ -17,4 +17,6 @@
             .LogToTrace()
             .UseReactiveUI();
     }
+
+    //Szia
 }
