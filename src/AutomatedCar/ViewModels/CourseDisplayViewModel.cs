@@ -68,12 +68,12 @@ namespace AutomatedCar.ViewModels
 
         public void KeyLeft()
         {
-            World.Instance.ControlledCar.X -= 5;
+            MovementTurnLeft();
         }
 
         public void KeyRight()
         {
-            World.Instance.ControlledCar.X += 5;
+            MovementTurnRight();
         }
 
         public void PageUp()
@@ -259,6 +259,25 @@ namespace AutomatedCar.ViewModels
                 World.Instance.ControlledCar.Brake++;
             }
         }
+        public void MovementTurnRight()
+        {
+            World.Instance.ControlledCar.CanRotate = true;
+            int baseValue = (int)World.Instance.ControlledCar.Rotation;
+            if (World.Instance.ControlledCar.CanRotate)
+            {
+                World.Instance.ControlledCar.Rotation += 5;
+            }
+        }
+
+        public void MovementTurnLeft()
+        {
+            World.Instance.ControlledCar.CanRotate = true;
+            int baseValue = (int)World.Instance.ControlledCar.Rotation;
+            if (World.Instance.ControlledCar.CanRotate)
+            {
+                World.Instance.ControlledCar.Rotation -= 5;
+            }
+        }
         public void SimulateBraking()
         {
             double brakeIntensity = World.Instance.ControlledCar.Brake / 100.0;
@@ -283,13 +302,22 @@ namespace AutomatedCar.ViewModels
         public void MovementForward()
         {
             int baseValue = 35;
-            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100.00;
-            double velocity = World.Instance.ControlledCar.Velocity;
+            double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
+            double velocity = World.Instance.ControlledCar.Throttle / 100.0;
+
+            int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
+            int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
+            World.Instance.ControlledCar.X += deltaX;
+            World.Instance.ControlledCar.Y -= deltaY;
             World.Instance.ControlledCar.Speed = baseValue * velocity;
-            double speed = World.Instance.ControlledCar.Speed;
-            //double velocity = World.Instance.ControlledCar.Throttle / 100.00;
-            //int speed = (int)(baseValue * velocity);
-            World.Instance.ControlledCar.Y -= (int)speed;
+
+            ////old
+            //int baseValue = 35;
+            //World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100.00;
+            //double velocity = World.Instance.ControlledCar.Velocity;
+            //World.Instance.ControlledCar.Speed = baseValue * velocity;
+            //double speed = World.Instance.ControlledCar.Speed;
+            //World.Instance.ControlledCar.Y -= (int)speed;
         }
 
         public void movementBackward()
@@ -298,9 +326,17 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
             double velocity = World.Instance.ControlledCar.Velocity;
             World.Instance.ControlledCar.Speed = baseValue * velocity;
-            double speed = World.Instance.ControlledCar.Speed*0.8; //*0,8 car goes backwards slower
+            double speed = World.Instance.ControlledCar.Speed*0.8;
             World.Instance.ControlledCar.Y += (int)speed;
 
+
+
+            //int baseValue = 35;
+            //World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
+            //double velocity = World.Instance.ControlledCar.Velocity;
+            //World.Instance.ControlledCar.Speed = baseValue * velocity;
+            //double speed = World.Instance.ControlledCar.Speed*0.8; //*0,8 car goes backwards slower
+            //World.Instance.ControlledCar.Y += (int)speed;
         }
 
 
