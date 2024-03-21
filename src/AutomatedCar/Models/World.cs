@@ -20,6 +20,7 @@
         public static World Instance { get; } = new World();
         public List<WorldObject> WorldObjects { get; set; } = new List<WorldObject>();
 
+        public List<IRoute> NPCRoutes { get; set; } = new List<IRoute>();
         public AutomatedCar ControlledCar
         {
             get => this.controlledCars[this.controlledCarPointer];
@@ -142,6 +143,22 @@
                 }
 
                 this.AddObject(wo);
+            }
+
+            LoadNPCsFromJSON(filename);
+        }
+
+        private void LoadNPCsFromJSON(string filename)
+        {
+            string assethPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Assets"));
+
+            foreach (var file in Directory.GetFiles(assethPath))
+            {
+                if (file.Contains(filename.Split('.')[2] + "_route"))
+                {
+                    string json = File.ReadAllText(file);
+                    NPCRoutes.Add(JsonConvert.DeserializeObject<Route>(json));
+                }
             }
         }
 
