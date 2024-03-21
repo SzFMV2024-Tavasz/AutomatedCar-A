@@ -159,7 +159,7 @@
                     string json = File.ReadAllText(file);
                     var route = JsonConvert.DeserializeObject<Route>(json);
                     NPCRoutes.Add(route);
-                    AddObject(new AutomatedCar(route.RoutePoints[route.StartPointID].X, route.RoutePoints[route.StartPointID].Y, route.ObjectFileName));
+                    AddObject(new NPCCar(route.RoutePoints[route.StartPointID].X, route.RoutePoints[route.StartPointID].Y, route.ObjectFileName, route));
                 }
             }
         }
