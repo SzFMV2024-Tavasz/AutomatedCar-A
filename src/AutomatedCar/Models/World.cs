@@ -157,7 +157,9 @@
                 if (file.Contains(filename.Split('.')[2] + "_route"))
                 {
                     string json = File.ReadAllText(file);
-                    NPCRoutes.Add(JsonConvert.DeserializeObject<Route>(json));
+                    var route = JsonConvert.DeserializeObject<Route>(json);
+                    NPCRoutes.Add(route);
+                    AddObject(new AutomatedCar(route.RoutePoints[route.StartPointID].X, route.RoutePoints[route.StartPointID].Y, route.ObjectFileName));
                 }
             }
         }

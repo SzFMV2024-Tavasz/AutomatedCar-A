@@ -5,7 +5,7 @@
     "objectFileName": "car_2_red.png",
     "routePoints":[
       {
-        "X": 385,
+        "X": 350,
         "Y":700,
         "Speed": 50,
         "Rotation": 0
