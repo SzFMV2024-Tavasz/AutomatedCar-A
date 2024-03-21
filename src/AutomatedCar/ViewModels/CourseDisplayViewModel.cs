@@ -323,11 +323,14 @@ namespace AutomatedCar.ViewModels
         public void movementBackward()
         {
             int baseValue = 35;
-            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
-            double velocity = World.Instance.ControlledCar.Velocity;
+            double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
+            double velocity = World.Instance.ControlledCar.Throttle / 100.0;
+
+            int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
+            int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
+            World.Instance.ControlledCar.X -= deltaX;
+            World.Instance.ControlledCar.Y += deltaY;
             World.Instance.ControlledCar.Speed = baseValue * velocity;
-            double speed = World.Instance.ControlledCar.Speed*0.8;
-            World.Instance.ControlledCar.Y += (int)speed;
 
 
 
