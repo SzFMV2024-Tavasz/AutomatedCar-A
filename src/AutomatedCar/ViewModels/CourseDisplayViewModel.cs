@@ -9,6 +9,7 @@ namespace AutomatedCar.ViewModels
     using Avalonia.Controls;
     using Models;
     using System;
+    using System.Diagnostics;
     using Visualization;
 
     public class CourseDisplayViewModel : ViewModelBase
@@ -28,6 +29,8 @@ namespace AutomatedCar.ViewModels
 
         public int Height { get; set; }
 
+        //public bool KeyUpPressed { get; set; }
+
         public Avalonia.Vector Offset
         {
             get => this.offset;
@@ -44,32 +47,35 @@ namespace AutomatedCar.ViewModels
 
         public void KeyUp()
         {
+            World.Instance.ControlledCar.KeyUpPressed = true;
             if (World.Instance.ControlledCar.CanGoUp)
             {
-                World.Instance.ControlledCar.Y -= 5;
-                Accelerate();
-                MovementForward();
+                World.Instance.ControlledCar.Accelerate();
+                World.Instance.ControlledCar.MovementForward();
+            }
+            if (World.Instance.ControlledCar.CanGoDown)
+            {
+                //Deccelerte();
+                World.Instance.ControlledCar.Accelerate();
+                World.Instance.ControlledCar.MovementBackward();
             }
         }
 
         public void KeyDown()
         {
-            if (World.Instance.ControlledCar.CanGoDown)
-            {
-                World.Instance.ControlledCar.Y += 5;
-                Deccelerte();
-                movementBackward();
-            }
+            World.Instance.ControlledCar.KeyDownPressed = true;
+            World.Instance.ControlledCar.Deccelerte();
+            World.Instance.ControlledCar.SimulateBraking();
         }
 
         public void KeyLeft()
         {
-            World.Instance.ControlledCar.X -= 5;
+            World.Instance.ControlledCar.MovementTurnLeft();
         }
 
         public void KeyRight()
         {
-            World.Instance.ControlledCar.X += 5;
+            World.Instance.ControlledCar.MovementTurnRight();
         }
 
         public void PageUp()
@@ -106,13 +112,13 @@ namespace AutomatedCar.ViewModels
                 case AutomatedCar.Transmission.P:
                     break;
                 case AutomatedCar.Transmission.R:
-                    TransmissionToP();
+                    World.Instance.ControlledCar.TransmissionToP();
                     break;
                 case AutomatedCar.Transmission.N:
-                    TransmissionToR();
+                    World.Instance.ControlledCar.TransmissionToR();
                     break;
                 case AutomatedCar.Transmission.D:
-                    TransmissionToN();
+                    World.Instance.ControlledCar.TransmissionToN();
                     break;
                 default:
                     break;
@@ -120,66 +126,23 @@ namespace AutomatedCar.ViewModels
         }
         public void TransmissionDown()
         {
-            
+
             switch (World.Instance.ControlledCar.CarTransmission)
             {
                 case AutomatedCar.Transmission.P:
-                    TransmissionToR();
+                    World.Instance.ControlledCar.TransmissionToR();
                     break;
                 case AutomatedCar.Transmission.R:
-                    TransmissionToN();
+                    World.Instance.ControlledCar.TransmissionToN();
                     break;
                 case AutomatedCar.Transmission.N:
-                    TransmissionToD();
+                    World.Instance.ControlledCar.TransmissionToD();
                     break;
                 case AutomatedCar.Transmission.D:
                     break;
                 default:
                     break;
             }
-        }
-
-         void TransmissionToP()
-         {
-            if (World.Instance.ControlledCar.Velocity == 0)
-            {
-                World.Instance.ControlledCar.CanGoUp = false;
-                World.Instance.ControlledCar.CanGoDown = false;
-                World.Instance.ControlledCar.CanRotate = false;
-                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.P;
-                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.X;
-                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.R;
-            }
-         }
-         void TransmissionToR()
-         {
-            if (World.Instance.ControlledCar.Velocity==0)
-            {
-                World.Instance.ControlledCar.CanGoDown = true;
-                World.Instance.ControlledCar.CanGoUp = false;
-                World.Instance.ControlledCar.CanRotate = true;
-                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.R;
-                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.P;
-                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.N;
-            }
-         }
-         void TransmissionToN()
-        {
-            World.Instance.ControlledCar.CanGoDown = false;
-            World.Instance.ControlledCar.CanGoUp = false;
-            World.Instance.ControlledCar.CanRotate = true;
-            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.N;
-            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.R;
-            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.D;
-        }
-         void TransmissionToD()
-        {
-            World.Instance.ControlledCar.CanGoDown = false;
-            World.Instance.ControlledCar.CanGoUp = true;
-            World.Instance.ControlledCar.CanRotate = true;
-            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.D;
-            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.N;
-            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.X;
         }
 
         public void ToggleRadar()
@@ -204,81 +167,15 @@ namespace AutomatedCar.ViewModels
             this.Offset = new Avalonia.Vector(offsetX, offsetY);
         }
 
-        public void Accelerate()
+
+        public void KeyUpToFalse()
         {
-            // Inceaseing Throttle
-            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
-            {
-                World.Instance.ControlledCar.Throttle++;
-            }
-
-            if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle + 1 == 100)
-            {
-                World.Instance.ControlledCar.Throttle++;
-
-            }
-
-
-            // Decreasing Brake
-            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
-            {
-                World.Instance.ControlledCar.Brake--;
-            }
-
-            if (World.Instance.ControlledCar.Brake - 1 == 0 || World.Instance.ControlledCar.Brake == 100)
-            {
-                World.Instance.ControlledCar.Brake--;
-            }
+            World.Instance.ControlledCar.KeyUpPressed = false;
         }
-
-        public void Deccelerte()
+        public void KeyDownToFalse()
         {
-            // Decreasing Throttle
-            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
-            {
-                World.Instance.ControlledCar.Throttle--;
-            }
-
-            if (World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100)
-            {
-                World.Instance.ControlledCar.Throttle--;
-            }
-
-            // Increasing Brake
-            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
-            {
-                World.Instance.ControlledCar.Brake++;
-            }
-
-            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 1 == 100)
-            {
-                World.Instance.ControlledCar.Brake++;
-            }
+            World.Instance.ControlledCar.KeyDownPressed = false;
         }
-
-        public void MovementForward()
-        {
-            int baseValue = 35;
-            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100.00;
-            double velocity = World.Instance.ControlledCar.Velocity;
-            World.Instance.ControlledCar.Speed = baseValue * velocity;
-            double speed = World.Instance.ControlledCar.Speed;
-            //double velocity = World.Instance.ControlledCar.Throttle / 100.00;
-            //int speed = (int)(baseValue * velocity);
-            World.Instance.ControlledCar.Y -= (int)speed;
-        }
-
-        public void movementBackward()
-        {
-            int baseValue = 35;
-            World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
-            double velocity = World.Instance.ControlledCar.Velocity;
-            World.Instance.ControlledCar.Speed = baseValue * velocity;
-            double speed = World.Instance.ControlledCar.Speed;
-            World.Instance.ControlledCar.Y += (int)speed;
-
-        }
-
 
     }
 }

@@ -101,14 +101,18 @@ namespace AutomatedCar.Views
                 viewModel.CourseDisplay.TransmissionDown();
             }
             
+
             var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
             viewModel.CourseDisplay.FocusCar(scrollViewer);
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
+            MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
             Keyboard.Keys.Remove(e.Key);
             base.OnKeyUp(e);
+            viewModel.CourseDisplay.KeyUpToFalse();
+            viewModel.CourseDisplay.KeyDownToFalse();
         }
 
         private void InitializeComponent()
