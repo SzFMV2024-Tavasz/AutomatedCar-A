@@ -1,82 +1,128 @@
 {
-"route":{
-	
-	"repeatAfterFinish" : true,
-	"isPedestrian":true,
+	"repeatAfterFinish": true,
+	"isPedestrian": false,
 	"startPointID": 0,
-	"objectFileName" : "man.png",
-	"routePoints" :{
-			{
-			"X": 1760,
-			"Y": 590,
-			"Speed": 4,
-			"Rotation" : 90
-			},
-			{
-			"X": 1820,
-			"Y": 590,
-			"Speed": 4,
-			"Rotation" : 180
-			}
-			{
-			"X": 1820,
-			"Y": 625,
-			"Speed": 4,
-			"Rotation" : 270
-			}
-			{
-			"X": 1610,
-			"Y": 625,
-			"Speed": 4,
-			"Rotation" : 0
-			}
-			{
-			"X": 1610,
-			"Y": 55,
-			"Speed": 4,
-			"Rotation" : 270
-			}
-			{
-			"X": 1455,
-			"Y": 55,
-			"Speed": 4,
-			"Rotation" : 0
-			}
-			{
-			"X": 1455,
-			"Y": 5,
-			"Speed": 4,
-			"Rotation" : 90
-			}
-			"X": 1610,
-			"Y": 5,
-			"Speed": 4,
-			"Rotation" : 180
-			}
-			{
-			"X": 1610,
-			"Y": 625,
-			"Speed": 4,
-			"Rotation" : 90
-			}
-			{
-			"X": 1820,
-			"Y": 625,
-			"Speed": 4,
-			"Rotation" : 0
-			}
-			{
-			"X": 1820,
-			"Y": 590,
-			"Speed": 4,
-			"Rotation" : 270
-			}
-			{
-			"X": 1760,
-			"Y": 590,
-			"Speed": 4,
-			"Rotation" : 90
-			}
+	"objectFileName": "car_2_red.png",
+	"routePoints": [
+		{
+			"X": 350,
+			"Y": 700,
+			"Speed": 50,
+			"Rotation": 0
+		},
+		{
+			"X": 480,
+			"Y": 480,
+			"Speed": 50,
+			"Rotation": 45
+		},
+		{
+			"X": 700,
+			"Y": 400,
+			"Speed": 50,
+			"Rotation": 90
+		},
+		{
+			"X": 1960,
+			"Y": 400,
+			"Speed": 50,
+			"Rotation": 90
+		},
+		{
+			"X": 2160,
+			"Y": 400,
+			"Speed": 50,
+			"Rotation": 90
+		},
+		{
+			"X": 3100,
+			"Y": 400,
+			"Speed": 50,
+			"Rotation": 90
+		},
+		{
+			"X": 3230,
+			"Y": 410,
+			"Speed": 50,
+			"Rotation": 90
+		},
+		{
+			"X": 3265,
+			"Y": 440,
+			"Speed": 50,
+			"Rotation": 135
+		},
+		{
+			"X": 3300,
+			"Y": 490,
+			"Speed": 50,
+			"Rotation": 135
+		},
+		{
+			"X": 3400,
+			"Y": 600,
+			"Speed": 50,
+			"Rotation": 135
+		},
+		{
+			"X": 3610,
+			"Y": 900,
+			"Speed": 50,
+			"Rotation": 180
+		},
+		{
+			"X": 3610,
+			"Y": 2290,
+			"Speed": 50,
+			"Rotation": 180
+		},
+		{
+			"X": 3560,
+			"Y": 2460,
+			"Speed": 50,
+			"Rotation": 225
+		},
+		{
+			"X": 3265,
+			"Y": 2555,
+			"Speed": 60,
+			"Rotation": 270
+		},
+		{
+			"X": 1245,
+			"Y": 2555,
+			"Speed": 40,
+			"Rotation": 270
+		},
+		{
+			"X": 870,
+			"Y": 2555,
+			"Speed": 40,
+			"Rotation": 270
+		},
+		{
+			"X": 760,
+			"Y": 2520,
+			"Speed": 40,
+			"Rotation": 315
+		},
+		{
+			"X": 660,
+			"Y": 2425,
+			"Speed": 40,
+			"Rotation": 315
+		},
+		{
+			"X": 485,
+			"Y": 2250,
+			"Speed": 40,
+			"Rotation": 315
+		},
+		{
+			"X": 385,
+			"Y": 2110,
+			"Speed": 40,
+			"Rotation": 360
 		}
-	}
+	]
 }
