@@ -1,7 +1,9 @@
 ﻿namespace AutomatedCar.Models
 {
+    using global::AutomatedCar.SystemComponents;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -15,15 +17,17 @@
         public IRoute Route
         {
             get { return route; }
-            private set { }
+            private set { route = value; }
         }
 
         public NPCCar(int x, int y, string filename, IRoute route) : base(x, y, filename)
         {
-            this.route = route;
+            this.Route = route;
             if (route.IsPedestrian)
             {
                 IsPedestrian = true;
+                Speed = Route.RoutePoints[Route.StartPointID].Speed;
+                NPCMovingComponent comp = new NPCMovingComponent(VirtualFunctionBus, this);
             }
         }
     }

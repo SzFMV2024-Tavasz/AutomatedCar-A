@@ -18,8 +18,8 @@
         public double Rotation { get; }
 
         [JsonProperty("Speed")]
-        public double Speed { get; }
-        public RoutePoint(int x, int y, double rotation, double speed)
+        public int Speed { get; }
+        public RoutePoint(int x, int y, double rotation, int speed)
         {
             X = x;
             Y = y;
