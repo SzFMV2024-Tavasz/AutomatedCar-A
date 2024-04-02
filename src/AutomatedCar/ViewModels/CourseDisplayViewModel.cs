@@ -66,6 +66,7 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.KeyDownPressed = true;
             World.Instance.ControlledCar.Deccelerte();
             World.Instance.ControlledCar.SimulateBraking();
+            
         }
 
         public void KeyLeft()

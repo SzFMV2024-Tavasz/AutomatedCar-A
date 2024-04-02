@@ -86,12 +86,12 @@ namespace AutomatedCar.Models
             // Increasing Brake
             if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
             {
-                World.Instance.ControlledCar.Brake+=20;
+                World.Instance.ControlledCar.Brake+=10;
             }
 
-            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 5 == 100)
+            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 10 == 100)
             {
-                World.Instance.ControlledCar.Brake+=20;
+                World.Instance.ControlledCar.Brake+=10;
             }
         }
         public void MovementTurnRight()
@@ -116,22 +116,20 @@ namespace AutomatedCar.Models
         public void SimulateBraking()
         {
             double brakeIntensity = World.Instance.ControlledCar.Brake;// / 100.0;
-            double velocity = World.Instance.ControlledCar.Velocity;
+            double velocity = World.Instance.ControlledCar.Speed;
 
             if (velocity == 0)
             {
                 return;
             }
-            double brakingEffect = brakeIntensity * velocity;
 
-            velocity -= brakingEffect;
+            velocity *=1-(brakeIntensity/100);
 
             if (velocity < 0)
             {
                 velocity = 0;
             }
-            World.Instance.ControlledCar.Velocity = velocity;
-            //World.Instance.ControlledCar.Throttle -= 10;
+            World.Instance.ControlledCar.Speed = velocity;
         }
 
 
@@ -139,21 +137,21 @@ namespace AutomatedCar.Models
         {
             int baseValue = 25;
             double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
-            double velocity = World.Instance.ControlledCar.Throttle / 100.0;
-
+            double velocity;
+            if (KeyDownPressed)
+            { 
+                 velocity=World.Instance.ControlledCar.Speed/100;
+                KeyDownPressed = false;
+            }
+            else
+            {
+                velocity = World.Instance.ControlledCar.Throttle / 100.0;
+            }
             int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
             int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
             World.Instance.ControlledCar.X += deltaX;
             World.Instance.ControlledCar.Y -= deltaY;
             World.Instance.ControlledCar.Speed = baseValue * velocity;
-
-            ////old
-            //int baseValue = 35;
-            //World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Throttle / 100.00;
-            //double velocity = World.Instance.ControlledCar.Velocity;
-            //World.Instance.ControlledCar.Speed = baseValue * velocity;
-            //double speed = World.Instance.ControlledCar.Speed;
-            //World.Instance.ControlledCar.Y -= (int)speed;
         }
         public void MovementBackward()
         {
@@ -166,20 +164,11 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.X -= deltaX;
             World.Instance.ControlledCar.Y += deltaY;
             World.Instance.ControlledCar.Speed = baseValue * velocity;
-
-
-
-            //int baseValue = 35;
-            //World.Instance.ControlledCar.Velocity = World.Instance.ControlledCar.Brake / 100.00;
-            //double velocity = World.Instance.ControlledCar.Velocity;
-            //World.Instance.ControlledCar.Speed = baseValue * velocity;
-            //double speed = World.Instance.ControlledCar.Speed*0.8; //*0,8 car goes backwards slower
-            //World.Instance.ControlledCar.Y += (int)speed;
         }
 
         public void TransmissionToP()
         {
-            if (World.Instance.ControlledCar.Velocity == 0)
+            if (World.Instance.ControlledCar.Speed == 0)
             {
                 World.Instance.ControlledCar.CanGoUp = false;
                 World.Instance.ControlledCar.CanGoDown = false;
@@ -191,7 +180,7 @@ namespace AutomatedCar.Models
         }
         public void TransmissionToR()
         {
-            if (World.Instance.ControlledCar.Velocity == 0)
+            if (World.Instance.ControlledCar.Speed == 0)
             {
                 World.Instance.ControlledCar.CanGoDown = true;
                 World.Instance.ControlledCar.CanGoUp = false;
