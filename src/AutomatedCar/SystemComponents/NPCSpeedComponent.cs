@@ -17,7 +17,9 @@
 
         public override void Process()
         {
-            
+            double KiloMeterPerSec = (car.Speed * 25) / 3.6;
+            car.Speed = (int)(Math.Round(KiloMeterPerSec,0));
+
         }
     }
 }
