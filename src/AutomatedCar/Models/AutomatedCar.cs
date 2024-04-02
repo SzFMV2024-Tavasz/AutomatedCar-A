@@ -2,6 +2,7 @@ namespace AutomatedCar.Models
 {
     using Avalonia.Media;
     using System;
+    using System.Runtime.CompilerServices;
     using SystemComponents;
 
     public class AutomatedCar : Car
@@ -25,6 +26,8 @@ namespace AutomatedCar.Models
         public bool CanRotate { get; set; }
         public bool KeyUpPressed { get; set; }
         public bool KeyDownPressed { get; set; }
+        public bool KeyLeftPressed { get; set; }
+        public bool KeyRightPressed { get; set; }
 
 
         public PolylineGeometry Geometry { get; set; }

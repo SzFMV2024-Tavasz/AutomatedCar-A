@@ -113,6 +113,8 @@ namespace AutomatedCar.Views
             base.OnKeyUp(e);
             viewModel.CourseDisplay.KeyUpToFalse();
             viewModel.CourseDisplay.KeyDownToFalse();
+            viewModel.CourseDisplay.KeyLeftToFalse();
+            viewModel.CourseDisplay.KeyRightToFalse();
         }
 
         private void InitializeComponent()

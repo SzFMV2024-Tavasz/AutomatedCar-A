@@ -46,11 +46,16 @@
                             <TextBlock Text="Brake"/>
                             <ProgressBar Value="{Binding Brake}"></ProgressBar>
                             <Separator Height="12"></Separator>
-                            <Image
+							<Image
                                 Width="90" Height="90"
                                 Source="resm:AutomatedCar.Assets.steering-wheel.png?assembly=AutomatedCar"
                                 RenderTransformOrigin="{Binding RotationPoint, Converter={x:Static visualization:RenderTransformOriginTransformer.Instance}}">
-                            </Image>
+								<Image.RenderTransform>
+									<TransformGroup>
+										<RotateTransform Angle="{Binding Rotation}"/>
+									</TransformGroup>
+								</Image.RenderTransform>
+							</Image>
                             <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
                                 <TextBlock Grid.Row="0" Grid.Column="0">X:</TextBlock>
                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding X}"/>
