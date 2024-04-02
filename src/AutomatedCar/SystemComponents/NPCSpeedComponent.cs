@@ -30,16 +30,19 @@
             else if (CarCurrentSpeed > CarFinalSpeed)
             {
                 CarCurrentSpeed = CarCurrentSpeed - 1;
+                car.Speed = CarCurrentSpeed;
             }
             else if (CarFinalSpeed == 0 && car.Route.RepeatAfterFinish == false)
             {
                 if (CarCurrentSpeed >= EmergencyBrake)
                 {
                     CarCurrentSpeed -= EmergencyBrake;
+                    car.Speed = CarCurrentSpeed;
                 }
                 else 
                 {
-                    CarCurrentSpeed = 0; 
+                    CarCurrentSpeed = 0;
+                    car.Speed = CarCurrentSpeed;
                 }
             }
         }
