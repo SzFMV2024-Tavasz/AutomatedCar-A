@@ -35,6 +35,14 @@
             {
                 automatedCar.Brake--; 
             }
+            if (!automatedCar.KeyLeftPressed && automatedCar.Rotation >= -100&&automatedCar.Rotation<0)
+            {
+                automatedCar.Rotation++;
+            }
+            if (!automatedCar.KeyRightPressed && automatedCar.Rotation <= 100 && automatedCar.Rotation > 0)
+            {
+                automatedCar.Rotation--;
+            }
         }
 
 
