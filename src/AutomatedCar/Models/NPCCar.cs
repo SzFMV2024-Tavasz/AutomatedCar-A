@@ -26,9 +26,10 @@
             if (route.IsPedestrian)
             {
                 IsPedestrian = true;
-                Speed = Route.RoutePoints[Route.StartPointID].Speed;
-                NPCMovingComponent comp = new NPCMovingComponent(VirtualFunctionBus, this);
+                
             }
+            Speed = 100;
+                NPCMovingComponent comp = new NPCMovingComponent(VirtualFunctionBus, this);
         }
     }
 }
