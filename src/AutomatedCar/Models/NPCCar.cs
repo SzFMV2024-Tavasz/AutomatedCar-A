@@ -26,10 +26,16 @@
             if (route.IsPedestrian)
             {
                 IsPedestrian = true;
+                WorldObjectType = WorldObjectType.Pedestrian;
                 
             }
+            else
+            {
+                WorldObjectType = WorldObjectType.Car;
+            }
+            Collideable = true;
             Speed = 100;
-                NPCMovingComponent comp = new NPCMovingComponent(VirtualFunctionBus, this);
+            NPCMovingComponent comp = new NPCMovingComponent(VirtualFunctionBus, this);
         }
     }
 }
