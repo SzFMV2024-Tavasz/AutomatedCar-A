@@ -1,12 +1,7 @@
-﻿namespace AutomatedCar.SystemComponents.Packets
-{
-    using ReactiveUI;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using ReactiveUI;
 
+namespace AutomatedCar.SystemComponents.Packets
+{
     public class CollisionPacket : ReactiveObject, IReadOnlyCollisionPacket
     {
         private bool isCollided;

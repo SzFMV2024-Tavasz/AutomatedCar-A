@@ -1,28 +1,25 @@
-﻿namespace AutomatedCar.SystemComponents
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using AutomatedCar.Models;
-    using Avalonia;
-    using Avalonia.Media;
-    using AutomatedCar.SystemComponents.Packets;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutomatedCar.Models;
+using Avalonia;
+using Avalonia.Media;
+using AutomatedCar.SystemComponents.Packets;
 
+namespace AutomatedCar.SystemComponents
+{
     public class CollisionSensor : SystemComponent
     {
-        public AutomatedCar AutomatedCarForCollision { get; protected set; }
+        // NOTE: ezt itt nem igazan ertem
+        // public AutomatedCar AutomatedCarForCollision { get; protected set; }
 
-        private CollisionPacket;
+        private CollisionPacket CollisionPacket;
 
-        public CollisionSensor(VirtualFunctionBus virtualFunctionBus, AutomatedCar automatedCarForSensors) : base(virtualFunctionBus)
+        public CollisionSensor(VirtualFunctionBus virtualFunctionBus) : base(virtualFunctionBus) // , AutomatedCar automatedCarForSensors
         {
-            this.AutomatedCarForCollision = automatedCarForSensors;
+            // this.AutomatedCarForCollision = automatedCarForSensors;
             this.CollisionPacket = new CollisionPacket();
         }
-
-
 
         public override void Process()
         {
@@ -36,24 +33,21 @@
 
         public bool DetectCollision()
         {
-            var collidableObjects = World.Instance.WorldObjects.Where(x => x != this.AutomatedCarForCollision
-            && (x.Collideable || x.WorldObjectType == WorldObjectType.Other)).ToList();
+            //var collidableObjects = World.Instance.WorldObjects.Where(x => x != this.AutomatedCarForCollision
+            //&& (x.Collideable || x.WorldObjectType == WorldObjectType.Other)).ToList();
 
-            PolylineGeometry newCarGeometry = this.ActualizeGeometry(
-                                                                     this.AutomatedCarForCollision.Geometry,
-                                                                     this.AutomatedCarForCollision);
+            //PolylineGeometry newCarGeometry = this.ActualizeGeometry(this.AutomatedCarForCollision.Geometry, this.AutomatedCarForCollision);
 
-            foreach (var obj in collidableObjects)
-            {
-                if (IntersectsWithObject(newCarGeometry, obj))
-                {
-                    return true;
-                }
-            }
+            //foreach (var obj in collidableObjects)
+            //{
+            //    if (IntersectsWithObject(newCarGeometry, obj))
+            //    {
+            //        return true;
+            //    }
+            //}
 
             return false;
         }
-
 
         private static bool IntersectsWithObject(PolylineGeometry updatedGeometry, WorldObject obj)
         {
