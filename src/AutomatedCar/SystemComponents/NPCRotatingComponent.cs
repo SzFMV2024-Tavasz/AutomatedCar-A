@@ -37,7 +37,7 @@
             else
             {
                 
-                double rotationSpeed = (double)1.4;
+                double rotationSpeed = (double)1.0;
                 rotationDiff =Math.Abs(next.Rotation % 360 - car.Rotation % 360);
                   
                
@@ -62,7 +62,7 @@
                 }
 
 
-                if (car.X==335 && car.Y >600 && car.Y < 1000)
+                if (car.X==3510 && car.Y ==2490)
                 {
                     ;
                 }

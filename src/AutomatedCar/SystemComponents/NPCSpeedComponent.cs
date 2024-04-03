@@ -77,9 +77,9 @@
                 else if (CarCurrentSpeed > Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (Math.Round(helper, 1) == 0.8)
+                    if (Math.Round(helper, 1) == 0.2)
                     {
-                        CarCurrentSpeed = CarCurrentSpeed - 1;
+                        CarCurrentSpeed = CarCurrentSpeed - 2;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
                         helper = 0;
                     }
@@ -101,9 +101,9 @@
                 else if (CarCurrentSpeed > Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (Math.Round(helper,1) == 0.8)
+                    if (Math.Round(helper,1) == 0.2)
                     {
-                        CarCurrentSpeed = CarCurrentSpeed - 1;
+                        CarCurrentSpeed = CarCurrentSpeed - 2;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
                         helper = 0;
                     }

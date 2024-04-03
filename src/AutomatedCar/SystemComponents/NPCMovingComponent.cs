@@ -1,6 +1,7 @@
 ﻿namespace AutomatedCar.SystemComponents
 {
     using AutomatedCar.Models;
+    using ExCSS;
     using SkiaSharp;
     using System;
     using System.Collections.Generic;
@@ -25,6 +26,8 @@
         int xDiff;
         int yDiff;
 
+        int sqrt2;
+
         public override void Process()
         {
             // this part sets the next RoutePoint, and checks if the car's route should repeat after finish or not.
@@ -34,6 +37,16 @@
             {
                 car.Stop();
             }
+            if (car.X != next.X  && car.Y != next.Y && sqrt2 == 3)
+            {
+                sqrt2 = 0;
+                return;
+            }
+            else if (car.X != next.X && car.Y != next.Y)
+            {
+                sqrt2++;
+            }
+            
 
 
             if (car.X != next.X)

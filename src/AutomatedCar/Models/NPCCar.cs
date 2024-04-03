@@ -32,7 +32,9 @@
             else
             {
                 WorldObjectType = WorldObjectType.Car;
+                RotationPoint = new System.Drawing.Point(50, 100);
             }
+            
             Collideable = true;
             new NPCMovingComponent(VirtualFunctionBus, this);
             new NPCRotatingComponent(VirtualFunctionBus, this);
