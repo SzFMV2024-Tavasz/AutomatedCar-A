@@ -37,27 +37,32 @@
             else
             {
                 
-                double rotationSpeed = (double)0.25;
-                rotationDiff =Math.Abs(next.Rotation - car.Rotation);
+                double rotationSpeed = (double)1.4;
+                rotationDiff =Math.Abs(next.Rotation % 360 - car.Rotation % 360);
+                  
+               
 
-                if (rotationDiff < 1)
+                if (rotationDiff  > rotationSpeed )
                 {
-                    
-                    if (car.Route.RoutePoints[car.Route.CurrentPointID] == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish)
-                    {
-                        next = car.Route.RoutePoints[0];
-                    }
-                    else if (car.Route.RoutePoints[car.Route.CurrentPointID] != car.Route.RoutePoints.Last())
-                    {
-                        next = car.Route.RoutePoints[car.Route.CurrentPointID + 1];
-                    }
+                    car.Rotation += rotationSpeed;
                 }
-                else
+                else if (rotationDiff > 0)
                 {
-                    car.Rotation +=rotationSpeed;
-                    
+                    car.Rotation = next.Rotation;
                 }
-                if (car.X==650 && car.Y == 300)
+
+
+                if (car.Route.RoutePoints[car.Route.CurrentPointID] == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish)
+                {
+                    next = car.Route.RoutePoints[0];
+                }
+                else if (car.Route.RoutePoints[car.Route.CurrentPointID] != car.Route.RoutePoints.Last())
+                {
+                    next = car.Route.RoutePoints[car.Route.CurrentPointID + 1];
+                }
+
+
+                if (car.X==335 && car.Y >600 && car.Y < 1000)
                 {
                     ;
                 }

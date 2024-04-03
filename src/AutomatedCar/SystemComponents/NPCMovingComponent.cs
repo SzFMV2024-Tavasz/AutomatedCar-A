@@ -26,11 +26,14 @@
         int yDiff;
 
         public override void Process()
-        { 
+        {
             // this part sets the next RoutePoint, and checks if the car's route should repeat after finish or not.
-            
 
 
+            if (car.Speed < 0)
+            {
+                car.Stop();
+            }
 
 
             if (car.X != next.X)
