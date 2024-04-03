@@ -20,16 +20,19 @@
 
         public override void Process()
         {
+            new Task(() =>
+            {
+                if ((automatedCar.CarTransmission == WorldObject.Transmission.D || automatedCar.CarTransmission == WorldObject.Transmission.N) && !automatedCar.KeyUpPressed && automatedCar.Throttle > 0)
+                {
+                    automatedCar.Throttle -= 0.5;
+                    automatedCar.MovementForward();
+                }
+            }, TaskCreationOptions.LongRunning).Start();
 
-            if ((automatedCar.CarTransmission == WorldObject.Transmission.D || automatedCar.CarTransmission == WorldObject.Transmission.N) && !automatedCar.KeyUpPressed && automatedCar.Throttle > 0)
+             if (automatedCar.CarTransmission == WorldObject.Transmission.R && !automatedCar.KeyUpPressed && automatedCar.Throttle > 0)
             {
-                automatedCar.Throttle-=0.5;
-                automatedCar.MovementForward();
-            }
-            else if (automatedCar.CarTransmission == WorldObject.Transmission.R && !automatedCar.KeyUpPressed && automatedCar.Throttle > 0)
-            {
-                automatedCar.Throttle-=0.5;
-                automatedCar.MovementBackward();
+                    automatedCar.Throttle -= 0.5;
+                    automatedCar.MovementBackward();
             }
             if (automatedCar.Brake > 0 && !automatedCar.KeyDownPressed)
             {

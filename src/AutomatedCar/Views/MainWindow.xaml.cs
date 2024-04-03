@@ -4,6 +4,7 @@ namespace AutomatedCar.Views
     using Avalonia.Controls;
     using Avalonia.Input;
     using Avalonia.Markup.Xaml;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public class MainWindow : Window
@@ -20,27 +21,59 @@ namespace AutomatedCar.Views
 
             MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
 
-            if (Keyboard.IsKeyDown(Key.Up))
+            new Task(() =>
             {
-                new Task(() => { viewModel.CourseDisplay.KeyUp(); }, TaskCreationOptions.LongRunning).Start();
-            }
+                if (Keyboard.Keys.Contains(Key.Up))
+                {
+                   
+                    viewModel.CourseDisplay.KeyUp();
+                }
+            }, TaskCreationOptions.LongRunning).Start();
 
-            if (Keyboard.IsKeyDown(Key.Down))
+            new Task(()=>
             {
-                new Task(() => { viewModel.CourseDisplay.KeyDown(); }, TaskCreationOptions.LongRunning).Start();
-            }
+                if (Keyboard.Keys.Contains(Key.Down))
+                {
+                    
+                    viewModel.CourseDisplay.KeyDown();
+                }
+            },TaskCreationOptions.LongRunning).Start();
 
-                
 
-            if (Keyboard.IsKeyDown(Key.Left))
+            new Task(() =>
             {
-                new Task(() => { viewModel.CourseDisplay.KeyLeft(); }, TaskCreationOptions.LongRunning).Start();
-            }
+                if (Keyboard.Keys.Contains(Key.Left))
+                {
+                    viewModel.CourseDisplay.KeyLeft();
+                }
+            }, TaskCreationOptions.LongRunning).Start();
 
-            if (Keyboard.IsKeyDown(Key.Right))
+            new Task(() =>
             {
-                new Task(() => { viewModel.CourseDisplay.KeyRight(); }, TaskCreationOptions.LongRunning).Start();
-            }
+                if (Keyboard.Keys.Contains(Key.Right))
+                {
+                    
+                    viewModel.CourseDisplay.KeyRight();
+                }
+            }, TaskCreationOptions.LongRunning).Start();
+
+            new Task(() =>
+            {
+                if (Keyboard.Keys.Contains(Key.Up) && Keyboard.Keys.Contains(Key.Right))
+                {
+                    viewModel.CourseDisplay.KeyUp();
+                    viewModel.CourseDisplay.KeyDown();
+                }
+            }, TaskCreationOptions.LongRunning).Start();
+
+            new Task(() =>
+            {
+                if (Keyboard.Keys.Contains(Key.Up) && Keyboard.Keys.Contains(Key.Left))
+                {
+                    viewModel.CourseDisplay.KeyUp();
+                    viewModel.CourseDisplay.KeyLeft();
+                }
+            }, TaskCreationOptions.LongRunning).Start();
 
             if (Keyboard.IsKeyDown(Key.PageUp))
             {
@@ -97,11 +130,11 @@ namespace AutomatedCar.Views
             //Transmission controllers
             if (Keyboard.IsKeyDown(Key.Q))
             {
-                new Task(() => { viewModel.CourseDisplay.TransmissionUp(); }, TaskCreationOptions.LongRunning).Start();
+                 viewModel.CourseDisplay.TransmissionUp();
             }
             if (Keyboard.IsKeyDown(Key.A))
             {
-                new Task(() => { viewModel.CourseDisplay.TransmissionDown(); }, TaskCreationOptions.LongRunning).Start();
+                 viewModel.CourseDisplay.TransmissionDown();
             }
             
 
@@ -112,12 +145,13 @@ namespace AutomatedCar.Views
         protected override void OnKeyUp(KeyEventArgs e)
         {
             MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
-            Keyboard.Keys.Remove(e.Key);
-            base.OnKeyUp(e);
             viewModel.CourseDisplay.KeyUpToFalse();
             viewModel.CourseDisplay.KeyDownToFalse();
             viewModel.CourseDisplay.KeyLeftToFalse();
             viewModel.CourseDisplay.KeyRightToFalse();
+            Keyboard.Keys.Remove(e.Key);
+            base.OnKeyUp(e);
+            
         }
 
         private void InitializeComponent()

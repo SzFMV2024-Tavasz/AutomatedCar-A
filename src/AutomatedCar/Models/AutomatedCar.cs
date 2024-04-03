@@ -3,6 +3,7 @@ namespace AutomatedCar.Models
     using Avalonia.Media;
     using System;
     using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
     using SystemComponents;
 
     public class AutomatedCar : Car
@@ -99,22 +100,22 @@ namespace AutomatedCar.Models
         }
         public void MovementTurnRight()
         {
-            World.Instance.ControlledCar.CanRotate = true;
-            int baseValue = (int)World.Instance.ControlledCar.Rotation;
-            if (World.Instance.ControlledCar.CanRotate)
-            {
-                World.Instance.ControlledCar.Rotation += 5;
-            }
+                World.Instance.ControlledCar.CanRotate = true;
+                int baseValue = (int)World.Instance.ControlledCar.Rotation;
+                if (World.Instance.ControlledCar.CanRotate)
+                {
+                    World.Instance.ControlledCar.Rotation += 5;
+                }
         }
 
         public void MovementTurnLeft()
         {
-            World.Instance.ControlledCar.CanRotate = true;
-            int baseValue = (int)World.Instance.ControlledCar.Rotation;
-            if (World.Instance.ControlledCar.CanRotate)
-            {
-                World.Instance.ControlledCar.Rotation -= 5;
-            }
+                World.Instance.ControlledCar.CanRotate = true;
+                int baseValue = (int)World.Instance.ControlledCar.Rotation;
+                if (World.Instance.ControlledCar.CanRotate)
+                {
+                    World.Instance.ControlledCar.Rotation -= 5;
+                }
         }
         public void SimulateBraking()
         {
@@ -138,23 +139,23 @@ namespace AutomatedCar.Models
 
         public void MovementForward()
         {
-            int baseValue = 25;
-            double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
-            double velocity;
-            if (KeyDownPressed)
-            { 
-                 velocity=World.Instance.ControlledCar.Speed/100;
-                KeyDownPressed = false;
-            }
-            else
-            {
-                velocity = World.Instance.ControlledCar.Throttle / 100.0;
-            }
-            int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
-            int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
-            World.Instance.ControlledCar.X += deltaX;
-            World.Instance.ControlledCar.Y -= deltaY;
-            World.Instance.ControlledCar.Speed = baseValue * velocity;
+                int baseValue = 25;
+                double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
+                double velocity;
+                if (KeyDownPressed)
+                {
+                    velocity = World.Instance.ControlledCar.Speed / 100;
+                    KeyDownPressed = false;
+                }
+                else
+                {
+                    velocity = World.Instance.ControlledCar.Throttle / 100.0;
+                }
+                int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
+                int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
+                World.Instance.ControlledCar.X += deltaX;
+                World.Instance.ControlledCar.Y -= deltaY;
+                World.Instance.ControlledCar.Speed = baseValue * velocity;
         }
         public void MovementBackward()
         {
