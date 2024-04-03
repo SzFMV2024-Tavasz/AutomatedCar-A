@@ -36,8 +36,8 @@
             }
             else
             {
-                // the speed/3 is kind of a placeholder,need to figure out what to put to it's place 
-                double rotationSpeed = (double)( car.Route.RoutePoints[car.Route.CurrentPointID].Speed/3) / GameBase.TicksPerSecond;
+                
+                double rotationSpeed = (double)0.25;
                 rotationDiff =Math.Abs(next.Rotation - car.Rotation);
 
                 if (rotationDiff < 1)
@@ -47,11 +47,7 @@
                     {
                         next = car.Route.RoutePoints[0];
                     }
-                    else if (car.Route.RoutePoints[car.Route.CurrentPointID] == car.Route.RoutePoints.Last())
-                    {
-                        car.Stop();
-                    }
-                    else
+                    else if (car.Route.RoutePoints[car.Route.CurrentPointID] != car.Route.RoutePoints.Last())
                     {
                         next = car.Route.RoutePoints[car.Route.CurrentPointID + 1];
                     }
@@ -60,6 +56,10 @@
                 {
                     car.Rotation +=rotationSpeed;
                     
+                }
+                if (car.X==650 && car.Y == 300)
+                {
+                    ;
                 }
             }
         }
