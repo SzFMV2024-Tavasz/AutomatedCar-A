@@ -67,7 +67,7 @@
                 if (CarCurrentSpeed < Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 0.8)
+                    if (Math.Round(helper, 1) == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed + 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -77,7 +77,7 @@
                 else if (CarCurrentSpeed > Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 0.8)
+                    if (Math.Round(helper, 1) == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed - 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -91,7 +91,7 @@
                 if (CarCurrentSpeed < Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 0.8)
+                    if (Math.Round(helper,1) == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed + 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -101,7 +101,7 @@
                 else if (CarCurrentSpeed > Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 0.8)
+                    if (Math.Round(helper,1) == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed - 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -112,7 +112,7 @@
             else if (Next == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish == false)
             {
                 helper = helper + 0.1;
-                if (helper == 0.2)
+                if (Math.Round(helper, 1) == 0.2)
                 {
                     car.Speed -= ConvertToPxS(EmergencyBrake);
                     helper = 0;

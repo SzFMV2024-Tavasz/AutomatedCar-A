@@ -34,8 +34,8 @@
                 WorldObjectType = WorldObjectType.Car;
             }
             Collideable = true;
-            Speed = 100;
             NPCMovingComponent comp = new NPCMovingComponent(VirtualFunctionBus, this);
+            new NPCSpeedComponent(VirtualFunctionBus, this);
         }
     }
 }
