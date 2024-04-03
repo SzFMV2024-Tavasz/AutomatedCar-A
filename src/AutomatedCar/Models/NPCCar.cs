@@ -36,6 +36,7 @@
             Collideable = true;
             Speed = 100;
             NPCMovingComponent comp = new NPCMovingComponent(VirtualFunctionBus, this);
+            NPCRotatingComponent rotating = new NPCRotatingComponent(VirtualFunctionBus, this);
         }
     }
 }
