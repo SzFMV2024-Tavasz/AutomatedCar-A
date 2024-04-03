@@ -4,6 +4,7 @@ namespace AutomatedCar.Views
     using Avalonia.Controls;
     using Avalonia.Input;
     using Avalonia.Markup.Xaml;
+    using System.Threading.Tasks;
 
     public class MainWindow : Window
     {
@@ -21,22 +22,24 @@ namespace AutomatedCar.Views
 
             if (Keyboard.IsKeyDown(Key.Up))
             {
-                viewModel.CourseDisplay.KeyUp();
+                new Task(() => { viewModel.CourseDisplay.KeyUp(); }, TaskCreationOptions.LongRunning).Start();
             }
 
             if (Keyboard.IsKeyDown(Key.Down))
             {
-                viewModel.CourseDisplay.KeyDown();
+                new Task(() => { viewModel.CourseDisplay.KeyDown(); }, TaskCreationOptions.LongRunning).Start();
             }
+
+                
 
             if (Keyboard.IsKeyDown(Key.Left))
             {
-                viewModel.CourseDisplay.KeyLeft();
+                new Task(() => { viewModel.CourseDisplay.KeyLeft(); }, TaskCreationOptions.LongRunning).Start();
             }
 
             if (Keyboard.IsKeyDown(Key.Right))
             {
-                viewModel.CourseDisplay.KeyRight();
+                new Task(() => { viewModel.CourseDisplay.KeyRight(); }, TaskCreationOptions.LongRunning).Start();
             }
 
             if (Keyboard.IsKeyDown(Key.PageUp))
@@ -94,11 +97,11 @@ namespace AutomatedCar.Views
             //Transmission controllers
             if (Keyboard.IsKeyDown(Key.Q))
             {
-                viewModel.CourseDisplay.TransmissionUp();
+                new Task(() => { viewModel.CourseDisplay.TransmissionUp(); }, TaskCreationOptions.LongRunning).Start();
             }
             if (Keyboard.IsKeyDown(Key.A))
             {
-                viewModel.CourseDisplay.TransmissionDown();
+                new Task(() => { viewModel.CourseDisplay.TransmissionDown(); }, TaskCreationOptions.LongRunning).Start();
             }
             
 
