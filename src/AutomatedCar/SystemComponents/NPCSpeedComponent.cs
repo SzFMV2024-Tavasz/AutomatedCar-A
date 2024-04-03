@@ -18,7 +18,7 @@
             this.car = car;
         }
 
-        public const int EmergencyBrake = 8; //2 a vészfék
+        public const int EmergencyBrake = 1; //2 a vészfék
         public override void Process()
         {
                 //car.Route.RoutePoints[car.Route.CurrentPointID].Speed;
@@ -62,12 +62,12 @@
             //}
             
             var Next = car.Route.RoutePoints[car.Route.CurrentPointID + 1];
-            if (Next != car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish == true)
+            if (Next != car.Route.RoutePoints.Last())
             {
                 if (CarCurrentSpeed < Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 1.5)
+                    if (helper == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed + 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -77,7 +77,7 @@
                 else if (CarCurrentSpeed > Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 1.5)
+                    if (helper == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed - 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -91,7 +91,7 @@
                 if (CarCurrentSpeed < Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 1.5)
+                    if (helper == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed + 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -101,7 +101,7 @@
                 else if (CarCurrentSpeed > Next.Speed)
                 {
                     helper = helper + 0.1;
-                    if (helper == 1.5)
+                    if (helper == 0.8)
                     {
                         CarCurrentSpeed = CarCurrentSpeed - 1;
                         car.Speed = ConvertToPxS(CarCurrentSpeed);
@@ -111,16 +111,12 @@
             }
             else if (Next == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish == false)
             {
-                if (CarCurrentSpeed >= 8)
+                helper = helper + 0.1;
+                if (helper == 0.2)
                 {
-                    car.Speed -= EmergencyBrake;
+                    car.Speed -= ConvertToPxS(EmergencyBrake);
                     helper = 0;
                     
-                }
-                else
-                {
-                    CarCurrentSpeed = 0;
-                    car.Speed = CarCurrentSpeed;
                 }
             }
 
