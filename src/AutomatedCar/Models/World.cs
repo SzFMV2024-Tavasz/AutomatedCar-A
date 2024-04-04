@@ -15,7 +15,7 @@
     public class World
     {
         private int controlledCarPointer = 0;
-        public List<AutomatedCar> controlledCars = new ();
+        public List<AutomatedCar> controlledCars = new();
 
         public static World Instance { get; } = new World();
         public List<WorldObject> WorldObjects { get; set; } = new List<WorldObject>();
@@ -34,7 +34,7 @@
                 this.controlledCarPointer = value;
             }
         }
-       
+
         public void AddControlledCar(AutomatedCar controlledCar)
         {
             this.controlledCars.Add(controlledCar);
@@ -61,7 +61,7 @@
             }
             else
             {
-               this.ControlledCarPointer = this.controlledCars.Count - 1;
+                this.ControlledCarPointer = this.controlledCars.Count - 1;
             }
         }
 
@@ -104,7 +104,7 @@
 
                 if (renderTransformOrigins.ContainsKey(rwo.Type))
                 {
-                   rto = renderTransformOrigins[rwo.Type];
+                    rto = renderTransformOrigins[rwo.Type];
                 }
 
                 wo.RenderTransformOrigin = rto;
@@ -150,7 +150,7 @@
 
         private void LoadNPCsFromJSON(string filename)
         {
-            string assethPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Assets"));
+            string assethPath = Path.GetFullPath(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"src/AutomatedCar/Assets"));
 
             foreach (var file in Directory.GetFiles(assethPath))
             {
@@ -163,7 +163,7 @@
 
                     AddObject(npc);
                     npc.Start();
-                    
+
                 }
             }
         }
@@ -207,7 +207,7 @@
                     .GetManifestResourceStream($"AutomatedCar.Assets.{filename}"));
 
             var rotationPoints = JsonConvert.DeserializeObject<List<RotationPoint>>(reader.ReadToEnd());
-            Dictionary<string, (int x, int y)> result = new ();
+            Dictionary<string, (int x, int y)> result = new();
             foreach (RotationPoint rp in rotationPoints)
             {
                 result.Add(rp.Type, (rp.X, rp.Y));
@@ -254,7 +254,7 @@
                     .GetManifestResourceStream($"AutomatedCar.Assets.{filename}"));
 
             var rotationPoints = JsonConvert.DeserializeObject<List<RotationPoint>>(reader.ReadToEnd());
-            Dictionary<string, string> result = new ();
+            Dictionary<string, string> result = new();
             foreach (RotationPoint rp in rotationPoints)
             {
                 var img = new System.Drawing.Bitmap(Assembly.GetExecutingAssembly()
@@ -348,8 +348,8 @@
 
         public GraphicsPath AddGeometry()
         {
-            GraphicsPath geom = new ();
-            List<Point> points = new ();
+            GraphicsPath geom = new();
+            List<Point> points = new();
             points.Add(new Point(50, 50));
             points.Add(new Point(50, 100));
             points.Add(new Point(100, 50));
