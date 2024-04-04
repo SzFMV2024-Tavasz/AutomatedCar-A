@@ -18,11 +18,13 @@ namespace AutomatedCar.SystemComponents
         {
             this.AutomatedCarForCollision = automatedCarForSensors;
             this.CollisionPacket = new CollisionPacket();
+            this.virtualFunctionBus.RegisterComponent(this);
         }
 
         public override void Process()
         {
             PacketUpdate();
+            Console.WriteLine(this.CollisionPacket.IsCollided);
         }
 
         private void PacketUpdate()
