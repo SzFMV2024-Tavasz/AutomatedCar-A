@@ -112,7 +112,7 @@
             else if (Next == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish == false)
             {
                 helper = helper + 0.1;
-                if (Math.Round(helper, 1) == 0.2)
+                if (Math.Round(helper, 1) == 0.3)
                 {
                     car.Speed -= ConvertToPxS(EmergencyBrake);
                     helper = 0;
