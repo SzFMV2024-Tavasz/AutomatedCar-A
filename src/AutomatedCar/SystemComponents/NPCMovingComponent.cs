@@ -146,16 +146,16 @@
             {
                 leftX = 0;
                 leftY = 0;
-                car.Route.CurrentPointID = car.Route.RoutePoints.IndexOf(car.Route.RoutePoints.Single(t => t == next));
+                if (car.Route.RoutePoints[car.Route.CurrentPointID + 1] != car.Route.RoutePoints.Last())
+                {
+                    car.Route.CurrentPointID = car.Route.RoutePoints.IndexOf(car.Route.RoutePoints.Single(t => t == next));
+                }
+                
                 if (car.Route.RoutePoints[car.Route.CurrentPointID+1] == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish)
                 {
                     next = car.Route.RoutePoints[0];
                 }
-                else if (car.Route.RoutePoints[car.Route.CurrentPointID] == car.Route.RoutePoints.Last())
-                {
-                    car.Stop();
-                }
-                else
+                else if (car.Route.RoutePoints[car.Route.CurrentPointID] != car.Route.RoutePoints.Last())
                 {
                     next = car.Route.RoutePoints[car.Route.CurrentPointID + 1];
                 }
