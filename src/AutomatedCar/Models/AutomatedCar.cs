@@ -14,6 +14,8 @@ namespace AutomatedCar.Models
         {
             this.virtualFunctionBus = new VirtualFunctionBus();
             this.ZIndex = 10;
+            CarTransmissionL = Transmission.X;
+            CarTransmissionR = Transmission.R;
         }
 
         public VirtualFunctionBus VirtualFunctionBus { get => this.virtualFunctionBus; }
