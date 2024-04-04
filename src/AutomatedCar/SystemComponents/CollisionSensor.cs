@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutomatedCar.Models;
 using Avalonia;
 using Avalonia.Media;
 using AutomatedCar.SystemComponents.Packets;
+using AutomatedCar.Models;
 
 namespace AutomatedCar.SystemComponents
 {
     public class CollisionSensor : SystemComponent
     {
-        // NOTE: ezt itt nem igazan ertem
-        // public AutomatedCar AutomatedCarForCollision { get; protected set; }
+        public AutomatedCar.Models.AutomatedCar AutomatedCarForCollision { get; protected set; }
 
         private CollisionPacket CollisionPacket;
 
-        public CollisionSensor(VirtualFunctionBus virtualFunctionBus) : base(virtualFunctionBus) // , AutomatedCar automatedCarForSensors
+        public CollisionSensor(VirtualFunctionBus virtualFunctionBus, AutomatedCar.Models.AutomatedCar automatedCarForSensors) : base(virtualFunctionBus)
         {
-            // this.AutomatedCarForCollision = automatedCarForSensors;
+            this.AutomatedCarForCollision = automatedCarForSensors;
             this.CollisionPacket = new CollisionPacket();
         }
 
@@ -33,18 +32,18 @@ namespace AutomatedCar.SystemComponents
 
         public bool DetectCollision()
         {
-            //var collidableObjects = World.Instance.WorldObjects.Where(x => x != this.AutomatedCarForCollision
-            //&& (x.Collideable || x.WorldObjectType == WorldObjectType.Other)).ToList();
+            var collidableObjects = World.Instance.WorldObjects.Where(x => x != this.AutomatedCarForCollision
+            && (x.Collideable || x.WorldObjectType == WorldObjectType.Other)).ToList();
 
-            //PolylineGeometry newCarGeometry = this.ActualizeGeometry(this.AutomatedCarForCollision.Geometry, this.AutomatedCarForCollision);
+            PolylineGeometry newCarGeometry = this.ActualizeGeometry(this.AutomatedCarForCollision.Geometry, this.AutomatedCarForCollision);
 
-            //foreach (var obj in collidableObjects)
-            //{
-            //    if (IntersectsWithObject(newCarGeometry, obj))
-            //    {
-            //        return true;
-            //    }
-            //}
+            foreach (var obj in collidableObjects)
+            {
+                if (IntersectsWithObject(newCarGeometry, obj))
+                {
+                    return true;
+                }
+            }
 
             return false;
         }
