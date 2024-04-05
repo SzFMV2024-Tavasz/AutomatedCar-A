@@ -12,6 +12,7 @@ namespace AutomatedCar.ViewModels
     using System.Diagnostics;
     using System.Drawing;
     using System.Threading;
+    using System.Threading.Tasks;
     using Visualization;
 
     public class CourseDisplayViewModel : ViewModelBase
@@ -52,14 +53,14 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.KeyUpPressed = true;
             if (World.Instance.ControlledCar.CanGoUp)
             {
-                World.Instance.ControlledCar.Accelerate();
-                World.Instance.ControlledCar.MovementForward();
+                 World.Instance.ControlledCar.Accelerate();
+                //World.Instance.ControlledCar.MovementForward();
             }
             if (World.Instance.ControlledCar.CanGoDown)
             {
                 //Deccelerte();
                 World.Instance.ControlledCar.Accelerate();
-                World.Instance.ControlledCar.MovementBackward();
+                //World.Instance.ControlledCar.MovementBackward();
             }
         }
 
@@ -75,6 +76,7 @@ namespace AutomatedCar.ViewModels
         {
             World.Instance.ControlledCar.KeyLeftPressed = true;
             World.Instance.ControlledCar.MovementTurnLeft();
+
         }
 
         public void KeyRight()

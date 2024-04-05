@@ -41,6 +41,10 @@
         {
             get => this.worldObject.Rotation;
         }
+        public double SteeringWheelRotation
+        {
+            get => this.worldObject.SteeringWheelRotation;
+        }
 
         public int ZIndex 
         {

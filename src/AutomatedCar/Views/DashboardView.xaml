@@ -52,7 +52,7 @@
                                 RenderTransformOrigin="{Binding RotationPoint, Converter={x:Static visualization:RenderTransformOriginTransformer.Instance}}">
 								<Image.RenderTransform>
 									<TransformGroup>
-										<RotateTransform Angle="{Binding Rotation}"/>
+										<RotateTransform Angle="{Binding SteeringWheelRotation}"/>
 									</TransformGroup>
 								</Image.RenderTransform>
 							</Image>
