@@ -11,6 +11,7 @@
     using Helpers;
     using Visualization;
     using Avalonia.Media;
+    using System.Collections.ObjectModel;
 
     public class World
     {
@@ -19,6 +20,8 @@
 
         public static World Instance { get; } = new World();
         public List<WorldObject> WorldObjects { get; set; } = new List<WorldObject>();
+
+        public ObservableCollection<WorldObject> WorldObjectss { get; } = new ObservableCollection<WorldObject>();
 
         public List<IRoute> NPCRoutes { get; set; } = new List<IRoute>();
         public AutomatedCar ControlledCar
@@ -150,7 +153,7 @@
 
         private void LoadNPCsFromJSON(string filename)
         {
-            string assethPath = Path.GetFullPath(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, @"src/AutomatedCar/Assets"));
+            string assethPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Assets"));
 
             foreach (var file in Directory.GetFiles(assethPath))
             {

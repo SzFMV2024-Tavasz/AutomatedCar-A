@@ -1,6 +1,7 @@
 namespace AutomatedCar.Models
 {
     using Avalonia.Media;
+    using global::AutomatedCar.SystemComponents.Sensors;
     using System;
     using System.Runtime.CompilerServices;
     using SystemComponents;
@@ -16,6 +17,7 @@ namespace AutomatedCar.Models
             this.ZIndex = 10;
             CarTransmissionL = Transmission.X;
             CarTransmissionR = Transmission.R;
+            this.Camera = new(this.virtualFunctionBus);
         }
 
         public VirtualFunctionBus VirtualFunctionBus { get => this.virtualFunctionBus; }
@@ -31,7 +33,7 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
 
-
+        public Camera Camera { get; private set; }
         public PolylineGeometry Geometry { get; set; }
 
         /// <summary>Starts the automated cor by starting the ticker in the Virtual Function Bus, that cyclically calls the system components.</summary>
@@ -136,8 +138,10 @@ namespace AutomatedCar.Models
             }
             World.Instance.ControlledCar.Speed = velocity;
         }
-
-
+        public void SetSensors()
+        {
+            this.Camera.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
+        }
         public void MovementForward()
         {
             int baseValue = 25;
