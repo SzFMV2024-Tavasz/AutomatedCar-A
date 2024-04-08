@@ -71,16 +71,16 @@ namespace AutomatedCar
             world.AddObject(circle);
         }
 
-        private AutomatedCar CreateControlledCar(int x, int y, int rotation, string filename)
+        private UserControlledCar CreateControlledCar(int x, int y, int rotation, string filename)
         {
-            var controlledCar = new Models.AutomatedCar(x, y, filename);
+            var controlledCar = new Models.UserControlledCar(x, y, filename);
             
             controlledCar.Geometry = this.GetControlledCarBoundaryBox();
             controlledCar.RawGeometries.Add(controlledCar.Geometry);
             controlledCar.Geometries.Add(controlledCar.Geometry);
             controlledCar.RotationPoint = new System.Drawing.Point(54, 120);
             controlledCar.Rotation = rotation;
-
+            controlledCar.SetSensors();
             controlledCar.Start();
 
             return controlledCar;

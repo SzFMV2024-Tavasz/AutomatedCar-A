@@ -91,6 +91,16 @@ namespace AutomatedCar.Views
                 viewModel.PrevControlledCar();
                 Keyboard.Keys.Remove(Key.F5);
             }
+            //Transmission controllers
+            if (Keyboard.IsKeyDown(Key.Q))
+            {
+                viewModel.CourseDisplay.TransmissionUp();
+            }
+            if (Keyboard.IsKeyDown(Key.A))
+            {
+                viewModel.CourseDisplay.TransmissionDown();
+            }
+            
 
             var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
             viewModel.CourseDisplay.FocusCar(scrollViewer);
@@ -98,8 +108,13 @@ namespace AutomatedCar.Views
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
+            MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
             Keyboard.Keys.Remove(e.Key);
             base.OnKeyUp(e);
+            viewModel.CourseDisplay.KeyUpToFalse();
+            viewModel.CourseDisplay.KeyDownToFalse();
+            viewModel.CourseDisplay.KeyLeftToFalse();
+            viewModel.CourseDisplay.KeyRightToFalse();
         }
 
         private void InitializeComponent()

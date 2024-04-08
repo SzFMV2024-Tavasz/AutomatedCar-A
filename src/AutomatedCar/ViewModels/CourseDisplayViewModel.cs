@@ -9,12 +9,15 @@ namespace AutomatedCar.ViewModels
     using Avalonia.Controls;
     using Models;
     using System;
+    using System.Diagnostics;
+    using System.Drawing;
+    using System.Threading;
     using Visualization;
 
     public class CourseDisplayViewModel : ViewModelBase
     {
         public ObservableCollection<WorldObjectViewModel> WorldObjects { get; } = new ObservableCollection<WorldObjectViewModel>();
-      
+
         private Avalonia.Vector offset;
 
         public CourseDisplayViewModel(World world)
@@ -27,6 +30,8 @@ namespace AutomatedCar.ViewModels
         public int Width { get; set; }
 
         public int Height { get; set; }
+
+        //public bool KeyUpPressed { get; set; }
 
         public Avalonia.Vector Offset
         {
@@ -44,32 +49,54 @@ namespace AutomatedCar.ViewModels
 
         public void KeyUp()
         {
-            World.Instance.ControlledCar.Y -= 5;
+            World.Instance.ControlledCar.KeyUpPressed = true;
+            if (World.Instance.ControlledCar.CanGoUp)
+            {
+                World.Instance.ControlledCar.Accelerate();
+                World.Instance.ControlledCar.MovementForward();
+            }
+            if (World.Instance.ControlledCar.CanGoDown)
+            {
+                //Deccelerte();
+                World.Instance.ControlledCar.Accelerate();
+                World.Instance.ControlledCar.MovementBackward();
+            }
         }
 
         public void KeyDown()
         {
-            World.Instance.ControlledCar.Y += 5;
+            World.Instance.ControlledCar.KeyDownPressed = true;
+            World.Instance.ControlledCar.Deccelerte();
+            World.Instance.ControlledCar.SimulateBraking();
+            
         }
 
         public void KeyLeft()
         {
-            World.Instance.ControlledCar.X -= 5;
+            World.Instance.ControlledCar.KeyLeftPressed = true;
+            World.Instance.ControlledCar.MovementTurnLeft();
         }
 
         public void KeyRight()
         {
-            World.Instance.ControlledCar.X += 5;
+            World.Instance.ControlledCar.KeyRightPressed= true;
+            World.Instance.ControlledCar.MovementTurnRight();
         }
 
         public void PageUp()
         {
-            World.Instance.ControlledCar.Rotation += 5;
+            if (World.Instance.ControlledCar.CanRotate && World.Instance.ControlledCar.Velocity != 0)
+            {
+                World.Instance.ControlledCar.Rotation += 5;
+            }
         }
 
         public void PageDown()
         {
-            World.Instance.ControlledCar.Rotation -= 5;
+            if (World.Instance.ControlledCar.CanRotate && World.Instance.ControlledCar.Velocity != 0)
+            {
+                World.Instance.ControlledCar.Rotation -= 5;
+            }
         }
 
         public void ToggleDebug()
@@ -80,6 +107,47 @@ namespace AutomatedCar.ViewModels
         public void ToggleCamera()
         {
             this.DebugStatus.Camera = !this.DebugStatus.Camera;
+        }
+        //Transmission  controllers
+        public void TransmissionUp()
+        {
+            
+            switch (World.Instance.ControlledCar.CarTransmission)
+            {
+                case AutomatedCar.Transmission.P:
+                    break;
+                case AutomatedCar.Transmission.R:
+                    World.Instance.ControlledCar.TransmissionToP();
+                    break;
+                case AutomatedCar.Transmission.N:
+                    World.Instance.ControlledCar.TransmissionToR();
+                    break;
+                case AutomatedCar.Transmission.D:
+                    World.Instance.ControlledCar.TransmissionToN();
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void TransmissionDown()
+        {
+
+            switch (World.Instance.ControlledCar.CarTransmission)
+            {
+                case AutomatedCar.Transmission.P:
+                    World.Instance.ControlledCar.TransmissionToR();
+                    break;
+                case AutomatedCar.Transmission.R:
+                    World.Instance.ControlledCar.TransmissionToN();
+                    break;
+                case AutomatedCar.Transmission.N:
+                    World.Instance.ControlledCar.TransmissionToD();
+                    break;
+                case AutomatedCar.Transmission.D:
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void ToggleRadar()
@@ -103,5 +171,24 @@ namespace AutomatedCar.ViewModels
             var offsetY = World.Instance.ControlledCar.Y - (scrollViewer.Viewport.Height / 2);
             this.Offset = new Avalonia.Vector(offsetX, offsetY);
         }
+
+
+        public void KeyUpToFalse()
+        {
+            World.Instance.ControlledCar.KeyUpPressed = false;
+        }
+        public void KeyDownToFalse()
+        {
+            World.Instance.ControlledCar.KeyDownPressed = false;
+        }
+        public void KeyLeftToFalse()
+        {
+            World.Instance.ControlledCar.KeyLeftPressed = false;
+        }
+        public void KeyRightToFalse()
+        {
+            World.Instance.ControlledCar.KeyRightPressed = false;
+        }
+
     }
 }

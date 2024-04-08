@@ -1,6 +1,9 @@
 namespace AutomatedCar.Models
 {
     using Avalonia.Media;
+    using global::AutomatedCar.SystemComponents.Sensors;
+    using System;
+    using System.Runtime.CompilerServices;
     using SystemComponents;
 
     public class AutomatedCar : Car
@@ -12,14 +15,25 @@ namespace AutomatedCar.Models
         {
             this.virtualFunctionBus = new VirtualFunctionBus();
             this.ZIndex = 10;
+            CarTransmissionL = Transmission.X;
+            CarTransmissionR = Transmission.R;
+            this.Camera = new(this.virtualFunctionBus);
         }
 
         public VirtualFunctionBus VirtualFunctionBus { get => this.virtualFunctionBus; }
 
         public int Revolution { get; set; }
+       
+        public double Velocity { get; set; }
+        public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
+        public bool CanGoDown { get; set; }
+        public bool CanRotate { get; set; }
+        public bool KeyUpPressed { get; set; }
+        public bool KeyDownPressed { get; set; }
+        public bool KeyLeftPressed { get; set; }
+        public bool KeyRightPressed { get; set; }
 
-        public int Velocity { get; set; }
-
+        public Camera Camera { get; private set; }
         public PolylineGeometry Geometry { get; set; }
 
         /// <summary>Starts the automated cor by starting the ticker in the Virtual Function Bus, that cyclically calls the system components.</summary>
@@ -33,5 +47,176 @@ namespace AutomatedCar.Models
         {
             this.virtualFunctionBus.Stop();
         }
+        /// <summary>
+        /// /////////// Custom fuction to move the car
+        /// </summary>
+        public void Accelerate()
+        {
+            // Inceaseing Throttle
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
+            {
+                World.Instance.ControlledCar.Throttle++;
+            }
+
+            if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle + 1 == 100)
+            {
+                World.Instance.ControlledCar.Throttle++;
+
+            }
+
+
+            // Decreasing Brake
+            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            {
+                World.Instance.ControlledCar.Brake--;
+            }
+
+            if (World.Instance.ControlledCar.Brake - 1 == 0 || World.Instance.ControlledCar.Brake == 100)
+            {
+                World.Instance.ControlledCar.Brake--;
+            }
+        }
+
+        public void Deccelerte()
+        {
+            // Decreasing Throttle
+            if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
+            {
+                World.Instance.ControlledCar.Throttle--;
+            }
+
+            if (World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100)
+            {
+                World.Instance.ControlledCar.Throttle--;
+            }
+
+            // Increasing Brake
+            if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
+            {
+                World.Instance.ControlledCar.Brake+=10;
+            }
+
+            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 10 == 100)
+            {
+                World.Instance.ControlledCar.Brake+=10;
+            }
+        }
+        public void MovementTurnRight()
+        {
+            World.Instance.ControlledCar.CanRotate = true;
+            int baseValue = (int)World.Instance.ControlledCar.Rotation;
+            if (World.Instance.ControlledCar.CanRotate)
+            {
+                World.Instance.ControlledCar.Rotation += 5;
+            }
+        }
+
+        public void MovementTurnLeft()
+        {
+            World.Instance.ControlledCar.CanRotate = true;
+            int baseValue = (int)World.Instance.ControlledCar.Rotation;
+            if (World.Instance.ControlledCar.CanRotate)
+            {
+                World.Instance.ControlledCar.Rotation -= 5;
+            }
+        }
+        public void SimulateBraking()
+        {
+            double brakeIntensity = World.Instance.ControlledCar.Brake;// / 100.0;
+            double velocity = World.Instance.ControlledCar.Speed;
+
+            if (velocity == 0)
+            {
+                return;
+            }
+
+            velocity *=1-(brakeIntensity/100);
+
+            if (velocity < 0)
+            {
+                velocity = 0;
+            }
+            World.Instance.ControlledCar.Speed = velocity;
+        }
+        public void SetSensors()
+        {
+            this.Camera.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
+        }
+        public void MovementForward()
+        {
+            int baseValue = 25;
+            double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
+            double velocity;
+            if (KeyDownPressed)
+            { 
+                 velocity=World.Instance.ControlledCar.Speed/100;
+                KeyDownPressed = false;
+            }
+            else
+            {
+                velocity = World.Instance.ControlledCar.Throttle / 100.0;
+            }
+            int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
+            int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
+            World.Instance.ControlledCar.X += deltaX;
+            World.Instance.ControlledCar.Y -= deltaY;
+            World.Instance.ControlledCar.Speed = baseValue * velocity;
+        }
+        public void MovementBackward()
+        {
+            int baseValue = 25;
+            double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
+            double velocity = World.Instance.ControlledCar.Throttle / 200.0;
+
+            int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
+            int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
+            World.Instance.ControlledCar.X -= deltaX;
+            World.Instance.ControlledCar.Y += deltaY;
+            World.Instance.ControlledCar.Speed = baseValue * velocity;
+        }
+
+        public void TransmissionToP()
+        {
+            if (World.Instance.ControlledCar.Speed == 0)
+            {
+                World.Instance.ControlledCar.CanGoUp = false;
+                World.Instance.ControlledCar.CanGoDown = false;
+                World.Instance.ControlledCar.CanRotate = false;
+                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.P;
+                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.X;
+                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.R;
+            }
+        }
+        public void TransmissionToR()
+        {
+            if (World.Instance.ControlledCar.Speed == 0)
+            {
+                World.Instance.ControlledCar.CanGoDown = true;
+                World.Instance.ControlledCar.CanGoUp = false;
+                World.Instance.ControlledCar.CanRotate = true;
+                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.R;
+                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.P;
+                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.N;
+            }
+        }
+        public void TransmissionToN()
+        {
+            World.Instance.ControlledCar.CanGoDown = false;
+            World.Instance.ControlledCar.CanGoUp = false;
+            World.Instance.ControlledCar.CanRotate = true;
+            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.N;
+            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.R;
+            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.D;
+        }
+        public void TransmissionToD()
+        {
+            World.Instance.ControlledCar.CanGoDown = false;
+            World.Instance.ControlledCar.CanGoUp = true;
+            World.Instance.ControlledCar.CanRotate = true;
+            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.D;
+            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.N;
+            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.X;
+        }
+
     }
 }

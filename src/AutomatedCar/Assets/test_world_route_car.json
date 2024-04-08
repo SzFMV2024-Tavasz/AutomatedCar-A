@@ -1,0 +1,224 @@
+{
+    "repeatAfterFinish":true,
+    "isPedestrian": false,
+    "startPointID": 0,
+    "objectFileName": "car_2_blue.png",
+  "routePoints": [
+    {
+      "X": 390,
+      "Y": 750,
+      "Speed": 40,
+      "Rotation": 0
+    },
+    {
+      "X": 390,
+      "Y": 679,
+      "Speed": 40,
+      "Rotation": 0
+    },
+    {
+      "X": 400,
+      "Y": 575,
+      "Speed": 10,
+      "Rotation": 30
+    },
+    {
+      "X": 440,
+      "Y": 510,
+      "Speed": 10,
+      "Rotation": 30
+    },
+    {
+      "X": 500,
+      "Y": 455,
+      "Speed": 10,
+      "Rotation": 60
+    },
+    {
+      "X": 580,
+      "Y": 425,
+      "Speed": 10,
+      "Rotation": 60
+    },
+    {
+      "X": 630,
+      "Y": 410,
+      "Speed": 10,
+      "Rotation": 90
+    },
+    {
+      "X": 690,
+      "Y": 400,
+      "Speed": 10,
+      "Rotation": 90
+    },
+    {
+      "X": 730,
+      "Y": 400,
+      "Speed": 20,
+      "Rotation": 90
+    },
+    {
+      "X": 1700,
+      "Y": 400,
+      "Speed": 40,
+      "Rotation": 90
+    },
+    {
+      "X": 2100,
+      "Y": 400,
+      "Speed": 50,
+      "Rotation": 90
+    },
+    {
+      "X": 2700,
+      "Y": 400,
+      "Speed": 50,
+      "Rotation": 90
+    },
+    {
+      "X": 2950,
+      "Y": 400,
+      "Speed": 30,
+      "Rotation": 90
+    },
+    {
+      "X": 3055,
+      "Y": 400,
+      "Speed": 20,
+      "Rotation": 90
+    },
+    {
+      "X": 3155,
+      "Y": 420,
+      "Speed": 15,
+      "Rotation": 105
+    },
+    {
+      "X": 3270,
+      "Y": 480,
+      "Speed": 15,
+      "Rotation": 135
+    },
+    {
+      "X": 3420,
+      "Y": 615,
+      "Speed": 30,
+      "Rotation": 135
+    },
+    {
+      "X": 3500,
+      "Y": 705,
+      "Speed": 15,
+      "Rotation": 135
+    },
+    {
+      "X": 3550,
+      "Y": 765,
+      "Speed": 15,
+      "Rotation": 150
+    },
+    {
+      "X": 3605,
+      "Y": 900,
+      "Speed": 15,
+      "Rotation": 180
+    },
+    {
+      "X": 3605,
+      "Y": 1500,
+      "Speed": 50,
+      "Rotation": 180
+    },
+    {
+      "X": 3605,
+      "Y": 2240,
+      "Speed": 10,
+      "Rotation": 180
+    },
+    {
+      "X": 3595,
+      "Y": 2350,
+      "Speed": 10,
+      "Rotation": 225
+    },
+    {
+      "X": 3510,
+      "Y": 2490,
+      "Speed": 10,
+      "Rotation": 225
+    },
+    {
+      "X": 3415,
+      "Y": 2555,
+      "Speed": 15,
+      "Rotation": 270
+    },
+    {
+      "X": 3350,
+      "Y": 2570,
+      "Speed": 30,
+      "Rotation": 270
+    },
+    {
+      "X": 1680,
+      "Y": 2570,
+      "Speed": 60,
+      "Rotation": 270
+    },
+    {
+      "X": 1320,
+      "Y": 2570,
+      "Speed": 40,
+      "Rotation": 270
+    },
+    {
+      "X": 1005,
+      "Y": 2570,
+      "Speed": 15,
+      "Rotation": 270
+    },
+    {
+      "X": 860,
+      "Y": 2560,
+      "Speed": 15,
+      "Rotation": 285
+    },
+    {
+      "X": 755,
+      "Y": 2520,
+      "Speed": 15,
+      "Rotation": 285
+    },
+    {
+      "X": 710,
+      "Y": 2490,
+      "Speed": 20,
+      "Rotation": 315
+    },
+    {
+      "X": 490,
+      "Y": 2265,
+      "Speed": 15,
+      "Rotation": 315
+    },
+    {
+      "X": 440,
+      "Y": 2200,
+      "Speed": 15,
+      "Rotation": 330
+    },
+    {
+      "X": 405,
+      "Y": 2105,
+      "Speed": 20,
+      "Rotation": 360
+    },
+    {
+      "X": 390,
+      "Y": 2070,
+      "Speed": 40,
+      "Rotation": 360
+    }
+  ]
+}

@@ -4,7 +4,6 @@
     <TargetFramework>net6</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
@@ -17,12 +16,24 @@
     <EmbeddedResource Include="Assets\**;Resources\**" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="SystemComponents\Packets\Sensor\**" />
+    <AvaloniaXaml Remove="SystemComponents\Packets\Sensor\**" />
+    <Compile Remove="SystemComponents\Packets\Sensor\**" />
+    <EmbeddedResource Remove="SystemComponents\Packets\Sensor\**" />
+    <None Remove="SystemComponents\Packets\Sensor\**" />
+  </ItemGroup>
+  <ItemGroup>
     <AvaloniaResource Remove="Assets\oval.csv" />
     <AvaloniaResource Remove="Assets\oval.json" />
+    <AvaloniaResource Remove="Assets\WorldObjects\oval_route_van.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Assets\WorldObjects\oval_route_van.json" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\oval.csv" />
     <None Remove="Assets\oval.json" />
+    <None Remove="Assets\WorldObjects\oval_route_van.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.6" />
@@ -46,6 +57,14 @@
 
   <ItemGroup>
     <RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\WorldObjects\oval_route_van.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\oval_route_van.json" />
   </ItemGroup>
 
 </Project>
