@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface ICameraPacket : ISensorPacket
+    public interface IReadonlyCameraPacket : ISensorPacket
     {
         public IList<WorldObject> Roads { get; set; }
     }

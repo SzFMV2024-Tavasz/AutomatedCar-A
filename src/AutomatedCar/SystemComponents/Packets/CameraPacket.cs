@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public sealed class CameraPacket : SensorPacket, ICameraPacket
+    public sealed class CameraPacket : SensorPacket, IReadonlyCameraPacket
     {
         private IList<WorldObject> roads;
 

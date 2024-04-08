@@ -14,7 +14,7 @@
             : base(virtualFunctionBus, 60, 80)
         {
             this.sensorPacket = new CameraPacket();
-            virtualFunctionBus.CameraPacket = (ICameraPacket)this.sensorPacket;
+            virtualFunctionBus.CameraPacket = (IReadonlyCameraPacket)this.sensorPacket;
         }
 
         public override void Process()
