@@ -14,11 +14,40 @@
         private double rpmcar;
         private double brakecar;
         private double throttlecar;
+        private double steeringWheelRotation;
+        public enum Transmissions
+        {
+            P, // Park
+            R, // Reverse
+            N, // Neutral
+            D,  // Drive
+            X //null value, to show nothing if cant transmissionup or down 
+        }
+        private Transmissions transmission;
+        private Transmissions transmissionL;
+        private Transmissions transmissionR;
 
-        public double kmhCar
+        public Transmissions Transmission
+        {
+            get => this.transmission;
+            set => this.RaiseAndSetIfChanged(ref this.transmission, value);
+        }public Transmissions TransmissionL
+        {
+            get => this.transmissionL;
+            set => this.RaiseAndSetIfChanged(ref this.transmissionL, value);
+        }public Transmissions TransmissionR
+        {
+            get => this.transmissionR;
+            set => this.RaiseAndSetIfChanged(ref this.transmissionR, value);
+        }public double kmhCar
         {
             get => this.kmhcar;
             set => this.RaiseAndSetIfChanged(ref this.kmhcar, value);
+        }
+        public double SteeringWheelRotation
+        {
+            get => this.steeringWheelRotation;
+            set => this.RaiseAndSetIfChanged(ref this.steeringWheelRotation, value);
         }
 
         public double rpmCar

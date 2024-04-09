@@ -41,10 +41,7 @@
         {
             get => this.worldObject.Rotation;
         }
-        public double SteeringWheelRotation
-        {
-            get => this.worldObject.SteeringWheelRotation;
-        }
+
 
         public int ZIndex 
         {
@@ -86,18 +83,6 @@
         {
             get => this.worldObject.WorldObjectType;
         }
-        public string CarTransmission
-        {
-            get => this.worldObject.CarTransmission.ToString();
-            
-        }
-        public string CarTransmissionL
-        {
-            get => this.worldObject.CarTransmissionL.ToString();
-        }
-        public string CarTransmissionR
-        {
-            get => this.worldObject.CarTransmissionR.ToString();
-        }
+
     }
 }

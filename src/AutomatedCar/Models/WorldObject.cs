@@ -23,21 +23,8 @@ namespace AutomatedCar.Models
 
         private int x;
         private int y;
-        public enum Transmission
-        {
-            P, // Park
-            R, // Reverse
-            N, // Neutral
-            D,  // Drive
-            X //null value, to show nothing if cant transmissionup or down 
-        }
-        private Transmission transmission;
-        private Transmission transmissionL;
-        private Transmission transmissionR;
 
 
-
-        private double steeringWheelRotation;
         private double rotation;
 
         public WorldObject(int x, int y, string filename, int zindex = 1, bool collideable = false, WorldObjectType worldObjectType = WorldObjectType.Other)
@@ -81,43 +68,6 @@ namespace AutomatedCar.Models
                 this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
             }
         }
-        public Transmission CarTransmission
-        {
-            get { return transmission; }
-            set
-            {
-                this.transmission = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmission)));
-            }
-        }
-        public Transmission CarTransmissionL
-        {
-            get { return transmissionL; }
-            set
-            {
-                this.transmissionL = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmissionL)));
-            }
-        }
-        public Transmission CarTransmissionR
-        {
-            get { return transmissionR; }
-            set
-            {
-                this.transmissionR = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmissionR)));
-            }
-        }
-        public double SteeringWheelRotation
-        {
-            get=>this.steeringWheelRotation;
-            set 
-            {
-                this.steeringWheelRotation = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.SteeringWheelRotation)));
-            }
-        }
-        
 
         public Point RotationPoint { get; set; }
 

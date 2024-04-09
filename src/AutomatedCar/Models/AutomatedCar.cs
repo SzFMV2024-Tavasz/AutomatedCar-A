@@ -14,17 +14,31 @@ namespace AutomatedCar.Models
         {
             this.virtualFunctionBus = new VirtualFunctionBus();
             this.ZIndex = 10;
-            CarTransmissionL = Transmission.X;
-            CarTransmissionR = Transmission.R;
+            CarTransmissionL = Transmissions.X;
+            CarTransmissionR = Transmissions.R;
+            new ControlledCarSensor(virtualFunctionBus);
         }
 
+        
+        public enum Transmissions
+        {
+            P, // Park
+            R, // Reverse
+            N, // Neutral
+            D,  // Drive
+            X //null value, to show nothing if cant transmissionup or down 
+        }
         public VirtualFunctionBus VirtualFunctionBus { get => this.virtualFunctionBus; }
+
+
 
         public int Revolution { get; set; }
        
         public double Velocity { get; set; }
         public double Throttle { get; set; }
         public double Brake { get; set; }
+        public double SteeringWheelRotation { get; set; }
+        
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }
@@ -33,6 +47,9 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
 
+        public Transmissions CarTransmission { get; set; }
+        public Transmissions CarTransmissionL { get; set; }
+        public Transmissions CarTransmissionR { get; set; }
 
         public PolylineGeometry Geometry { get; set; }
 
@@ -176,7 +193,7 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.X += deltaX;
             World.Instance.ControlledCar.Y -= deltaY;
             World.Instance.ControlledCar.Speed = speedKmPerHour; // Az objektum sebessége km/h-ban
-            World.Instance.ControlledCar.Velocity = speedKmPerHour; // Az objektum gyorsulása km/h-ban
+            World.Instance.ControlledCar.Velocity = speedKmPerHour/36; // Az objektum gyorsulása km/h-ban
         }
         //public void MovementForward()
         //{
@@ -218,9 +235,9 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.CanGoUp = false;
                 World.Instance.ControlledCar.CanGoDown = false;
                 World.Instance.ControlledCar.CanRotate = false;
-                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.P;
-                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.X;
-                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.R;
+                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmissions.P;
+                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmissions.X;
+                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.R;
             }
         }
         public void TransmissionToR()
@@ -230,9 +247,9 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.CanGoDown = true;
                 World.Instance.ControlledCar.CanGoUp = false;
                 World.Instance.ControlledCar.CanRotate = true;
-                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.R;
-                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.P;
-                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.N;
+                World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmissions.R;
+                World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmissions.P;
+                World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.N;
             }
         }
         public void TransmissionToN()
@@ -240,18 +257,18 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.CanGoDown = false;
             World.Instance.ControlledCar.CanGoUp = false;
             World.Instance.ControlledCar.CanRotate = true;
-            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.N;
-            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.R;
-            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.D;
+            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmissions.N;
+            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmissions.R;
+            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.D;
         }
         public void TransmissionToD()
         {
             World.Instance.ControlledCar.CanGoDown = false;
             World.Instance.ControlledCar.CanGoUp = true;
             World.Instance.ControlledCar.CanRotate = true;
-            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmission.D;
-            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmission.N;
-            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmission.X;
+            World.Instance.ControlledCar.CarTransmission = AutomatedCar.Transmissions.D;
+            World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmissions.N;
+            World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.X;
         }
 
     }

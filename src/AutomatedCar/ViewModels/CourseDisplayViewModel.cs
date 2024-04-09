@@ -115,15 +115,15 @@ namespace AutomatedCar.ViewModels
             
             switch (World.Instance.ControlledCar.CarTransmission)
             {
-                case AutomatedCar.Transmission.P:
+                case AutomatedCar.Transmissions.P:
                     break;
-                case AutomatedCar.Transmission.R:
+                case AutomatedCar.Transmissions.R:
                     World.Instance.ControlledCar.TransmissionToP();
                     break;
-                case AutomatedCar.Transmission.N:
+                case AutomatedCar.Transmissions.N:
                     World.Instance.ControlledCar.TransmissionToR();
                     break;
-                case AutomatedCar.Transmission.D:
+                case AutomatedCar.Transmissions.D:
                     World.Instance.ControlledCar.TransmissionToN();
                     break;
                 default:
@@ -135,16 +135,16 @@ namespace AutomatedCar.ViewModels
 
             switch (World.Instance.ControlledCar.CarTransmission)
             {
-                case AutomatedCar.Transmission.P:
+                case AutomatedCar.Transmissions.P:
                     World.Instance.ControlledCar.TransmissionToR();
                     break;
-                case AutomatedCar.Transmission.R:
+                case AutomatedCar.Transmissions.R:
                     World.Instance.ControlledCar.TransmissionToN();
                     break;
-                case AutomatedCar.Transmission.N:
+                case AutomatedCar.Transmissions.N:
                     World.Instance.ControlledCar.TransmissionToD();
                     break;
-                case AutomatedCar.Transmission.D:
+                case AutomatedCar.Transmissions.D:
                     break;
                 default:
                     break;

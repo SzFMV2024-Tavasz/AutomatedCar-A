@@ -21,7 +21,7 @@
 
         public override void Process()
         {
-                if ((automatedCar.CarTransmission == WorldObject.Transmission.D || automatedCar.CarTransmission == WorldObject.Transmission.N)&& automatedCar.Throttle > 0)
+                if (((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)&& automatedCar.Throttle > 0)
                 {
                     if (!automatedCar.KeyUpPressed)
                     {
@@ -31,7 +31,7 @@
                 }
 
             else 
-            if (automatedCar.CarTransmission == WorldObject.Transmission.R  && automatedCar.Throttle > 0)
+            if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.R  && automatedCar.Throttle > 0)
             {
                 if (!automatedCar.KeyUpPressed)
                 {
