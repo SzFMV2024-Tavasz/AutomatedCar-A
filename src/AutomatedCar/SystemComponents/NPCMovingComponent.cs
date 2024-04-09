@@ -150,6 +150,10 @@
                 {
                     car.Route.CurrentPointID = car.Route.RoutePoints.IndexOf(car.Route.RoutePoints.Single(t => t == next));
                 }
+                else if (car.Route.RoutePoints[car.Route.CurrentPointID + 1] == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish)
+                {
+                    car.Route.CurrentPointID = car.Route.RoutePoints.IndexOf(car.Route.RoutePoints.Single(t => t == next));
+                }
                 
                 if (car.Route.RoutePoints[car.Route.CurrentPointID+1] == car.Route.RoutePoints.Last() && car.Route.RepeatAfterFinish)
                 {
