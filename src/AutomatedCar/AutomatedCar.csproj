@@ -19,10 +19,15 @@
   <ItemGroup>
     <AvaloniaResource Remove="Assets\oval.csv" />
     <AvaloniaResource Remove="Assets\oval.json" />
+    <AvaloniaResource Remove="Assets\WorldObjects\oval_route_van.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Assets\WorldObjects\oval_route_van.json" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\oval.csv" />
     <None Remove="Assets\oval.json" />
+    <None Remove="Assets\WorldObjects\oval_route_van.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.6" />
@@ -46,6 +51,14 @@
 
   <ItemGroup>
     <RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\WorldObjects\oval_route_van.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\oval_route_van.json" />
   </ItemGroup>
 
 </Project>
