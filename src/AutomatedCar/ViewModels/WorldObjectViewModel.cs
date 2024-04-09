@@ -86,14 +86,6 @@
         {
             get => this.worldObject.WorldObjectType;
         }
-        public double Throttle
-        {
-            get=>this.worldObject.Throttle;
-        }
-        public double Brake
-        {
-            get => this.worldObject.Brake;
-        }
         public string CarTransmission
         {
             get => this.worldObject.CarTransmission.ToString();

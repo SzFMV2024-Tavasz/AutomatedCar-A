@@ -23,6 +23,8 @@ namespace AutomatedCar.Models
         public int Revolution { get; set; }
        
         public double Velocity { get; set; }
+        public double Throttle { get; set; }
+        public double Brake { get; set; }
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }

@@ -23,8 +23,6 @@ namespace AutomatedCar.Models
 
         private int x;
         private int y;
-        private double throttle;
-        private double brake;
         public enum Transmission
         {
             P, // Park
@@ -81,26 +79,6 @@ namespace AutomatedCar.Models
             {
                 this.y = value;
                 this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
-            }
-        }
-
-        public double Throttle
-        {
-            get => this.throttle;
-            set
-            {
-                this.throttle = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Throttle)));
-            }
-        }
-
-        public double Brake
-        {
-            get => this.brake;
-            set
-            {
-                this.brake = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Brake)));
             }
         }
         public Transmission CarTransmission

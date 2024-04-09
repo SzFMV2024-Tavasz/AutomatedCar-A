@@ -8,7 +8,7 @@ namespace AutomatedCar.SystemComponents
         private List<SystemComponent> components = new List<SystemComponent>();
 
         public IReadOnlyDummyPacket DummyPacket { get; set; }
-
+        public IReadOnlyControlledCarPacket ControlledCarPacket { get; set; }
         public IReadOnlyCollisionPacket CollisionPacket { get; set; }
 
         public void RegisterComponent(SystemComponent component)

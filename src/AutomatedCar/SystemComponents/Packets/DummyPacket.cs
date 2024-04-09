@@ -6,7 +6,7 @@ namespace AutomatedCar.SystemComponents.Packets
     {
         private int distanceX;
         private int distanceY;
-
+         
         public int DistanceX
         {
             get => this.distanceX;
