@@ -76,7 +76,6 @@ namespace AutomatedCar.ViewModels
         {
             World.Instance.ControlledCar.KeyLeftPressed = true;
             World.Instance.ControlledCar.MovementTurnLeft();
-
         }
 
         public void KeyRight()
