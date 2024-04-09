@@ -103,7 +103,7 @@ namespace AutomatedCar.Models
         public void MovementTurnRight()
         {
             World.Instance.ControlledCar.CanRotate = true;
-            int baseValue = 1;
+            double baseValue = 0.5;
             World.Instance.ControlledCar.Rotation +=baseValue*SteeringWheelRotation;
             if (World.Instance.ControlledCar.SteeringWheelRotation < 100)
             {
@@ -114,7 +114,7 @@ namespace AutomatedCar.Models
         public void MovementTurnLeft()
         {
             World.Instance.ControlledCar.CanRotate = true;
-            int baseValue = 1;
+            double baseValue = 0.5;
             World.Instance.ControlledCar.Rotation+=baseValue*SteeringWheelRotation;
             if (World.Instance.ControlledCar.SteeringWheelRotation > -100)
             {
