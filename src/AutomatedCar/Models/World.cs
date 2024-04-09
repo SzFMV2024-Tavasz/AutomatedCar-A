@@ -13,6 +13,9 @@
     using Avalonia.Media;
     using System.Collections.ObjectModel;
 
+    using System.Reflection;
+    using System.Linq;
+
     public class World
     {
         private int controlledCarPointer = 0;
@@ -151,25 +154,39 @@
             LoadNPCsFromJSON(filename);
         }
 
+
         private void LoadNPCsFromJSON(string filename)
         {
-            string assethPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Assets"));
+            string exeDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            foreach (var file in Directory.GetFiles(assethPath))
+
+            string fullPath = Path.GetFullPath(Path.Combine(exeDirectory, @"../../../..", "AutomatedCar", "Assets"));
+
+            foreach (var file in Directory.GetFiles(fullPath))
             {
+                
                 if (file.Contains(filename.Split('.')[2] + "_route"))
                 {
+                   
                     string json = File.ReadAllText(file);
+                   
                     var route = JsonConvert.DeserializeObject<Route>(json);
+                    
                     NPCRoutes.Add(route);
+                    
                     var npc = new NPCCar(route.RoutePoints[route.StartPointID].X, route.RoutePoints[route.StartPointID].Y, route.ObjectFileName, route);
 
                     AddObject(npc);
                     npc.Start();
-
                 }
             }
         }
+
+
+
+
+
+
 
         private List<System.Drawing.PointF> ToDotNetPoints(IList<Avalonia.Point> points)
         {
@@ -365,4 +382,3 @@
             return geom;
         }
     }
-}
