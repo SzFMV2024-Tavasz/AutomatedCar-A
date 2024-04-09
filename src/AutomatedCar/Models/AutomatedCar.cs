@@ -101,28 +101,31 @@ namespace AutomatedCar.Models
         }
 
         public void MovementTurnRight()
+{
+    if (World.Instance.ControlledCar.Velocity > 0)
+    {
+        World.Instance.ControlledCar.CanRotate = true;
+        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
+        if (World.Instance.ControlledCar.SteeringWheelRotation < 65)
         {
-            World.Instance.ControlledCar.CanRotate = true;
-            int baseValue = 1;
-            //World.Instance.ControlledCar.Rotation += baseValue * SteeringWheelRotation;
-            World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
-            if (World.Instance.ControlledCar.SteeringWheelRotation < 65)
-            {
-                World.Instance.ControlledCar.SteeringWheelRotation+= 5;
-            }
+            World.Instance.ControlledCar.SteeringWheelRotation += 5;
         }
+    }
+    
+}
 
         public void MovementTurnLeft()
+{
+    if (World.Instance.ControlledCar.Velocity > 0)
+    {
+        World.Instance.ControlledCar.CanRotate = true;
+        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
+        if (World.Instance.ControlledCar.SteeringWheelRotation > -65)
         {
-            World.Instance.ControlledCar.CanRotate = true;
-            int baseValue = 1;
-            World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
-            if (World.Instance.ControlledCar.SteeringWheelRotation > -65)
-            {
-                World.Instance.ControlledCar.SteeringWheelRotation -=5;
-            }
-
+            World.Instance.ControlledCar.SteeringWheelRotation -= 5;
         }
+    }
+}
 
         public void SimulateBraking()
         {
