@@ -13,6 +13,7 @@
     using Avalonia.Media;
 
     using System.Reflection;
+    using System.Linq;
 
     public class World
     {
@@ -161,7 +162,7 @@
             foreach (var file in Directory.GetFiles(fullPath))
             {
                 
-                if (file.Contains("_route"))
+                if (file.Contains(filename.Split('.')[2] + "_route"))
                 {
                    
                     string json = File.ReadAllText(file);
