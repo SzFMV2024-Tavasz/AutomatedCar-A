@@ -157,7 +157,7 @@
             string exeDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 
-            string fullPath = Path.GetFullPath(Path.Combine(exeDirectory, @"..\..\..\..", "AutomatedCar", "Assets"));
+            string fullPath = Path.GetFullPath(Path.Combine(exeDirectory, @"../../../..", "AutomatedCar", "Assets"));
 
             foreach (var file in Directory.GetFiles(fullPath))
             {
