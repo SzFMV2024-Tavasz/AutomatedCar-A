@@ -39,7 +39,7 @@ namespace AutomatedCar.Models
 
 
 
-
+        private double steeringWheelRotation;
         private double rotation;
 
         public WorldObject(int x, int y, string filename, int zindex = 1, bool collideable = false, WorldObjectType worldObjectType = WorldObjectType.Other)
@@ -128,6 +128,15 @@ namespace AutomatedCar.Models
             {
                 this.transmissionR = value;
                 this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmissionR)));
+            }
+        }
+        public double SteeringWheelRotation
+        {
+            get=>this.steeringWheelRotation;
+            set 
+            {
+                this.steeringWheelRotation = value;
+                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.SteeringWheelRotation)));
             }
         }
         

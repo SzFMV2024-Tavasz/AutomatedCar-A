@@ -35,7 +35,7 @@
                         <Canvas RenderTransformOrigin="{Binding RotationPoint, Converter={x:Static visualization:RenderTransformOriginTransformer.Instance}}">
                             <Canvas.RenderTransform>
                                 <TransformGroup>
-                                    <RotateTransform Angle="{Binding Rotation}" />
+									<RotateTransform Angle="{Binding Rotation}"/>
                                     <TranslateTransform X="{Binding RotationPoint.X, Converter={x:Static visualization:Inverter.Instance}}" Y="{Binding RotationPoint.Y, Converter={x:Static visualization:Inverter.Instance}}" />
                                 </TransformGroup>
                             </Canvas.RenderTransform>

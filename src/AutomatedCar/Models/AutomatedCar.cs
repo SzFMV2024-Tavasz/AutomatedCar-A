@@ -99,32 +99,34 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.Brake+=10;
             }
         }
+
         public void MovementTurnRight()
+{
+    if (World.Instance.ControlledCar.Velocity > 0)
+    {
+        World.Instance.ControlledCar.CanRotate = true;
+        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
+        if (World.Instance.ControlledCar.SteeringWheelRotation < 65)
         {
-            if (World.Instance.ControlledCar.Velocity > 0)
-            {
-                World.Instance.ControlledCar.CanRotate = true;
-                int baseValue = (int)World.Instance.ControlledCar.Rotation;
-                if (World.Instance.ControlledCar.CanRotate)
-                {
-                    World.Instance.ControlledCar.Rotation += 5;
-                }
-            }
+            World.Instance.ControlledCar.SteeringWheelRotation += 5;
         }
+    }
+    
+}
 
         public void MovementTurnLeft()
+{
+    if (World.Instance.ControlledCar.Velocity > 0)
+    {
+        World.Instance.ControlledCar.CanRotate = true;
+        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
+        if (World.Instance.ControlledCar.SteeringWheelRotation > -65)
         {
-            if (World.Instance.ControlledCar.Velocity > 0)
-            {
-                World.Instance.ControlledCar.CanRotate = true;
-                int baseValue = (int)World.Instance.ControlledCar.Rotation;
-                if (World.Instance.ControlledCar.CanRotate)
-                {
-                    World.Instance.ControlledCar.Rotation -= 5;
-                }
-            }
-            
+            World.Instance.ControlledCar.SteeringWheelRotation -= 5;
         }
+    }
+}
+
         public void SimulateBraking()
         {
             double brakeIntensity = World.Instance.ControlledCar.Brake;// / 100.0;
