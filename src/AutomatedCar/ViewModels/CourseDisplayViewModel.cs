@@ -58,7 +58,6 @@ namespace AutomatedCar.ViewModels
             }
             if (World.Instance.ControlledCar.CanGoDown)
             {
-                //Deccelerte();
                 World.Instance.ControlledCar.Accelerate();
                 //World.Instance.ControlledCar.MovementBackward();
             }
