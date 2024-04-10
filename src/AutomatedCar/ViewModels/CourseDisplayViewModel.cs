@@ -63,7 +63,10 @@ namespace AutomatedCar.ViewModels
                 //World.Instance.ControlledCar.MovementBackward();
             }
         }
-
+        public void Space()
+        {
+            World.Instance.ControlledCar.IsEmergencyBreakOn = true;
+        }
         public void KeyDown()
         {
             World.Instance.ControlledCar.KeyDownPressed = true;
@@ -190,6 +193,9 @@ namespace AutomatedCar.ViewModels
         {
             World.Instance.ControlledCar.KeyRightPressed = false;
         }
-
+            public void EmegencyBreakToFalse()
+        {
+            World.Instance.ControlledCar.IsEmergencyBreakOn = false;
+        }
     }
 }

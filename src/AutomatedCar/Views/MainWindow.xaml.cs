@@ -48,7 +48,10 @@ namespace AutomatedCar.Views
             {
                 viewModel.CourseDisplay.PageDown();
             }
-
+            if (Keyboard.IsKeyDown(Key.Space))
+            {
+                viewModel.CourseDisplay.Space();
+            }
             if (Keyboard.IsKeyDown(Key.D1))
             {
                 viewModel.CourseDisplay.ToggleDebug();
@@ -115,6 +118,7 @@ namespace AutomatedCar.Views
             viewModel.CourseDisplay.KeyDownToFalse();
             viewModel.CourseDisplay.KeyLeftToFalse();
             viewModel.CourseDisplay.KeyRightToFalse();
+            viewModel.CourseDisplay.EmegencyBreakToFalse();
         }
 
         private void InitializeComponent()

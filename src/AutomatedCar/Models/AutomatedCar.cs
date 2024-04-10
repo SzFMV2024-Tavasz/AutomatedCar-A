@@ -48,6 +48,7 @@ namespace AutomatedCar.Models
         public bool KeyDownPressed { get; set; }
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
+        public bool IsEmergencyBreakOn { get; set; }
 
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
@@ -139,12 +140,12 @@ namespace AutomatedCar.Models
             // Increasing Brake
             if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
             {
-                World.Instance.ControlledCar.Brake+=10;
+                World.Instance.ControlledCar.Brake+=5;
             }
 
-            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 10 == 100)
+            if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 5 == 100)
             {
-                World.Instance.ControlledCar.Brake+=10;
+                World.Instance.ControlledCar.Brake+=5;
             }
         }
         public void MovementTurnRight()
