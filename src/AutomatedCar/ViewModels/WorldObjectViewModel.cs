@@ -27,12 +27,12 @@
             this.RaisePropertyChanged(args.PropertyName);
         }
 
-        public int X
+        public double X
         {
             get => this.worldObject.X;
         }
         
-        public int Y
+        public double Y
         {
             get => this.worldObject.Y;
         }

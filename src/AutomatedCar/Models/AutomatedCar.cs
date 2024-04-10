@@ -208,7 +208,7 @@ namespace AutomatedCar.Models
 
             if (KeyDownPressed)
             {
-                velocity = World.Instance.ControlledCar.Speed / pixelsPerKm;
+                velocity = World.Instance.ControlledCar.Speed/pixelsPerKm;
                 KeyDownPressed = false;
             }
             else
@@ -219,8 +219,8 @@ namespace AutomatedCar.Models
 
             double speedKmPerHour = velocity * 3600.0; 
 
-            int deltaY = (int)(speedMeterPerSecond * velocity * Math.Cos(angleRadians));
-            int deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
+            double deltaY = (speedMeterPerSecond * velocity * Math.Cos(angleRadians));
+            double deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
             World.Instance.ControlledCar.X += deltaX;
             World.Instance.ControlledCar.Y -= deltaY;
             if (speedKmPerHour < 0)

@@ -21,8 +21,8 @@ namespace AutomatedCar.Models
 
         public event EventHandler<PropertyChangedEventArgs> PropertyChangedEvent;
 
-        private int x;
-        private int y;
+        private double x;
+        private double y;
 
 
         private double rotation;
@@ -49,7 +49,7 @@ namespace AutomatedCar.Models
             }
         }
 
-        public int X
+        public double X
         {
             get => this.x;
             set
@@ -59,7 +59,7 @@ namespace AutomatedCar.Models
             }
         }
 
-        public int Y
+        public double Y
         {
             get => this.y;
             set
