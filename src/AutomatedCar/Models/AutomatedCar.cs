@@ -155,7 +155,7 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.CanRotate = true;
                 double baseValue = 0.5;
                 World.Instance.ControlledCar.Rotation += baseValue * SteeringWheelRotation;
-                if (World.Instance.ControlledCar.SteeringWheelRotation < 100)
+                if (World.Instance.ControlledCar.SteeringWheelRotation < 60)
                 {
                     World.Instance.ControlledCar.SteeringWheelRotation++;
                 }
@@ -168,7 +168,7 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.CanRotate = true;
                 double baseValue = 0.5;
                 World.Instance.ControlledCar.Rotation += baseValue * SteeringWheelRotation;
-                if (World.Instance.ControlledCar.SteeringWheelRotation > -100)
+                if (World.Instance.ControlledCar.SteeringWheelRotation > -60)
                 {
                     World.Instance.ControlledCar.SteeringWheelRotation--;
                 }

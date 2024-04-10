@@ -29,13 +29,17 @@
                 if (!automatedCar.KeyUpPressed || automatedCar.IsEmergencyBreakOn)
                 {
 
-                    if (automatedCar.Throttle >= 0.1)
+                    if (automatedCar.Throttle > 0)
                     {
                         automatedCar.Throttle -= 0.1;
+                        if (automatedCar.Throttle<0)
+                        {
+                            automatedCar.Throttle = 0;
+                        }
                     }
                     if (automatedCar.Rpm > 0)
                     {
-                        automatedCar.Rpm -= (automatedCar.Throttle);
+                        automatedCar.Rpm -= (automatedCar.Throttle/10);
                         if (automatedCar.Rpm < 0)
                         {
                             automatedCar.Rpm = 0;
@@ -51,13 +55,13 @@
                     if (!automatedCar.KeyUpPressed || automatedCar.IsEmergencyBreakOn)
                     {
 
-                        if (automatedCar.Throttle >= 0.1)
+                        if (automatedCar.Throttle > 0)
                         {
                             automatedCar.Throttle -= 0.1;
                         }
                         if (automatedCar.Rpm > 0)
                         {
-                            automatedCar.Rpm -= (automatedCar.Throttle);
+                            automatedCar.Rpm -= (automatedCar.Throttle/10);
                             if (automatedCar.Rpm < 0)
                             {
                                 automatedCar.Rpm = 0;
