@@ -220,7 +220,7 @@ namespace AutomatedCar.Models
             double speedKmPerHour = velocity * 3600.0; 
 
             double deltaY = (speedMeterPerSecond * velocity * Math.Cos(angleRadians));
-            double deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
+            double deltaX = (speedMeterPerSecond * velocity * Math.Sin(angleRadians));
             World.Instance.ControlledCar.X += deltaX;
             World.Instance.ControlledCar.Y -= deltaY;
             if (speedKmPerHour < 0)
