@@ -48,6 +48,7 @@ namespace AutomatedCar.Models
         public bool KeyDownPressed { get; set; }
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
+        public bool IsEmergencyBreakOn { get; set; }
 
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
