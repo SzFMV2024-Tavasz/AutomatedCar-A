@@ -185,7 +185,7 @@ namespace AutomatedCar.Models
                 return;
             }
 
-            velocity *=1-(brakeIntensity/100);
+            velocity *=1-(brakeIntensity/90);
 
             if (velocity < 0)
             {
@@ -218,8 +218,16 @@ namespace AutomatedCar.Models
             int deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
             World.Instance.ControlledCar.X += deltaX;
             World.Instance.ControlledCar.Y -= deltaY;
-            World.Instance.ControlledCar.Speed = speedKmPerHour; 
-            World.Instance.ControlledCar.Velocity = speedKmPerHour/36; 
+            if (speedKmPerHour < 0)
+            {
+                World.Instance.ControlledCar.Speed = 0;
+                World.Instance.ControlledCar.Velocity = 0;
+            }
+            else
+            {
+                World.Instance.ControlledCar.Speed = speedKmPerHour;
+                World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
+            }
         }
         public void MovementBackward()
         {
@@ -245,8 +253,16 @@ namespace AutomatedCar.Models
             int deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
             World.Instance.ControlledCar.X -= deltaX;
             World.Instance.ControlledCar.Y += deltaY;
-            World.Instance.ControlledCar.Speed = speedKmPerHour;
-            World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
+            if (speedKmPerHour < 0)
+            {
+                World.Instance.ControlledCar.Speed = 0;
+                World.Instance.ControlledCar.Velocity = 0;
+            }
+            else
+            {
+                World.Instance.ControlledCar.Speed = speedKmPerHour;
+                World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
+            }
         }
 
         public void TransmissionToP()
