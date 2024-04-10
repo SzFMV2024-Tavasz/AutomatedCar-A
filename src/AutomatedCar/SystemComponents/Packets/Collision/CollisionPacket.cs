@@ -1,8 +1,8 @@
 ﻿using ReactiveUI;
 
-namespace AutomatedCar.SystemComponents.Packets
+namespace AutomatedCar.SystemComponents.Packets.Collision
 {
-    public class CollisionPacket : ReactiveObject, IReadOnlyCollisionPacket
+    public class CollisionPacket : AbstractSensorPacket, IReadOnlyCollisionPacket
     {
         private bool isCollided;
 
