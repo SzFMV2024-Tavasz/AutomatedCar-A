@@ -26,7 +26,7 @@
             if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)
             {
 
-                if (!automatedCar.KeyUpPressed || automatedCar.IsEmergencyBreakOn)
+                if (!automatedCar.KeyUpPressed )//|| automatedCar.IsEmergencyBreakOn)
                 {
 
                     if (automatedCar.Throttle > 0)
@@ -39,7 +39,7 @@
                     }
                     if (automatedCar.Rpm > 0)
                     {
-                        automatedCar.Rpm -= (automatedCar.Throttle/10);
+                        automatedCar.Rpm -= (automatedCar.Throttle +0.1)/5.5;
                         if (automatedCar.Rpm < 0)
                         {
                             automatedCar.Rpm = 0;
@@ -52,7 +52,7 @@
             {
                 if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.R)
                 {
-                    if (!automatedCar.KeyUpPressed || automatedCar.IsEmergencyBreakOn)
+                    if (!automatedCar.KeyUpPressed )//|| automatedCar.IsEmergencyBreakOn)
                     {
 
                         if (automatedCar.Throttle > 0)
@@ -65,8 +65,7 @@
                         }
                         if (automatedCar.Rpm > 0)
                         {
-                            automatedCar.Rpm -= (automatedCar.Throttle/10);
-                            if (automatedCar.Rpm < 0)
+                            automatedCar.Rpm -= (automatedCar.Throttle + 0.1) / 5.5;
                             {
                                 automatedCar.Rpm = 0;
                             }
