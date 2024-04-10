@@ -1,4 +1,4 @@
-﻿namespace AutomatedCar.SystemComponents.Packets
+﻿namespace AutomatedCar.SystemComponents.Packets.Collision
 {
     public interface IReadOnlyCollisionPacket
     {

@@ -1,30 +1,30 @@
-﻿namespace AutomatedCar.Helpers
-{
-    using AutomatedCar.Models;
-    using Avalonia;
-    using Avalonia.Media;
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using AutomatedCar.Models;
+using AutomatedCar.SystemComponents.Packets.Helpers.RelevantObjectHelper;
+using Avalonia;
+using Avalonia.Media;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
+namespace AutomatedCar.Helpers
+{
     public static class Utils
     {
         public static readonly IList<ReferencePoint> ReferencePoints = LoadReferencePoints();
-        public static WorldObject FindClosestObject(IList<WorldObject> worldObjects, AutomatedCar car)
+
+        public static IRelevantObject FindClosestObject(IList<IRelevantObject> worldObjects, AutomatedCar.Models.AutomatedCar car)
         {
             Point carPoint = new(car.X, car.Y);
-            WorldObject closestObject = null;
+            IRelevantObject closestObject = null;
             List<Point> temp = new();
 
             double minDistance = double.MaxValue;
-            foreach (WorldObject currObject in worldObjects)
+            foreach (IRelevantObject currObject in worldObjects)
             {
-                foreach (Point currPoint in GetPoints(currObject))
+                foreach (Point currPoint in GetPoints(currObject.GetRelevantObject()))
                 {
                     double currDistance = DistanceBetween(carPoint, currPoint);
                     if (currDistance < minDistance)
@@ -33,12 +33,13 @@
                         closestObject = currObject;
                     }
 
-                    temp.Add(new Point(currObject.X, currDistance));
+                    temp.Add(new Point(currObject.GetRelevantObject().X, currDistance));
                 }
             }
 
             return closestObject;
         }
+
         public static double DistanceBetween(Point from, Point to)
         {
             return Math.Sqrt(Math.Pow(from.X - to.X, 2) + Math.Pow(from.Y - to.Y, 2));
@@ -65,6 +66,7 @@
 
             return points;
         }
+
         public static Point RotatePoint(Point point, System.Drawing.Point rotationPoint, double rotation)
         {
             Point transformedPoint = new(point.X - rotationPoint.X, point.Y - rotationPoint.Y);
@@ -75,6 +77,7 @@
 
             return rotatedPoint;
         }
+
         public static PolylineGeometry RotateRawGeometry(PolylineGeometry geometry, System.Drawing.Point rotationPoint, double rotation)
         {
             List<Point> rotatedPoints = new();

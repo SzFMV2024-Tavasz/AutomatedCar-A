@@ -1,20 +1,20 @@
-﻿namespace AutomatedCar.SystemComponents.Sensors
-{
-    using AutomatedCar.Models;
-    using AutomatedCar.SystemComponents.Packets;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using AutomatedCar.Models;
+using AutomatedCar.SystemComponents.Packets.Camera;
+using AutomatedCar.SystemComponents.Packets.Helpers.RelevantObjectHelper;
 
-    public sealed class Camera : Sensor
+namespace AutomatedCar.SystemComponents.Sensors
+{
+    public sealed class Camera : AbstractSensor
     {
         public Camera(VirtualFunctionBus virtualFunctionBus)
             : base(virtualFunctionBus, 60, 80)
         {
             this.sensorPacket = new CameraPacket();
-            virtualFunctionBus.CameraPacket = (IReadonlyCameraPacket)this.sensorPacket;
+            virtualFunctionBus.CameraPacket = (IReadOnlyCameraPacket)this.sensorPacket;
+            virtualFunctionBus.RegisterComponent(this);
+            Console.WriteLine("Camera is on!");
         }
 
         public override void Process()
@@ -30,11 +30,16 @@
 
         private void FilterRoads()
         {
-            ((CameraPacket)this.sensorPacket).Roads =
-                this.sensorPacket
-                .RelevantObjects
-                .Where(ro => ro.WorldObjectType == WorldObjectType.Road)
-                .ToList();
+            List<WorldObject> roads = new List<WorldObject>();
+            foreach (IRelevantObject ro in this.sensorPacket.RelevantObjects)
+            {
+                if (ro.GetRelevantObject().WorldObjectType == WorldObjectType.Road)
+                {
+                    roads.Add(ro.GetRelevantObject());
+                }
+            }
+
+            ((CameraPacket)this.sensorPacket).Roads = roads;
         }
     }
 }

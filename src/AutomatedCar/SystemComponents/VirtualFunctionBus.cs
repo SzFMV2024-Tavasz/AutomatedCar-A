@@ -1,4 +1,6 @@
 using AutomatedCar.SystemComponents.Packets;
+using AutomatedCar.SystemComponents.Packets.Camera;
+using AutomatedCar.SystemComponents.Packets.Collision;
 using System.Collections.Generic;
 
 namespace AutomatedCar.SystemComponents
@@ -7,11 +9,11 @@ namespace AutomatedCar.SystemComponents
     {
         private List<SystemComponent> components = new List<SystemComponent>();
 
-        public IReadOnlyDummyPacket DummyPacket { get; set; }
-
         public IReadOnlyCollisionPacket CollisionPacket { get; set; }
 
-        public IReadonlyCameraPacket CameraPacket { get; set; }
+        public IReadOnlyCameraPacket CameraPacket { get; set; }
+
+        public IReadOnlySensorPacket RadarPacket { get; set; }
 
         public void RegisterComponent(SystemComponent component)
         {
