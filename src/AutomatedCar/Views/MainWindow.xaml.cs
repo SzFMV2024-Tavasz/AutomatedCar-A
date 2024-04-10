@@ -38,6 +38,10 @@ namespace AutomatedCar.Views
             {
                 viewModel.CourseDisplay.KeyRight();
             }
+            if (Keyboard.IsKeyDown(Key.Space))
+            {
+                viewModel.CourseDisplay.Space();
+            }
 
             if (Keyboard.IsKeyDown(Key.PageUp))
             {
@@ -115,6 +119,7 @@ namespace AutomatedCar.Views
             viewModel.CourseDisplay.KeyDownToFalse();
             viewModel.CourseDisplay.KeyLeftToFalse();
             viewModel.CourseDisplay.KeyRightToFalse();
+            viewModel.CourseDisplay.EmegencBreakToFalse();
         }
 
         private void InitializeComponent()

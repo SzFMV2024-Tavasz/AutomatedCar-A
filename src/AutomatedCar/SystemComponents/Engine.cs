@@ -23,7 +23,7 @@
         {
                 if (((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)&& automatedCar.Throttle > 0)
                 {
-                    if (!automatedCar.KeyUpPressed)
+                    if (!automatedCar.KeyUpPressed||automatedCar.IsEmergencyBreakOn)
                     {
                         automatedCar.Throttle -= 0.5;
                     }
@@ -33,7 +33,7 @@
             else 
             if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.R  && automatedCar.Throttle > 0)
             {
-                if (!automatedCar.KeyUpPressed)
+                if (!automatedCar.KeyUpPressed||automatedCar.IsEmergencyBreakOn)
                 {
                     automatedCar.Throttle -= 0.5;
                 }
@@ -50,6 +50,11 @@
             if (!automatedCar.KeyRightPressed && automatedCar.SteeringWheelRotation <= 100 && automatedCar.SteeringWheelRotation > 0)
             {
                 automatedCar.SteeringWheelRotation--;
+            }
+            if (automatedCar.IsEmergencyBreakOn)
+            {
+                automatedCar.Brake = 100;
+                automatedCar.SimulateBraking();
             }
         }
 
