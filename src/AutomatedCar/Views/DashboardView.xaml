@@ -28,7 +28,7 @@
                         <StackPanel>
                             <TextBlock Text="F1: Help"/>
                             <Grid ColumnDefinitions="2*,2*" RowDefinitions="50,15">
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Revolution}" FontSize="40" TextAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Car.VirtualFunctionBus.ControlledCarPacket.rpmCar}" FontSize="40" TextAlignment="Center"/>
                                 <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Center">rpm</TextBlock>
                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.ControlledCarPacket.kmhCar}" FontSize="40" TextAlignment="Center"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Center">km/h</TextBlock>

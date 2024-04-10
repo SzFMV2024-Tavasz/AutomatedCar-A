@@ -38,6 +38,8 @@ namespace AutomatedCar.Models
         public double Throttle { get; set; }
         public double Brake { get; set; }
         public double SteeringWheelRotation { get; set; }
+        public double Rpm { get; set; }
+        public int Gear{ get; set; }
         
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
@@ -65,21 +67,39 @@ namespace AutomatedCar.Models
         {
             this.virtualFunctionBus.Stop();
         }
-        /// <summary>
-        /// /////////// Custom fuction to move the car
-        /// </summary>
         public void Accelerate()
         {
+
+            if (World.Instance.ControlledCar.Rpm > 2500 && World.Instance.ControlledCar.Rpm < 2600)
+            {
+                if (World.Instance.ControlledCar.Gear < 4)
+                {
+                    World.Instance.ControlledCar.Gear++;
+                    World.Instance.ControlledCar.Rpm = 1800;
+                }
+            }
+            if (World.Instance.ControlledCar.Rpm < 1500 && World.Instance.ControlledCar.Rpm > 1400)
+            {
+                World.Instance.ControlledCar.Gear--;
+            }
+
             // Inceaseing Throttle
             if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
             {
                 World.Instance.ControlledCar.Throttle++;
+                if (World.Instance.ControlledCar.Rpm < 3700)
+                {
+                    World.Instance.ControlledCar.Rpm += Throttle * 2;
+                }
             }
 
             if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle + 1 == 100)
             {
                 World.Instance.ControlledCar.Throttle++;
-
+                if (World.Instance.ControlledCar.Rpm < 3700)
+                {
+                    World.Instance.ControlledCar.Rpm += Throttle * 3;
+                }
             }
 
 
@@ -94,13 +114,22 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.Brake--;
             }
         }
-
         public void Deccelerte()
         {
             // Decreasing Throttle
             if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
             {
                 World.Instance.ControlledCar.Throttle--;
+            }
+
+
+            if (World.Instance.ControlledCar.Rpm > 0)
+            {
+                World.Instance.ControlledCar.Rpm -= World.Instance.ControlledCar.Throttle * 3;
+                if (World.Instance.ControlledCar.Rpm < 0)
+                {
+                    World.Instance.ControlledCar.Rpm = 0;
+                }
             }
 
             if (World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100)
@@ -119,33 +148,32 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.Brake+=10;
             }
         }
-
         public void MovementTurnRight()
-{
-    if (World.Instance.ControlledCar.Velocity > 0)
-    {
-        World.Instance.ControlledCar.CanRotate = true;
-        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
-        if (World.Instance.ControlledCar.SteeringWheelRotation < 65)
         {
-            World.Instance.ControlledCar.SteeringWheelRotation += 5;
+            if (World.Instance.ControlledCar.Velocity > 0)
+            {
+                World.Instance.ControlledCar.CanRotate = true;
+                double baseValue = 0.5;
+                World.Instance.ControlledCar.Rotation += baseValue * SteeringWheelRotation;
+                if (World.Instance.ControlledCar.SteeringWheelRotation < 100)
+                {
+                    World.Instance.ControlledCar.SteeringWheelRotation++;
+                }
+            }
         }
-    }
-    
-}
-
         public void MovementTurnLeft()
-{
-    if (World.Instance.ControlledCar.Velocity > 0)
-    {
-        World.Instance.ControlledCar.CanRotate = true;
-        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
-        if (World.Instance.ControlledCar.SteeringWheelRotation > -65)
         {
-            World.Instance.ControlledCar.SteeringWheelRotation -= 5;
+            if (World.Instance.ControlledCar.Velocity > 0)
+            {
+                World.Instance.ControlledCar.CanRotate = true;
+                double baseValue = 0.5;
+                World.Instance.ControlledCar.Rotation += baseValue * SteeringWheelRotation;
+                if (World.Instance.ControlledCar.SteeringWheelRotation > -100)
+                {
+                    World.Instance.ControlledCar.SteeringWheelRotation--;
+                }
+            }
         }
-    }
-}
 
         public void SimulateBraking()
         {
@@ -168,7 +196,7 @@ namespace AutomatedCar.Models
 
         public void MovementForward()
         {
-            int pixelsPerKm = 50 * 1000; // 1 km = 50 * 1000 pixel
+            int pixelsPerKm = 50 * 1000;
 
             double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
             double velocity;
@@ -182,51 +210,43 @@ namespace AutomatedCar.Models
             {
                 velocity = World.Instance.ControlledCar.Throttle / 100.0;
             }
+            double speedMeterPerSecond = velocity * pixelsPerKm / 3600.0; 
 
-            // Számítsuk ki a sebességet méter/másodpercben
-            double speedMeterPerSecond = velocity * pixelsPerKm / 3600.0; // A sebességet méter/másodpercbe konvertáljuk
-
-            // Átváltás km/h-ra
-            double speedKmPerHour = velocity * 3600.0; // m/s-ból km/h-ba konvertálunk
+            double speedKmPerHour = velocity * 3600.0; 
 
             int deltaY = (int)(speedMeterPerSecond * velocity * Math.Cos(angleRadians));
             int deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
             World.Instance.ControlledCar.X += deltaX;
             World.Instance.ControlledCar.Y -= deltaY;
-            World.Instance.ControlledCar.Speed = speedKmPerHour; // Az objektum sebessége km/h-ban
-            World.Instance.ControlledCar.Velocity = speedKmPerHour/36; // Az objektum gyorsulása km/h-ban
+            World.Instance.ControlledCar.Speed = speedKmPerHour; 
+            World.Instance.ControlledCar.Velocity = speedKmPerHour/36; 
         }
-        //public void MovementForward()
-        //{
-        //    int baseValue = 25;
-        //    double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
-        //    double velocity;
-        //    if (KeyDownPressed)
-        //    { 
-        //         velocity=World.Instance.ControlledCar.Speed/100;
-        //        KeyDownPressed = false;
-        //    }
-        //    else
-        //    {
-        //        velocity = World.Instance.ControlledCar.Throttle / 100.0;
-        //    }
-        //    int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
-        //    int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
-        //    World.Instance.ControlledCar.X += deltaX;
-        //    World.Instance.ControlledCar.Y -= deltaY;
-        //    World.Instance.ControlledCar.Speed = baseValue * velocity;
-        //}
         public void MovementBackward()
         {
-            int baseValue = 25;
-            double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
-            double velocity = World.Instance.ControlledCar.Throttle / 200.0;
+            int pixelsPerKm = 50 * 1000;
 
-            int deltaY = (int)(baseValue * velocity * Math.Cos(angleRadians));
-            int deltaX = (int)(baseValue * velocity * Math.Sin(angleRadians));
+            double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
+            double velocity;
+
+            if (KeyDownPressed)
+            {
+                velocity = World.Instance.ControlledCar.Speed / pixelsPerKm;
+                KeyDownPressed = false;
+            }
+            else
+            {
+                velocity = World.Instance.ControlledCar.Throttle / 100.0;
+            }
+            double speedMeterPerSecond = velocity * pixelsPerKm / 3600.0;
+
+            double speedKmPerHour = velocity * 3600.0;
+
+            int deltaY = (int)(speedMeterPerSecond * velocity * Math.Cos(angleRadians));
+            int deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
             World.Instance.ControlledCar.X -= deltaX;
             World.Instance.ControlledCar.Y += deltaY;
-            World.Instance.ControlledCar.Speed = baseValue * velocity;
+            World.Instance.ControlledCar.Speed = speedKmPerHour;
+            World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
         }
 
         public void TransmissionToP()
