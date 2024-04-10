@@ -192,6 +192,7 @@ namespace AutomatedCar.Models
                 velocity = 0;
             }
             World.Instance.ControlledCar.Speed = velocity;
+            World.Instance.ControlledCar.Velocity = velocity;
         }
 
         public void MovementForward()

@@ -58,6 +58,10 @@
                         if (automatedCar.Throttle > 0)
                         {
                             automatedCar.Throttle -= 0.1;
+                            if (automatedCar.Throttle < 0)
+                            {
+                                automatedCar.Throttle =0;
+                            }
                         }
                         if (automatedCar.Rpm > 0)
                         {
