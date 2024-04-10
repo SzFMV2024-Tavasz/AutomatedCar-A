@@ -120,6 +120,10 @@ namespace AutomatedCar.Models
             if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
             {
                 World.Instance.ControlledCar.Throttle--;
+                if(World.Instance.ControlledCar.Throttle < 0)
+                {
+                    World.Instance.ControlledCar.Throttle = 0;
+                }
             }
 
 

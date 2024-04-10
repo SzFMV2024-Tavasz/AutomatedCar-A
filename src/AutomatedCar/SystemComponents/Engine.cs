@@ -91,6 +91,7 @@
             if (automatedCar.IsEmergencyBreakOn)
             {
                   automatedCar.Brake = 100;
+                automatedCar.Deccelerte();
                 automatedCar.SimulateBraking();
             }
         }
