@@ -83,10 +83,6 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.KeyRightPressed= true;
             World.Instance.ControlledCar.MovementTurnRight();
         }
-        public void Space()
-        {
-            World.Instance.ControlledCar.IsEmergencyBreakOn = true;
-        }
 
         public void PageUp()
         {
@@ -193,10 +189,6 @@ namespace AutomatedCar.ViewModels
         public void KeyRightToFalse()
         {
             World.Instance.ControlledCar.KeyRightPressed = false;
-        }
-        public void EmegencBreakToFalse()
-        {
-            World.Instance.ControlledCar.IsEmergencyBreakOn = false;
         }
 
     }
