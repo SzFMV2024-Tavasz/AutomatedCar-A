@@ -164,16 +164,16 @@
 
             foreach (var file in Directory.GetFiles(fullPath))
             {
-                
+
                 if (file.Contains(filename.Split('.')[2] + "_route"))
                 {
-                   
+
                     string json = File.ReadAllText(file);
-                   
+
                     var route = JsonConvert.DeserializeObject<Route>(json);
-                    
+
                     NPCRoutes.Add(route);
-                    
+
                     var npc = new NPCCar(route.RoutePoints[route.StartPointID].X, route.RoutePoints[route.StartPointID].Y, route.ObjectFileName, route);
 
                     AddObject(npc);
@@ -382,3 +382,4 @@
             return geom;
         }
     }
+}
