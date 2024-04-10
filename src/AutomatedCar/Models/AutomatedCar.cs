@@ -118,33 +118,52 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.Brake+=10;
             }
         }
-
         public void MovementTurnRight()
-{
-    if (World.Instance.ControlledCar.Velocity > 0)
-    {
-        World.Instance.ControlledCar.CanRotate = true;
-        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
-        if (World.Instance.ControlledCar.SteeringWheelRotation < 65)
         {
-            World.Instance.ControlledCar.SteeringWheelRotation += 5;
+            World.Instance.ControlledCar.CanRotate = true;
+            double baseValue = 0.5;
+            World.Instance.ControlledCar.Rotation += baseValue * SteeringWheelRotation;
+            if (World.Instance.ControlledCar.SteeringWheelRotation < 100)
+            {
+                World.Instance.ControlledCar.SteeringWheelRotation++;
+            }
         }
-    }
-    
-}
+        //public void MovementTurnRight()
+        //{
+        //    if (World.Instance.ControlledCar.Velocity > 0)
+        //    {
+        //        World.Instance.ControlledCar.CanRotate = true;
+        //        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
+        //        if (World.Instance.ControlledCar.SteeringWheelRotation < 65)
+        //        {
+        //            World.Instance.ControlledCar.SteeringWheelRotation += 5;
+        //        }
+        //    }
 
+        //}
         public void MovementTurnLeft()
-{
-    if (World.Instance.ControlledCar.Velocity > 0)
-    {
-        World.Instance.ControlledCar.CanRotate = true;
-        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
-        if (World.Instance.ControlledCar.SteeringWheelRotation > -65)
         {
-            World.Instance.ControlledCar.SteeringWheelRotation -= 5;
+            World.Instance.ControlledCar.CanRotate = true;
+            double baseValue = 0.5;
+            World.Instance.ControlledCar.Rotation += baseValue * SteeringWheelRotation;
+            if (World.Instance.ControlledCar.SteeringWheelRotation > -100)
+            {
+                World.Instance.ControlledCar.SteeringWheelRotation--;
+            }
+
         }
-    }
-}
+        //public void MovementTurnLeft()
+        //{
+        //    if (World.Instance.ControlledCar.Velocity > 0)
+        //    {
+        //        World.Instance.ControlledCar.CanRotate = true;
+        //        World.Instance.ControlledCar.Rotation += SteeringWheelRotation / 5;
+        //        if (World.Instance.ControlledCar.SteeringWheelRotation > -65)
+        //        {
+        //            World.Instance.ControlledCar.SteeringWheelRotation -= 5;
+        //        }
+        //    }
+        //}
 
         public void SimulateBraking()
         {
