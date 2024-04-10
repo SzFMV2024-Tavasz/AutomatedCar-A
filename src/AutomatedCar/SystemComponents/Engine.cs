@@ -7,6 +7,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutomatedCar.Models;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+
     public class Engine : SystemComponent
     {
         private VirtualFunctionBus virtualFunctionBus;
@@ -21,29 +23,55 @@
 
         public override void Process()
         {
-                if (((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)&& automatedCar.Throttle > 0)
+            if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)
+            {
+
+                if (!automatedCar.KeyUpPressed)
                 {
-                    if (!automatedCar.KeyUpPressed)
+
+                    if (automatedCar.Throttle >= 0.5)
                     {
                         automatedCar.Throttle -= 0.5;
                     }
-                    automatedCar.MovementForward();
+                    if (automatedCar.Rpm > 0)
+                    {
+                        automatedCar.Rpm -= (automatedCar.Throttle);
+                        if (automatedCar.Rpm < 0)
+                        {
+                            automatedCar.Rpm = 0;
+                        }
+                    }
                 }
-
-            else 
-            if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.R  && automatedCar.Throttle > 0)
+                automatedCar.MovementForward();
+            }
+            else
             {
-                if (!automatedCar.KeyUpPressed)
+                if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.R)
                 {
-                    automatedCar.Throttle -= 0.5;
+                    if (!automatedCar.KeyUpPressed)
+                    {
+
+                        if (automatedCar.Throttle >= 0.5)
+                        {
+                            automatedCar.Throttle -= 0.5;
+                        }
+                        if (automatedCar.Rpm > 0)
+                        {
+                            automatedCar.Rpm -= (automatedCar.Throttle);
+                            if (automatedCar.Rpm < 0)
+                            {
+                                automatedCar.Rpm = 0;
+                            }
+                        }
+                    }
+                    automatedCar.MovementBackward();
                 }
-                automatedCar.MovementBackward();
             }
             if (automatedCar.Brake > 0 && !automatedCar.KeyDownPressed)
             {
-                automatedCar.Brake--; 
+                automatedCar.Brake--;
             }
-            if (!automatedCar.KeyLeftPressed && automatedCar.SteeringWheelRotation >= -100&&automatedCar.SteeringWheelRotation<0)
+            if (!automatedCar.KeyLeftPressed && automatedCar.SteeringWheelRotation >= -100 && automatedCar.SteeringWheelRotation < 0)
             {
                 automatedCar.SteeringWheelRotation++;
             }
@@ -53,7 +81,7 @@
             }
         }
 
-
+        
         
     }
 }

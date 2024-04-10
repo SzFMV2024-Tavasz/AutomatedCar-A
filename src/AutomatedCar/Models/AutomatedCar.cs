@@ -38,6 +38,8 @@ namespace AutomatedCar.Models
         public double Throttle { get; set; }
         public double Brake { get; set; }
         public double SteeringWheelRotation { get; set; }
+        public double Rpm { get; set; }
+        public int Gear{ get; set; }
         
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
@@ -64,21 +66,39 @@ namespace AutomatedCar.Models
         {
             this.virtualFunctionBus.Stop();
         }
-        /// <summary>
-        /// /////////// Custom fuction to move the car
-        /// </summary>
         public void Accelerate()
         {
+
+            if (World.Instance.ControlledCar.Rpm > 2500 && World.Instance.ControlledCar.Rpm < 2600)
+            {
+                if (World.Instance.ControlledCar.Gear < 4)
+                {
+                    World.Instance.ControlledCar.Gear++;
+                    World.Instance.ControlledCar.Rpm = 1800;
+                }
+            }
+            if (World.Instance.ControlledCar.Rpm < 1500 && World.Instance.ControlledCar.Rpm > 1400)
+            {
+                World.Instance.ControlledCar.Gear--;
+            }
+
             // Inceaseing Throttle
             if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
             {
                 World.Instance.ControlledCar.Throttle++;
+                if (World.Instance.ControlledCar.Rpm < 3700)
+                {
+                    World.Instance.ControlledCar.Rpm += Throttle * 2;
+                }
             }
 
             if (World.Instance.ControlledCar.Throttle == 0 || World.Instance.ControlledCar.Throttle + 1 == 100)
             {
                 World.Instance.ControlledCar.Throttle++;
-
+                if (World.Instance.ControlledCar.Rpm < 3700)
+                {
+                    World.Instance.ControlledCar.Rpm += Throttle * 3;
+                }
             }
 
 
@@ -93,13 +113,22 @@ namespace AutomatedCar.Models
                 World.Instance.ControlledCar.Brake--;
             }
         }
-
         public void Deccelerte()
         {
             // Decreasing Throttle
             if (World.Instance.ControlledCar.Throttle > 0 && World.Instance.ControlledCar.Throttle < 100)
             {
                 World.Instance.ControlledCar.Throttle--;
+            }
+
+
+            if (World.Instance.ControlledCar.Rpm > 0)
+            {
+                World.Instance.ControlledCar.Rpm -= World.Instance.ControlledCar.Throttle * 3;
+                if (World.Instance.ControlledCar.Rpm < 0)
+                {
+                    World.Instance.ControlledCar.Rpm = 0;
+                }
             }
 
             if (World.Instance.ControlledCar.Throttle - 1 == 0 || World.Instance.ControlledCar.Throttle == 100)

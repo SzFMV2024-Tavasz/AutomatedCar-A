@@ -29,6 +29,7 @@
             CarPacket.Transmission = (Packets.ControlledCarPacket.Transmissions)World.Instance.ControlledCar.CarTransmission;
             CarPacket.TransmissionL = (Packets.ControlledCarPacket.Transmissions)World.Instance.ControlledCar.CarTransmissionL;
             CarPacket.TransmissionR = (Packets.ControlledCarPacket.Transmissions)World.Instance.ControlledCar.CarTransmissionR;
+            CarPacket.rpmCar = World.Instance.ControlledCar.Rpm;
         }
     }
 }
