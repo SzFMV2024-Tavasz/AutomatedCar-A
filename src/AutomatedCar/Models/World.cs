@@ -182,12 +182,6 @@
             }
         }
 
-
-
-
-
-
-
         private List<System.Drawing.PointF> ToDotNetPoints(IList<Avalonia.Point> points)
         {
             var result = new List<System.Drawing.PointF>();

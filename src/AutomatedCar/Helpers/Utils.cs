@@ -89,7 +89,7 @@ namespace AutomatedCar.Helpers
             return new PolylineGeometry(rotatedPoints, true);
         }
 
-        public static PolylineGeometry ShiftGeometryWithWorldCoordinates(PolylineGeometry geometry, int x, int y)
+        public static PolylineGeometry ShiftGeometryWithWorldCoordinates(PolylineGeometry geometry, double x, double y)
         {
             Points shiftedPoints = new();
 

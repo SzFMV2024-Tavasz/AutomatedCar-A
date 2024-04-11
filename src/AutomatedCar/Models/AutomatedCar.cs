@@ -56,6 +56,9 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
         public bool IsEmergencyBreakOn { get; set; }
+        public Transmissions CarTransmission { get; set; }
+        public Transmissions CarTransmissionL { get; set; }
+        public Transmissions CarTransmissionR { get; set; }
 
         public PolylineGeometry Geometry { get; set; }
 
@@ -222,8 +225,6 @@ namespace AutomatedCar.Models
             if (KeyDownPressed)
             {
                 velocity = World.Instance.ControlledCar.Speed/pixelsPerKm;
-            {
-                velocity = World.Instance.ControlledCar.Speed / 100;
                 KeyDownPressed = false;
             }
             else
