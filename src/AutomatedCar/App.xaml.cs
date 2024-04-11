@@ -80,7 +80,7 @@ namespace AutomatedCar
             controlledCar.Geometries.Add(controlledCar.Geometry);
             controlledCar.RotationPoint = new System.Drawing.Point(54, 120);
             controlledCar.Rotation = rotation;
-
+            controlledCar.SetSensors();
             controlledCar.Start();
 
             return controlledCar;

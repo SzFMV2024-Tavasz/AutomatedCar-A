@@ -11,6 +11,10 @@
     using Helpers;
     using Visualization;
     using Avalonia.Media;
+    using System.Collections.ObjectModel;
+
+    using System.Reflection;
+    using System.Linq;
 
     public class World
     {
@@ -19,6 +23,8 @@
 
         public static World Instance { get; } = new World();
         public List<WorldObject> WorldObjects { get; set; } = new List<WorldObject>();
+
+        public ObservableCollection<WorldObject> WorldObjectss { get; } = new ObservableCollection<WorldObject>();
 
         public List<IRoute> NPCRoutes { get; set; } = new List<IRoute>();
         public AutomatedCar ControlledCar
@@ -148,17 +154,18 @@
             LoadNPCsFromJSON(filename);
         }
 
+
         private void LoadNPCsFromJSON(string filename)
         {
             string exeDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 
-            string fullPath = Path.GetFullPath(Path.Combine(exeDirectory, @"..\..\..\..", "AutomatedCar", "Assets"));
+            string fullPath = Path.GetFullPath(Path.Combine(exeDirectory, @"../../../..", "AutomatedCar", "Assets"));
 
             foreach (var file in Directory.GetFiles(fullPath))
             {
 
-                if (file.Contains("_route"))
+                if (file.Contains(filename.Split('.')[2] + "_route"))
                 {
 
                     string json = File.ReadAllText(file);
@@ -174,8 +181,6 @@
                 }
             }
         }
-
-
 
         private List<System.Drawing.PointF> ToDotNetPoints(IList<Avalonia.Point> points)
         {

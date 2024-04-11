@@ -1,6 +1,7 @@
 namespace AutomatedCar.Models
 {
     using Avalonia.Media;
+    using global::AutomatedCar.SystemComponents.Sensors;
     using System;
     using System.Runtime.CompilerServices;
     using SystemComponents;
@@ -8,6 +9,9 @@ namespace AutomatedCar.Models
     public class AutomatedCar : Car
     {
         private VirtualFunctionBus virtualFunctionBus;
+        private Radar radar;
+        private Camera camera;
+        private Collision collision;
 
         public AutomatedCar(int x, int y, string filename)
             : base(x, y, filename)
@@ -17,6 +21,9 @@ namespace AutomatedCar.Models
             CarTransmissionL = Transmissions.X;
             CarTransmissionR = Transmissions.R;
             new ControlledCarSensor(virtualFunctionBus);
+            this.camera = new Camera(this.virtualFunctionBus);
+            this.collision = new Collision(this.virtualFunctionBus);
+            this.radar = new Radar(this.virtualFunctionBus);
         }
 
         
@@ -33,7 +40,7 @@ namespace AutomatedCar.Models
 
 
         public int Revolution { get; set; }
-       
+
         public double Velocity { get; set; }
         public double Throttle { get; set; }
         public double Brake { get; set; }
@@ -49,7 +56,6 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
         public bool IsEmergencyBreakOn { get; set; }
-
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
         public Transmissions CarTransmissionR { get; set; }
@@ -145,11 +151,13 @@ namespace AutomatedCar.Models
             if (World.Instance.ControlledCar.Brake > 0 && World.Instance.ControlledCar.Brake < 100)
             {
                 World.Instance.ControlledCar.Brake+=5;
+                World.Instance.ControlledCar.Brake += 10;
             }
 
             if (World.Instance.ControlledCar.Brake == 0 || World.Instance.ControlledCar.Brake + 5 == 100)
             {
                 World.Instance.ControlledCar.Brake+=5;
+                World.Instance.ControlledCar.Brake += 10;
             }
         }
         public void MovementTurnRight()
@@ -190,6 +198,7 @@ namespace AutomatedCar.Models
             }
 
             velocity *=1-(brakeIntensity/90);
+            velocity *= 1 - (brakeIntensity / 100);
 
             if (velocity < 0)
             {
@@ -197,6 +206,13 @@ namespace AutomatedCar.Models
             }
             World.Instance.ControlledCar.Speed = velocity;
             World.Instance.ControlledCar.Velocity = velocity;
+        }
+
+        public void SetSensors()
+        {
+            this.camera.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
+            this.radar.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
+            this.collision.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
         }
 
         public void MovementForward()

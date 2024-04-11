@@ -11,10 +11,16 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
     <AvaloniaResource Include="Assets\**" />
-    <Folder Include="SystemComponents\Packets\Sensor\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\**;Resources\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Remove="SystemComponents\Packets\Sensor\**" />
+    <AvaloniaXaml Remove="SystemComponents\Packets\Sensor\**" />
+    <Compile Remove="SystemComponents\Packets\Sensor\**" />
+    <EmbeddedResource Remove="SystemComponents\Packets\Sensor\**" />
+    <None Remove="SystemComponents\Packets\Sensor\**" />
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Remove="Assets\oval.csv" />
