@@ -4,8 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using AutomatedCar.Models;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
+
     public class Engine : SystemComponent
     {
         private VirtualFunctionBus virtualFunctionBus;
@@ -20,32 +23,79 @@
 
         public override void Process()
         {
-
-            if ((automatedCar.CarTransmission == WorldObject.Transmission.D || automatedCar.CarTransmission == WorldObject.Transmission.N) && !automatedCar.KeyUpPressed && automatedCar.Throttle > 0)
+            if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)
             {
-                automatedCar.Throttle-=0.5;
+
+                if (!automatedCar.KeyUpPressed )//|| automatedCar.IsEmergencyBreakOn)
+                {
+
+                    if (automatedCar.Throttle > 0)
+                    {
+                        automatedCar.Throttle -= 0.1;
+                        if (automatedCar.Throttle<0)
+                        {
+                            automatedCar.Throttle = 0;
+                        }
+                    }
+                    if (automatedCar.Rpm > 0)
+                    {
+                        automatedCar.Rpm -= (automatedCar.Throttle +0.1)/5.5;
+                        if (automatedCar.Rpm < 0)
+                        {
+                            automatedCar.Rpm = 0;
+                        }
+                    }
+                }
                 automatedCar.MovementForward();
             }
-            else if (automatedCar.CarTransmission == WorldObject.Transmission.R && !automatedCar.KeyUpPressed && automatedCar.Throttle > 0)
+            else
             {
-                automatedCar.Throttle-=0.5;
-                automatedCar.MovementBackward();
+                if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.R)
+                {
+                    if (!automatedCar.KeyUpPressed )//|| automatedCar.IsEmergencyBreakOn)
+                    {
+
+                        if (automatedCar.Throttle > 0)
+                        {
+                            automatedCar.Throttle -= 0.1;
+                            if (automatedCar.Throttle < 0)
+                            {
+                                automatedCar.Throttle =0;
+                            }
+                        }
+                        if (automatedCar.Rpm > 0)
+                        {
+                            automatedCar.Rpm -= (automatedCar.Throttle + 0.1) / 5.5;
+                            {
+                                automatedCar.Rpm = 0;
+                            }
+                        }
+                    }
+                    automatedCar.MovementBackward();
+                }
             }
             if (automatedCar.Brake > 0 && !automatedCar.KeyDownPressed)
             {
-                automatedCar.Brake--; 
+                automatedCar.Brake--;
             }
-            if (!automatedCar.KeyLeftPressed && automatedCar.Rotation >= -100&&automatedCar.Rotation<0)
+            if (!automatedCar.KeyLeftPressed && automatedCar.SteeringWheelRotation >= -100 && automatedCar.SteeringWheelRotation < 0)
             {
-                automatedCar.Rotation++;
+                automatedCar.SteeringWheelRotation++;
             }
-            if (!automatedCar.KeyRightPressed && automatedCar.Rotation <= 100 && automatedCar.Rotation > 0)
+            if (!automatedCar.KeyRightPressed && automatedCar.SteeringWheelRotation <= 100 && automatedCar.SteeringWheelRotation > 0)
             {
-                automatedCar.Rotation--;
+                automatedCar.SteeringWheelRotation--;
+            }
+
+            if (automatedCar.IsEmergencyBreakOn)
+            {
+                  automatedCar.Brake = 100;
+                automatedCar.Deccelerte();
+                automatedCar.SimulateBraking();
             }
         }
 
-
+        
         
     }
 }

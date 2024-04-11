@@ -1,5 +1,6 @@
 namespace AutomatedCar.Views
 {
+    using AutomatedCar.Models;
     using AutomatedCar.ViewModels;
     using Avalonia.Controls;
     using Avalonia.Input;
@@ -11,9 +12,10 @@ namespace AutomatedCar.Views
         {
             this.InitializeComponent();
         }
-
+        public bool FocusCar=false;
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            
             Keyboard.Keys.Add(e.Key);
             base.OnKeyDown(e);
 
@@ -22,6 +24,10 @@ namespace AutomatedCar.Views
             if (Keyboard.IsKeyDown(Key.Up))
             {
                 viewModel.CourseDisplay.KeyUp();
+                //if (!FocusCar)
+                //{ 
+                //FocusOnCarWhileMoving();
+                //}
             }
 
             if (Keyboard.IsKeyDown(Key.Down))
@@ -48,7 +54,10 @@ namespace AutomatedCar.Views
             {
                 viewModel.CourseDisplay.PageDown();
             }
-
+            if (Keyboard.IsKeyDown(Key.Space))
+            {
+                viewModel.CourseDisplay.Space();
+            }
             if (Keyboard.IsKeyDown(Key.D1))
             {
                 viewModel.CourseDisplay.ToggleDebug();
@@ -100,12 +109,21 @@ namespace AutomatedCar.Views
             {
                 viewModel.CourseDisplay.TransmissionDown();
             }
-            
 
             var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
             viewModel.CourseDisplay.FocusCar(scrollViewer);
         }
-
+        void FocusOnCarWhileMoving()
+        {
+            FocusCar = true;
+            MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
+            var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
+            while (World.Instance.ControlledCar.Velocity>0)
+            {
+                viewModel.CourseDisplay.FocusCar(scrollViewer);
+            }
+            FocusCar = false;
+        }
         protected override void OnKeyUp(KeyEventArgs e)
         {
             MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
@@ -115,6 +133,7 @@ namespace AutomatedCar.Views
             viewModel.CourseDisplay.KeyDownToFalse();
             viewModel.CourseDisplay.KeyLeftToFalse();
             viewModel.CourseDisplay.KeyRightToFalse();
+            viewModel.CourseDisplay.EmegencyBreakToFalse();
         }
 
         private void InitializeComponent()

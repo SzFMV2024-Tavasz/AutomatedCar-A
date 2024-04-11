@@ -12,6 +12,7 @@ namespace AutomatedCar.ViewModels
     using System.Diagnostics;
     using System.Drawing;
     using System.Threading;
+    using System.Threading.Tasks;
     using Visualization;
 
     public class CourseDisplayViewModel : ViewModelBase
@@ -52,17 +53,20 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.KeyUpPressed = true;
             if (World.Instance.ControlledCar.CanGoUp)
             {
-                World.Instance.ControlledCar.Accelerate();
-                World.Instance.ControlledCar.MovementForward();
+                 World.Instance.ControlledCar.Accelerate();
+                //World.Instance.ControlledCar.MovementForward();
             }
             if (World.Instance.ControlledCar.CanGoDown)
             {
                 //Deccelerte();
                 World.Instance.ControlledCar.Accelerate();
-                World.Instance.ControlledCar.MovementBackward();
+                //World.Instance.ControlledCar.MovementBackward();
             }
         }
-
+        public void Space()
+        {
+            World.Instance.ControlledCar.IsEmergencyBreakOn = true;
+        }
         public void KeyDown()
         {
             World.Instance.ControlledCar.KeyDownPressed = true;
@@ -114,15 +118,15 @@ namespace AutomatedCar.ViewModels
             
             switch (World.Instance.ControlledCar.CarTransmission)
             {
-                case AutomatedCar.Transmission.P:
+                case AutomatedCar.Transmissions.P:
                     break;
-                case AutomatedCar.Transmission.R:
+                case AutomatedCar.Transmissions.R:
                     World.Instance.ControlledCar.TransmissionToP();
                     break;
-                case AutomatedCar.Transmission.N:
+                case AutomatedCar.Transmissions.N:
                     World.Instance.ControlledCar.TransmissionToR();
                     break;
-                case AutomatedCar.Transmission.D:
+                case AutomatedCar.Transmissions.D:
                     World.Instance.ControlledCar.TransmissionToN();
                     break;
                 default:
@@ -134,16 +138,16 @@ namespace AutomatedCar.ViewModels
 
             switch (World.Instance.ControlledCar.CarTransmission)
             {
-                case AutomatedCar.Transmission.P:
+                case AutomatedCar.Transmissions.P:
                     World.Instance.ControlledCar.TransmissionToR();
                     break;
-                case AutomatedCar.Transmission.R:
+                case AutomatedCar.Transmissions.R:
                     World.Instance.ControlledCar.TransmissionToN();
                     break;
-                case AutomatedCar.Transmission.N:
+                case AutomatedCar.Transmissions.N:
                     World.Instance.ControlledCar.TransmissionToD();
                     break;
-                case AutomatedCar.Transmission.D:
+                case AutomatedCar.Transmissions.D:
                     break;
                 default:
                     break;
@@ -189,6 +193,9 @@ namespace AutomatedCar.ViewModels
         {
             World.Instance.ControlledCar.KeyRightPressed = false;
         }
-
+            public void EmegencyBreakToFalse()
+        {
+            World.Instance.ControlledCar.IsEmergencyBreakOn = false;
+        }
     }
 }
