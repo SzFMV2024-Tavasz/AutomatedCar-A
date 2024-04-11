@@ -11,6 +11,7 @@
     using Helpers;
     using Visualization;
     using Avalonia.Media;
+    using System.Collections.ObjectModel;
 
     using System.Reflection;
     using System.Linq;
@@ -22,6 +23,8 @@
 
         public static World Instance { get; } = new World();
         public List<WorldObject> WorldObjects { get; set; } = new List<WorldObject>();
+
+        public ObservableCollection<WorldObject> WorldObjectss { get; } = new ObservableCollection<WorldObject>();
 
         public List<IRoute> NPCRoutes { get; set; } = new List<IRoute>();
         public AutomatedCar ControlledCar
@@ -161,16 +164,16 @@
 
             foreach (var file in Directory.GetFiles(fullPath))
             {
-                
+
                 if (file.Contains(filename.Split('.')[2] + "_route"))
                 {
-                   
+
                     string json = File.ReadAllText(file);
-                   
+
                     var route = JsonConvert.DeserializeObject<Route>(json);
-                    
+
                     NPCRoutes.Add(route);
-                    
+
                     var npc = new NPCCar(route.RoutePoints[route.StartPointID].X, route.RoutePoints[route.StartPointID].Y, route.ObjectFileName, route);
 
                     AddObject(npc);
