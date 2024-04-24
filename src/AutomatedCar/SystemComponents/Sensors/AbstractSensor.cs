@@ -114,7 +114,10 @@ namespace AutomatedCar.SystemComponents.Sensors
                 {
                     if (this.sensorObject.Geometries[0].FillContains(point) && !detectedObjects.Contains(currObject))
                     {
-                        detectedObjects.Add(currObject);
+                        if (currObject != World.Instance.ControlledCar)
+                        {
+                            detectedObjects.Add(currObject);
+                        }
                     }
                 }
             }
@@ -132,6 +135,7 @@ namespace AutomatedCar.SystemComponents.Sensors
                     relevantObjects.Add(new RelevantObject(wo, 0, 0));
                 }
             }
+
             this.sensorPacket.RelevantObjects = relevantObjects;
 
             Debug.WriteLine(sensorPacket.RelevantObjects);
