@@ -1,9 +1,6 @@
 ﻿namespace AutomatedCar.SystemComponents
 {
     using AutomatedCar.Models;
-    using AutomatedCar.SystemComponents.Packets.Camera;
-    using DynamicData.Tests;
-    using ReactiveUI;
     using System;
     using System.Collections.Generic;
     using System.Linq;
