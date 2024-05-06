@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    class AdaptiveTempomatComponent : SystemComponent, IOnOffOnlyTempomat
+    class AdaptiveTempomatComponent : SystemComponent, ITempomatPacket
     {
         
         private int wantedspeed;

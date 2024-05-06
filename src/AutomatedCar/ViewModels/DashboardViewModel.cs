@@ -13,6 +13,17 @@ namespace AutomatedCar.ViewModels
         }
         public void OnOffTempomat()
         {
+            if (!World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn) 
+            {
+                if (World.Instance.ControlledCar.Velocity < 30)
+                {
+                    World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed = 30;
+                }
+                else
+                {
+                    World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed = (int)World.Instance.ControlledCar.Velocity;
+                }
+            }
             World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn = !World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn;
         }
     }
