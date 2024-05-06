@@ -20,6 +20,7 @@ namespace AutomatedCar.Models
             this.ZIndex = 10;
             CarTransmissionL = Transmissions.X;
             CarTransmissionR = Transmissions.R;
+            IsEmergencyBreakSafeWorking = true;
             if (this is UserControlledCar)
             {
                 new ControlledCarSensor(virtualFunctionBus);
@@ -60,6 +61,7 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
         public bool IsEmergencyBreakOn { get; set; }
+        public bool IsEmergencyBreakSafeWorking { get; set; }
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
         public Transmissions CarTransmissionR { get; set; }
@@ -190,7 +192,7 @@ namespace AutomatedCar.Models
                 }
             }
         }
-
+        
         public void SimulateBraking()
         {
             double brakeIntensity = World.Instance.ControlledCar.Brake;// / 100.0;
@@ -221,6 +223,7 @@ namespace AutomatedCar.Models
 
         public void MovementForward()
         {
+            
             int pixelsPerKm = 50 * 1000;
 
             double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
@@ -252,7 +255,16 @@ namespace AutomatedCar.Models
             {
                 World.Instance.ControlledCar.Speed = speedKmPerHour;
                 World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
+                if (World.Instance.ControlledCar.Velocity > 60)
+                {
+                    IsEmergencyBreakSafeWorking = false;
+                }
+                else
+                {
+                    IsEmergencyBreakSafeWorking = true;
+                }
             }
+            
         }
         public void MovementBackward()
         {

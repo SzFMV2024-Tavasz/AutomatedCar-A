@@ -9,6 +9,7 @@
         double brakeCar{ get; }
         double throttleCar { get; }
         double SteeringWheelRotation { get; }
+        bool EmergencyBreakOnOff { get; }
         Packets.ControlledCarPacket.Transmissions Transmission { get; }
         Packets.ControlledCarPacket.Transmissions TransmissionL { get; }
     Packets.ControlledCarPacket.Transmissions TransmissionR { get; }

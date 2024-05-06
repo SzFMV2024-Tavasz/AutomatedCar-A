@@ -30,6 +30,7 @@
             CarPacket.TransmissionL = (Packets.ControlledCarPacket.Transmissions)World.Instance.ControlledCar.CarTransmissionL;
             CarPacket.TransmissionR = (Packets.ControlledCarPacket.Transmissions)World.Instance.ControlledCar.CarTransmissionR;
             CarPacket.rpmCar = World.Instance.ControlledCar.Rpm;
+            CarPacket.EmergencyBreakOnOff = World.Instance.ControlledCar.IsEmergencyBreakSafeWorking;
         }
     }
 }
