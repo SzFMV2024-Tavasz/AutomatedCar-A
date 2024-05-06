@@ -33,6 +33,7 @@ namespace AutomatedCar.Views
             if (Keyboard.IsKeyDown(Key.Down))
             {
                 viewModel.CourseDisplay.KeyDown();
+                viewModel.Dashboard.TurnOffTempomat();
             }
 
             if (Keyboard.IsKeyDown(Key.Left))
@@ -57,6 +58,7 @@ namespace AutomatedCar.Views
             if (Keyboard.IsKeyDown(Key.Space))
             {
                 viewModel.CourseDisplay.Space();
+                viewModel.Dashboard.TurnOffTempomat();
             }
             if (Keyboard.IsKeyDown(Key.D1))
             {

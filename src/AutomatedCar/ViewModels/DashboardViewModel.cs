@@ -26,5 +26,10 @@ namespace AutomatedCar.ViewModels
             }
             World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn = !World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn;
         }
+        public void TurnOffTempomat()
+        {
+            World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn = false;
+        }
     }
+    
 }
