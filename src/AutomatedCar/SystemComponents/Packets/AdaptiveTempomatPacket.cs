@@ -1,6 +1,7 @@
 ﻿namespace AutomatedCar.SystemComponents.Packets
 {
     using AutomatedCar.Models;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using ReactiveUI;
     using System;
     using System.Collections.Generic;
@@ -8,7 +9,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-     class AdaptiveTempomatPacket : ReactiveObject
+    class AdaptiveTempomatPacket : ReactiveObject, ITempomatPacket
     {
         private int wantedspeed;
 
@@ -47,7 +48,15 @@
         public int SpeedLimit
         {
             get { return speedLimit; }
-            set { this.RaiseAndSetIfChanged(ref this.speedLimit, value); ; }
+            set { this.RaiseAndSetIfChanged(ref this.speedLimit, value); }
+        }
+
+        private bool isItOn;
+        public bool IsItOn
+        {
+            get { return isItOn; }
+            set { this.RaiseAndSetIfChanged(ref this.isItOn, value); }
         }
     }
+
 }

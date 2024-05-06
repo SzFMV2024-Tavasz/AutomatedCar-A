@@ -1,4 +1,4 @@
-﻿namespace AutomatedCar.SystemComponents
+﻿namespace AutomatedCar.SystemComponents.Packets
 {
     using System;
     using System.Collections.Generic;
