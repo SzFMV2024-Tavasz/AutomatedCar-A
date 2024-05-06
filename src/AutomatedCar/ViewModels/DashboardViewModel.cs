@@ -11,6 +11,9 @@ namespace AutomatedCar.ViewModels
         {
             this.ControlledCar = new CarViewModel(controlledCar);
         }
-        
+        public void OnOffTempomat()
+        {
+            World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn = !World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn;
+        }
     }
 }

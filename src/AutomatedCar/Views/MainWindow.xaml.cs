@@ -112,7 +112,7 @@ namespace AutomatedCar.Views
 
             if (Keyboard.IsKeyDown(Key.M))
             {
-                viewModel.CourseDisplay.OnOffTempomat();
+                viewModel.Dashboard.OnOffTempomat();
             }
 
             var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
