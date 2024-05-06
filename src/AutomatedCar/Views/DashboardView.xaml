@@ -70,6 +70,8 @@
 								<TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.TempomatPacket.IsItOn}"/>
 								<TextBlock Grid.Row="6" Grid.Column="0">Wanted Speed:</TextBlock>
 								<TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.TempomatPacket.WantedSpeed}"/>
+								<TextBlock Grid.Row="7" Grid.Column="0">Wanted Distance:</TextBlock>
+								<TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.TempomatPacket.WantedDistance}"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

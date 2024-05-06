@@ -30,6 +30,22 @@ namespace AutomatedCar.ViewModels
         {
             World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn = false;
         }
+        public void NextWantedDistance()
+        {
+            if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn)
+            {
+                if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedDistance == 0 || World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedDistance == 1.4)
+                {
+                    World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedDistance = 0.8;
+                }
+                else
+                {
+                    World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedDistance += 0.2;
+                }
+            }
+            
+
+        }
     }
     
 }
