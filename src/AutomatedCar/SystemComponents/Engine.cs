@@ -93,6 +93,9 @@
                 automatedCar.Deccelerte();
                 automatedCar.SimulateBraking();
             }
+
+            automatedCar.CheckIfEbNeeded();
+
         }
 
         

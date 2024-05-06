@@ -345,5 +345,12 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.X;
         }
 
+        public  void CheckIfEbNeeded()
+        {
+            //check if object is in front of the car
+            var closestObjectToCar = this.virtualFunctionBus.RadarPacket.ClosestObject;
+            WorldObject obj=closestObjectToCar.GetRelevantObject();
+            
+        }
     }
 }
