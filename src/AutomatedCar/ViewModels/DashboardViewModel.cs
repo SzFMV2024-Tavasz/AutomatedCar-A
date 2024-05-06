@@ -46,6 +46,40 @@ namespace AutomatedCar.ViewModels
             
 
         }
+        public void AddWantedSpeed()
+        {
+            if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn)
+            {
+                if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed <= 160)
+                {
+                    if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed % 10 != 0)
+                    {
+                        World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed += 10 - World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed % 10;
+                    }
+                    else if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed <= 150)
+                    {
+                        World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed += 10;
+                    }
+                }
+            }
+        }
+        public void SubtractWantedSpeed()
+        {
+            if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.IsItOn)
+            {
+                if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed >= 30)
+                {
+                    if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed % 10 != 0)
+                    {
+                        World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed -= World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed % 10;
+                    }
+                    else if (World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed >= 40)
+                    {
+                        World.Instance.ControlledCar.VirtualFunctionBus.TempomatPacket.WantedSpeed -= 10;
+                    }
+                }
+            }
+        }
     }
     
 }

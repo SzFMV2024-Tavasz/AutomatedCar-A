@@ -120,6 +120,14 @@ namespace AutomatedCar.Views
             {
                 viewModel.Dashboard.NextWantedDistance();
             }
+            if (Keyboard.IsKeyDown(Key.Add))
+            {
+                viewModel.Dashboard.AddWantedSpeed();
+            }
+            if (Keyboard.IsKeyDown(Key.Subtract))
+            {
+                viewModel.Dashboard.SubtractWantedSpeed();
+            }
 
             var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
             viewModel.CourseDisplay.FocusCar(scrollViewer);
