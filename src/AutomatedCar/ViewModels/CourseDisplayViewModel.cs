@@ -81,6 +81,8 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.MovementTurnLeft();
         }
 
+
+
         public void KeyRight()
         {
             World.Instance.ControlledCar.KeyRightPressed= true;
@@ -197,5 +199,9 @@ namespace AutomatedCar.ViewModels
         {
             World.Instance.ControlledCar.IsEmergencyBreakOn = false;
         }
+
+        
     }
+
+    
 }

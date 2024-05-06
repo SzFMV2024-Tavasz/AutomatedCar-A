@@ -17,6 +17,8 @@ namespace AutomatedCar.SystemComponents
 
         public IReadOnlyControlledCarPacket ControlledCarPacket { get; set; }
 
+        public ITempomatPacket TempomatPacket {get; set;}
+
         public void RegisterComponent(SystemComponent component)
         {
             this.components.Add(component);
