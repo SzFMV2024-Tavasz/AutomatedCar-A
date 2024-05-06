@@ -9,45 +9,9 @@
 
     class AdaptiveTempomatComponent : SystemComponent
     {
-        private int wantedspeed;
 
-        public int WantedSpeed
-        {
-            get { return wantedspeed; }
-            set { wantedspeed = value; }
-        }
 
-        private double wantedDistance;
-
-        public double WantedDistance
-        {
-            get { return wantedDistance; }
-            set { wantedDistance = value; }
-        }
-
-        private double currentDistance;
-
-        public double CurrentDistance
-        {
-            get { return currentDistance; }
-            set { currentDistance = value; }
-        }
-
-        private NPCCar carInFront;
-
-        public NPCCar CarInFront
-        {
-            get { return carInFront; }
-            set { carInFront = value; }
-        }
-        
-        private int speedLimit;
-
-        public int SpeedLimit
-        {
-            get { return speedLimit; }
-            set { speedLimit = value; }
-        }
+       
 
         public AdaptiveTempomatComponent(VirtualFunctionBus virtualFunctionBus) : base(virtualFunctionBus)
         {
