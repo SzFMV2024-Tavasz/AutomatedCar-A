@@ -12,7 +12,7 @@ namespace AutomatedCar.SystemComponents.Sensors
         {
             this.sensorPacket = new RadarPacket();
             this.virtualFunctionBus.RadarPacket = (IReadOnlySensorPacket)this.sensorPacket;
-            virtualFunctionBus.RegisterComponent(this);
+            //virtualFunctionBus.RegisterComponent(this);
             Console.WriteLine("Radar is on!");
         }
 
