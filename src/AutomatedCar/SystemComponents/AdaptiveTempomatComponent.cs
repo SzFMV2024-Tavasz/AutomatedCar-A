@@ -33,26 +33,27 @@
             
         }
 
-        private void SignCheck()
+
+        private void WorldObjectListCheck()
+        {
+            foreach (var wo in (virtualFunctionBus.CameraPacket as AbstractSensorPacket).RelevantObjects)
+            {
+                SignCheck(wo.GetRelevantObject());
+            }
+        }
+        private void SignCheck(WorldObject wo)
         {
 
-            foreach (var wo in virtualFunctionBus.CameraPacket.Roads)
+            if (wo.WorldObjectType == WorldObjectType.RoadSign)
             {
-                if (wo.WorldObjectType == WorldObjectType.RoadSign)
+                string signType = (wo.Filename.Split("_")[1]);
+                if (signType.Equals("speed"))
                 {
-                    string signType = (wo.Filename.Split("_")[1]);
-                    if (signType.Equals("speed"))
-                    {
-                        int limit = int.Parse((wo.Filename.Split("_")[2]).Split(".")[0]);
-                        ATPacket.SpeedLimit = limit;
-                    }
-                    //else if (signType.Equals("priority"))
-                    //{
-                    //}
-                    
+                    int limit = int.Parse((wo.Filename.Split("_")[2]).Split(".")[0]);
+                    ATPacket.SpeedLimit = limit;
                 }
             }
-            
+
         }
 
     }
