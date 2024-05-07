@@ -371,13 +371,18 @@ namespace AutomatedCar.Models
 
                     for (int i = -10; i < 10; i++)
                     {
-                        for (int j = -10; j < 10; j++)
+                        if (IsPointOnVector(x1, y1, angle, x2 + i, y2))
                         {
-                            if (IsPointOnVector(x1, y1, angle, x2 + i, y2 + j))
-                            {
-                                //objektum az autó elõtt van
-                                return true;
-                            }
+                            //objektum az autó elõtt van
+                            return true;
+                        }
+                    }
+                    for (int j = -10; j < 10; j++)
+                    {
+                        if (IsPointOnVector(x1, y1, angle, x2, y2 + j))
+                        {
+                            //objektum az autó elõtt van
+                            return true;
                         }
                     }
                 }
