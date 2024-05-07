@@ -32,5 +32,17 @@
             
         }
 
+
+        public void CarInFront()
+        {
+            if (ATPacket.IsItOn)
+            {
+                if (ATPacket.CarInFront != null)
+                {
+
+                }
+            }
+        }
+
     }
 }
