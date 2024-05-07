@@ -345,12 +345,63 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.X;
         }
 
-        public  void CheckIfEbNeeded()
+        public bool CheckIfEbNeeded()
         {
             //check if object is in front of the car
             var closestObjectToCar = this.virtualFunctionBus.RadarPacket.ClosestObject;
             WorldObject obj=closestObjectToCar.GetRelevantObject();
-            
+            if (obj != null)
+            {
+
+                //ControlledCar 
+                double x1 = this.X;
+                double y1 = this.Y;
+
+
+                double x2 = obj.X;
+                double y2 = obj.Y;
+
+                // Ellenõrizzük, hogy a (x2, y2) pont rajta van-e a vektoron
+                double angle = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
+
+                for (int i = -10; i < 10; i++)
+                {
+                    for (int j = -10; j < 10; j++)
+                    {
+                        if (IsPointOnVector(x1, y1, angle, x2 + i, y2 + j))
+                        {
+                            //objektum az autó elõtt van
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool IsPointOnVector(double x1, double y1, double angle, double x2, double y2)
+        {
+            // A vektor irányvektorának kiszámítása
+            double directionX = Math.Cos(angle);
+            double directionY = Math.Sin(angle);
+
+            // A pont és az eredeti pont közötti vektor kiszámítása
+            double vectorX = x2 - x1;
+            double vectorY = y2 - y1;
+
+            // Skaláris szorzat kiszámítása
+            double dotProduct = vectorX * directionX + vectorY * directionY;
+
+            // Ha a skaláris szorzat 0, akkor a pontok merõlegesek, tehát nem esnek egy vonalra
+            if (dotProduct == 0)
+                return false;
+
+            // Az irányvektor és a pont közötti szög kiszámítása
+            double vectorMagnitude = Math.Sqrt(vectorX * vectorX + vectorY * vectorY);
+            double cosTheta = dotProduct / (vectorMagnitude * Math.Sqrt(directionX * directionX + directionY * directionY));
+
+            // Ha a cosTheta közel 1 vagy -1, akkor a pont rajta van a vektoron
+            return Math.Abs(cosTheta - 1) < 0.000001 || Math.Abs(cosTheta + 1) < 0.000001;
         }
     }
 }
