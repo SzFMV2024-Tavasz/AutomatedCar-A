@@ -52,7 +52,8 @@ namespace AutomatedCar.Models
         public double SteeringWheelRotation { get; set; }
         public double Rpm { get; set; }
         public int Gear{ get; set; }
-        
+
+        const int emBreakMax = 75;
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }
@@ -124,6 +125,17 @@ namespace AutomatedCar.Models
             if (World.Instance.ControlledCar.Brake - 1 == 0 || World.Instance.ControlledCar.Brake == 100)
             {
                 World.Instance.ControlledCar.Brake--;
+            }
+        }
+        public void EmergencyBreak()
+        {
+            if (Throttle <= emBreakMax)
+            {
+                Brake = Throttle;
+            }
+            else
+            {
+                Brake = emBreakMax;
             }
         }
         public void Deccelerte()

@@ -89,12 +89,12 @@
 
             if (automatedCar.IsEmergencyBreakOn)
             {
-                  automatedCar.Brake = 100;
+                automatedCar.EmergencyBreak();
                 automatedCar.Deccelerte();
                 automatedCar.SimulateBraking();
             }
 
-            automatedCar.CheckIfEbNeeded();
+            //automatedCar.CheckIfEbNeeded();
 
         }
 
