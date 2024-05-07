@@ -15,7 +15,7 @@ namespace AutomatedCar.SystemComponents.Sensors
         {
             this.sensorPacket = new CollisionPacket();
             this.virtualFunctionBus.CollisionPacket = (IReadOnlyCollisionPacket)this.sensorPacket;
-            virtualFunctionBus.RegisterComponent(this);
+            //virtualFunctionBus.RegisterComponent(this);
             Console.WriteLine("Collision is on!");
         }
 
