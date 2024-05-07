@@ -53,7 +53,7 @@ namespace AutomatedCar.Models
         public double Rpm { get; set; }
         public int Gear{ get; set; }
 
-        const int emBreakMax = 75;
+        const double emBreakMax = 32.4;
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }
@@ -129,13 +129,13 @@ namespace AutomatedCar.Models
         }
         public void EmergencyBreak()
         {
-            if (Throttle <= emBreakMax)
+            if (Velocity <= emBreakMax)
             {
-                Brake = Throttle;
+                Brake = Math.Round(Velocity,2);
             }
             else
             {
-                Brake = emBreakMax;
+                Brake = Math.Round(emBreakMax,2);
             }
         }
         public void Deccelerte()
@@ -207,23 +207,23 @@ namespace AutomatedCar.Models
         
         public void SimulateBraking()
         {
-            double brakeIntensity = World.Instance.ControlledCar.Brake;// / 100.0;
-            double velocity = World.Instance.ControlledCar.Speed;
+            double brakeIntensity =Math.Round( World.Instance.ControlledCar.Brake,2);// / 100.0;
+            double velocity =Math.Round( World.Instance.ControlledCar.Speed,2);
 
             if (velocity == 0)
             {
                 return;
             }
 
-            velocity *=1-(brakeIntensity/90);
-            velocity *= 1 - (brakeIntensity / 100);
+            velocity *=Math.Round(1-(brakeIntensity/90),2);
+            velocity *=Math.Round( 1 - (brakeIntensity / 100),2);
 
             if (velocity < 0)
             {
                 velocity = 0;
             }
-            World.Instance.ControlledCar.Speed = velocity;
-            World.Instance.ControlledCar.Velocity = velocity;
+            World.Instance.ControlledCar.Speed =Math.Round( velocity,2);
+            World.Instance.ControlledCar.Velocity =Math.Round( velocity,2);
         }
 
         public void SetSensors()
@@ -243,16 +243,16 @@ namespace AutomatedCar.Models
 
             if (KeyDownPressed)
             {
-                velocity = World.Instance.ControlledCar.Speed/pixelsPerKm;
+                velocity =Math.Round( World.Instance.ControlledCar.Speed/pixelsPerKm,2);
                 KeyDownPressed = false;
             }
             else
             {
-                velocity = World.Instance.ControlledCar.Throttle / 100.0;
+                velocity =Math.Round( World.Instance.ControlledCar.Throttle / 100.0,2);
             }
-            double speedMeterPerSecond = velocity * pixelsPerKm / 3600.0; 
+            double speedMeterPerSecond = Math.Round(velocity * pixelsPerKm / 3600.0,2); 
 
-            double speedKmPerHour = velocity * 3600.0; 
+            double speedKmPerHour = Math.Round(velocity * 3600.0,2); 
 
             double deltaY = (speedMeterPerSecond * velocity * Math.Cos(angleRadians));
             double deltaX = (speedMeterPerSecond * velocity * Math.Sin(angleRadians));
@@ -265,8 +265,8 @@ namespace AutomatedCar.Models
             }
             else
             {
-                World.Instance.ControlledCar.Speed = speedKmPerHour;
-                World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
+                World.Instance.ControlledCar.Speed =Math.Round( speedKmPerHour,2);
+                World.Instance.ControlledCar.Velocity =Math.Round( speedKmPerHour / 36,2);
                 if (World.Instance.ControlledCar.Velocity > 60)
                 {
                     IsEmergencyBreakSafeWorking = false;
@@ -287,16 +287,16 @@ namespace AutomatedCar.Models
 
             if (KeyDownPressed)
             {
-                velocity = World.Instance.ControlledCar.Speed / pixelsPerKm;
+                velocity = Math.Round( World.Instance.ControlledCar.Speed / pixelsPerKm,2);
                 KeyDownPressed = false;
             }
             else
             {
-                velocity = World.Instance.ControlledCar.Throttle / 100.0;
+                velocity = Math.Round(World.Instance.ControlledCar.Throttle / 100.0,2);
             }
-            double speedMeterPerSecond = velocity * pixelsPerKm / 3600.0;
+            double speedMeterPerSecond = Math.Round(velocity * pixelsPerKm / 3600.0,2);
 
-            double speedKmPerHour = velocity * 3600.0;
+            double speedKmPerHour =Math.Round( velocity * 3600.0,2);
 
             int deltaY = (int)(speedMeterPerSecond * velocity * Math.Cos(angleRadians));
             int deltaX = (int)(speedMeterPerSecond * velocity * Math.Sin(angleRadians));
@@ -309,8 +309,8 @@ namespace AutomatedCar.Models
             }
             else
             {
-                World.Instance.ControlledCar.Speed = speedKmPerHour;
-                World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
+                World.Instance.ControlledCar.Speed =Math.Round( speedKmPerHour,2);
+                World.Instance.ControlledCar.Velocity =Math.Round (speedKmPerHour / 36,2);
             }
         }
 
