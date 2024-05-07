@@ -95,8 +95,8 @@
             }
 
             if (automatedCar.CheckIfEbNeeded())
-            { 
-            
+            {
+                ;
             }
             
 

@@ -344,38 +344,45 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmissions.N;
             World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.X;
         }
-
         public bool CheckIfEbNeeded()
         {
             //check if object is in front of the car
-            var closestObjectToCar = this.virtualFunctionBus.RadarPacket.ClosestObject;
-            WorldObject obj=closestObjectToCar.GetRelevantObject();
-            if (obj != null)
+            //var closestObjectToCar = this.virtualFunctionBus.RadarPacket.ClosestObject;
+            //WorldObject obj=closestObjectToCar.GetRelevantObject();
+
+            var relevantObjectToCar = this.virtualFunctionBus.RadarPacket.RelevantObjects;
+            //WorldObject obj = relevantObjectToCar.;
+            foreach (var item in relevantObjectToCar)
             {
+                WorldObject obj = item.GetRelevantObject();
 
-                //ControlledCar 
-                double x1 = this.X;
-                double y1 = this.Y;
-
-
-                double x2 = obj.X;
-                double y2 = obj.Y;
-
-                // Ellenõrizzük, hogy a (x2, y2) pont rajta van-e a vektoron
-                double angle = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
-
-                for (int i = -10; i < 10; i++)
+                if (obj != null && obj.Collideable)
                 {
-                    for (int j = -10; j < 10; j++)
+                    //ControlledCar position
+                    double x1 = this.X;
+                    double y1 = this.Y;
+
+                    //Relevant object position
+                    double x2 = obj.X;
+                    double y2 = obj.Y;
+
+                    // Ellenõrizzük, hogy a (x2, y2) pont rajta van-e a vektoron
+                    double angle = (90 + World.Instance.ControlledCar.Rotation) * Math.PI / 180.0;
+
+                    for (int i = -10; i < 10; i++)
                     {
-                        if (IsPointOnVector(x1, y1, angle, x2 + i, y2 + j))
+                        for (int j = -10; j < 10; j++)
                         {
-                            //objektum az autó elõtt van
-                            return true;
+                            if (IsPointOnVector(x1, y1, angle, x2 + i, y2 + j))
+                            {
+                                //objektum az autó elõtt van
+                                return true;
+                            }
                         }
                     }
                 }
             }
+
             return false;
         }
 
@@ -403,5 +410,6 @@ namespace AutomatedCar.Models
             // Ha a cosTheta közel 1 vagy -1, akkor a pont rajta van a vektoron
             return Math.Abs(cosTheta - 1) < 0.000001 || Math.Abs(cosTheta + 1) < 0.000001;
         }
+
     }
 }
