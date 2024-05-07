@@ -12,6 +12,7 @@ namespace AutomatedCar.Models
         private Radar radar;
         private Camera camera;
         private Collision collision;
+        private LaneKeeper laneKeeper;
 
         public AutomatedCar(int x, int y, string filename)
             : base(x, y, filename)
@@ -24,6 +25,7 @@ namespace AutomatedCar.Models
             this.camera = new Camera(this.virtualFunctionBus);
             this.collision = new Collision(this.virtualFunctionBus);
             this.radar = new Radar(this.virtualFunctionBus);
+            this.laneKeeper = new LaneKeeper(this.virtualFunctionBus, this);
         }
 
         
