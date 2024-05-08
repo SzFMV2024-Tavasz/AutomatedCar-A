@@ -50,7 +50,7 @@
                 if (signType.Equals("speed"))
                 {
                     int limit = int.Parse((wo.Filename.Split("_")[2]).Split(".")[0]);
-                    ATPacket.SpeedLimit = limit;
+                    ATPacket.WantedSpeed = limit;
                 }
             }
 
