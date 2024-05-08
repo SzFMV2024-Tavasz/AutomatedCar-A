@@ -371,7 +371,7 @@ namespace AutomatedCar.Models
                     // Ellenõrizzük, hogy a (x2, y2) pont rajta van-e a vektoron
                     double angle = (90 + World.Instance.ControlledCar.Rotation) * Math.PI / 180.0;
 
-                    for (int i = -30; i < 30; i++)
+                    for (int i = -40; i < 40; i++)
                     {
                         if (IsPointOnVector(x1, y1, angle, x2 + i, y2))
                         {
@@ -379,7 +379,7 @@ namespace AutomatedCar.Models
                             return obj;
                         }
                     }
-                    for (int j = -30; j < 30; j++)
+                    for (int j = -40; j < 40; j++)
                     {
                         if (IsPointOnVector(x1, y1, angle, x2, y2 + j))
                         {
