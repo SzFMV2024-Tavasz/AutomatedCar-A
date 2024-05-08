@@ -4,6 +4,7 @@
     using AutomatedCar.SystemComponents.Packets;
     using AutomatedCar.SystemComponents.Packets.Helpers.RelevantObjectHelper;
     using AutomatedCar.SystemComponents.Packets.Radar;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -35,11 +36,43 @@
             if (ATPacket.IsItOn)
             {
                  ATPacket.CarInFront =  CarInFront();
+                WorldObjectListCheck();
                 if (ATPacket.CarInFront != null)
                 {
                     ATPacket.CurrentDistance = DistanceBetweenCars();
+                    if (ATPacket.WantedSpeed < Math.Round(World.Instance.ControlledCar.Velocity))
+                    {
+                        World.Instance.ControlledCar.Deccelerte();
+                        return;
+                    }
+                    if (Math.Round(ATPacket.CurrentDistance,1)  < ATPacket.WantedDistance)
+                    {
+                        World.Instance.ControlledCar.Deccelerte();
+                        return;
+                    }
+                    if (Math.Round(ATPacket.CurrentDistance, 1) > ATPacket.WantedDistance && ATPacket.WantedSpeed > Math.Round(World.Instance.ControlledCar.Velocity))
+                    {
+                        World.Instance.ControlledCar.Accelerate();
+                        return;
+                    }
+
+                }
+                else
+                {
+                    if (Math.Round(World.Instance.ControlledCar.Velocity) < ATPacket.WantedSpeed)
+                    {
+                        World.Instance.ControlledCar.Accelerate();
+                    }
+                    else if (Math.Round(World.Instance.ControlledCar.Velocity) > ATPacket.WantedSpeed)
+                    {
+                        World.Instance.ControlledCar.Deccelerte();
+                    }
+
                 }
                 
+
+
+
             }
         }
 
@@ -59,7 +92,6 @@
                             temp = (NPCCar)rObj;
                         }
                         
-
                     }
                     
                 }
