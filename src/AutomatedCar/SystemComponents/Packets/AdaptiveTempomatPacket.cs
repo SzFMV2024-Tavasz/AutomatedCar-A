@@ -57,6 +57,8 @@
             get { return isItOn; }
             set { this.RaiseAndSetIfChanged(ref this.isItOn, value); }
         }
+
+        
     }
 
 }
