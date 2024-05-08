@@ -42,24 +42,29 @@
             }
         }
 
+            NPCCar temp;
         public NPCCar CarInFront()
         {
             var relevantObjects = RPacket.RelevantObjects;
-            if (relevantObjects != null) 
+            if (relevantObjects != null)
             {
                 foreach (var rObj in relevantObjects)
                 {
                     if (rObj.GetType() is NPCCar)
                     {
-                        if (Math.Abs((((rObj as NPCCar).Rotation)- World.Instance.ControlledCar.Rotation)) <= 20)
+                        if (Math.Abs((((rObj as NPCCar).Rotation) - World.Instance.ControlledCar.Rotation)) <= 20)
                         {
-                            return (rObj as NPCCar);
+                            temp = (NPCCar)rObj;
                         }
-                        
+                        else { temp = null; }
+
                     }
                     
                 }
             }
+
+            return temp;
+
 
         }
 
