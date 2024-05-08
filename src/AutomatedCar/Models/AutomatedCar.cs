@@ -445,6 +445,8 @@ namespace AutomatedCar.Models
 
             }
             World.Instance.ControlledCar.IsEmergencyBreakOn = false;
+            World.Instance.ControlledCar.Throttle = 0;
+            World.Instance.ControlledCar.Velocity = 0;
         }
 
 
