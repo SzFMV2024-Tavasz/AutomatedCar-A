@@ -119,7 +119,7 @@
                 else
                 {
                     this.LaneKeeperPacket.IsLaneKeepingPossible = false;
-                    this.LaneKeeperPacket.IsLaneKeeperOn = false;
+                    
                 }
             }
         }
@@ -140,13 +140,7 @@
 
         private Point FindClosestLanePoint(WorldObject road, Point carCenter)
         {
-            var laneGeometry1 = road.Geometries[1];
-            var laneGeometry2 = road.Geometries[2];
-            PolylineGeometry laneGeometry = new PolylineGeometry();
-            for (int i = 0; i < laneGeometry1.Points.Count; i++)
-            {
-                laneGeometry.Points.Add(new Point((laneGeometry1.Points[i].X + laneGeometry2.Points[i].X) / 2, (laneGeometry1.Points[i].Y + laneGeometry2.Points[i].Y) / 2));
-            }
+            var laneGeometry = road.Geometries[1];
             if (laneGeometry != null)
             {
                 
@@ -158,9 +152,6 @@
                     //Point rotated = RotatePoint(newpoint, roadPoint, road.Rotation);
                     absolute.Points.Add(newpoint);
                 }
-
-                
-
                 return absolute.Points.OrderBy(p => Utils.DistanceBetween(p, carCenter)).FirstOrDefault();
             }
 
@@ -190,6 +181,7 @@
         public override void Process()
         {
             CheckLane(World.Instance.ControlledCar);
+            this.LaneKeeperPacket.IsLaneKeeperOn = World.Instance.ControlledCar.IsLaneKeeperOn;
         }
     }
 }

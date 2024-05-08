@@ -62,29 +62,34 @@ namespace AutomatedCar.ViewModels
                 World.Instance.ControlledCar.Accelerate();
                 //World.Instance.ControlledCar.MovementBackward();
             }
+            World.Instance.ControlledCar.IsLaneKeeperOn = false;
         }
         public void Space()
         {
             World.Instance.ControlledCar.IsEmergencyBreakOn = true;
+            World.Instance.ControlledCar.IsLaneKeeperOn = false;
         }
         public void KeyDown()
         {
             World.Instance.ControlledCar.KeyDownPressed = true;
             World.Instance.ControlledCar.Deccelerte();
             World.Instance.ControlledCar.SimulateBraking();
-            
+            World.Instance.ControlledCar.IsLaneKeeperOn = false;
+
         }
 
         public void KeyLeft()
         {
             World.Instance.ControlledCar.KeyLeftPressed = true;
             World.Instance.ControlledCar.MovementTurnLeft();
+            World.Instance.ControlledCar.IsLaneKeeperOn = false;
         }
 
         public void KeyRight()
         {
             World.Instance.ControlledCar.KeyRightPressed= true;
             World.Instance.ControlledCar.MovementTurnRight();
+            World.Instance.ControlledCar.IsLaneKeeperOn = false;
         }
 
         public void PageUp()
