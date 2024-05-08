@@ -140,7 +140,13 @@
 
         private Point FindClosestLanePoint(WorldObject road, Point carCenter)
         {
-            var laneGeometry = road.Geometries[1];
+            var laneGeometry1 = road.Geometries[1];
+            var laneGeometry2 = road.Geometries[2];
+            PolylineGeometry laneGeometry = new PolylineGeometry();
+            for (int i = 0; i < laneGeometry1.Points.Count; i++)
+            {
+                laneGeometry.Points.Add(new Point((laneGeometry1.Points[i].X + laneGeometry2.Points[i].X) / 2, (laneGeometry1.Points[i].Y + laneGeometry2.Points[i].Y) / 2));
+            }
             if (laneGeometry != null)
             {
                 
