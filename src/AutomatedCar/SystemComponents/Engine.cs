@@ -28,6 +28,8 @@
             if (automatedCar.IsEmergencyBreakOn)
             {
                 automatedCar.EmergencyBreak();
+                automatedCar.Deccelerte();
+                automatedCar.SimulateBraking();
             }
 
             if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)
