@@ -17,7 +17,7 @@
             //this.controlledCar = controlledCar;
             this.CarPacket = new ControlledCarPacket();
             base.virtualFunctionBus.ControlledCarPacket = CarPacket;
-            this.virtualFunctionBus.RegisterComponent(this);
+            //this.virtualFunctionBus.RegisterComponent(this);
         }
 
         public override void Process()

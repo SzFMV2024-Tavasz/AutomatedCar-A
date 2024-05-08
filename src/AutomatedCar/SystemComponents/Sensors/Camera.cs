@@ -13,7 +13,7 @@ namespace AutomatedCar.SystemComponents.Sensors
         {
             this.sensorPacket = new CameraPacket();
             virtualFunctionBus.CameraPacket = (IReadOnlyCameraPacket)this.sensorPacket;
-            virtualFunctionBus.RegisterComponent(this);
+            //virtualFunctionBus.RegisterComponent(this);
             Console.WriteLine("Camera is on!");
         }
 
