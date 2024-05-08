@@ -11,7 +11,7 @@ namespace AutomatedCar.SystemComponents.Sensors
     public class Collision : AbstractSensor
     {
         public Collision(VirtualFunctionBus virtualFunctionBus)
-            : base(virtualFunctionBus, 0, 0)
+            : base(virtualFunctionBus, 360, 2)
         {
             this.sensorPacket = new CollisionPacket();
             this.virtualFunctionBus.CollisionPacket = (IReadOnlyCollisionPacket)this.sensorPacket;
@@ -110,7 +110,7 @@ namespace AutomatedCar.SystemComponents.Sensors
 
         protected override bool IsRelevant(WorldObject worldObject)
         {
-            return true;
+            return worldObject.Collideable;
         }
     }
 }
