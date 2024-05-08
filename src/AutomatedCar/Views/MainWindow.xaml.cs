@@ -5,12 +5,18 @@ namespace AutomatedCar.Views
     using Avalonia.Controls;
     using Avalonia.Input;
     using Avalonia.Markup.Xaml;
+    using System;
+    using System.Threading;
+    using Avalonia.Threading;
 
     public class MainWindow : Window
     {
+        ScrollViewer CarScrollViewer { get; set; }
+        private readonly Timer CarFocusTimer;
         public MainWindow()
         {
             this.InitializeComponent();
+            CarFocusTimer = new Timer(FocusingOnCar, null, TimeSpan.Zero, TimeSpan.FromSeconds(0.03));
         }
         public bool FocusCar=false;
         protected override void OnKeyDown(KeyEventArgs e)
@@ -112,6 +118,7 @@ namespace AutomatedCar.Views
                 viewModel.CourseDisplay.TransmissionDown();
             }
 
+
             if (Keyboard.IsKeyDown(Key.M))
             {
                 viewModel.Dashboard.OnOffTempomat();
@@ -129,19 +136,14 @@ namespace AutomatedCar.Views
                 viewModel.Dashboard.SubtractWantedSpeed();
             }
 
-            var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
-            viewModel.CourseDisplay.FocusCar(scrollViewer);
-        }
-        void FocusOnCarWhileMoving()
-        {
-            FocusCar = true;
-            MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
-            var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
-            while (World.Instance.ControlledCar.Velocity>0)
+            if (Keyboard.IsKeyDown(Key.F))
             {
-                viewModel.CourseDisplay.FocusCar(scrollViewer);
+                FocusCar = !FocusCar;
             }
-            FocusCar = false;
+
+            //var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
+
+            //viewModel.CourseDisplay.FocusCar(scrollViewer);
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
@@ -158,6 +160,15 @@ namespace AutomatedCar.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            CarScrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
+        }
+        
+        private void FocusingOnCar(object state)
+        {
+            if (FocusCar)
+            {
+                Dispatcher.UIThread.Invoke(() =>(DataContext as MainWindowViewModel).CourseDisplay.FocusCar(CarScrollViewer));
+            }
         }
     }
 }

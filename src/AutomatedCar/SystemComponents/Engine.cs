@@ -17,7 +17,7 @@
         public Engine(VirtualFunctionBus virtualFunctionBus,AutomatedCar automatedCar) : base(virtualFunctionBus)
         {
             this.virtualFunctionBus = virtualFunctionBus;
-            virtualFunctionBus.RegisterComponent(this);
+            //virtualFunctionBus.RegisterComponent(this);
             this.automatedCar = automatedCar;
         }
 

@@ -20,12 +20,16 @@ namespace AutomatedCar.Models
             this.ZIndex = 10;
             CarTransmissionL = Transmissions.X;
             CarTransmissionR = Transmissions.R;
-            new ControlledCarSensor(virtualFunctionBus);
-            this.camera = new Camera(this.virtualFunctionBus);
-            this.collision = new Collision(this.virtualFunctionBus);
-            this.radar = new Radar(this.virtualFunctionBus);
+            if (this is UserControlledCar)
+            {
+                new ControlledCarSensor(virtualFunctionBus);
+                this.camera = new Camera(this.virtualFunctionBus);
+                this.collision = new Collision(this.virtualFunctionBus);
+                this.radar = new Radar(this.virtualFunctionBus);
+                new AdaptiveTempomatComponent(virtualFunctionBus);
+            }
+            
 
-            new AdaptiveTempomatComponent(virtualFunctionBus);
         }
 
         
