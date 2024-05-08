@@ -117,7 +117,16 @@
                 if (signType.Equals("speed"))
                 {
                     int limit = int.Parse((wo.Filename.Split("_")[2]).Split(".")[0]);
-                    ATPacket.WantedSpeed = limit;
+                    if (ATPacket.SpeedLimit != limit)
+                    {
+                        ATPacket.SpeedLimit = limit;
+                        if (ATPacket.WantedSpeed > limit)
+                        {
+                            ATPacket.WantedSpeed = limit;
+                        }
+                        
+                    }
+                    //ATPacket.WantedSpeed = limit;
                 }
             }
 
