@@ -197,7 +197,7 @@ namespace AutomatedCar.Models
         
         public void SimulateBraking()
         {
-            double brakeIntensity = World.Instance.ControlledCar.Brake;// / 100.0;
+            double brakeIntensity = World.Instance.ControlledCar.Brake;
             double velocity = World.Instance.ControlledCar.Speed;
 
             if (velocity == 0)
@@ -205,7 +205,6 @@ namespace AutomatedCar.Models
                 return;
             }
 
-            velocity *=1-(brakeIntensity/90);
             velocity *= 1 - (brakeIntensity / 100);
 
             if (velocity < 0)
@@ -434,6 +433,18 @@ namespace AutomatedCar.Models
                 ActionRequiredFromDriver = false;
                 return true;
             }
+        }
+        public void EmergencyBreak()
+        {
+            while (World.Instance.ControlledCar.Throttle>1) //World.Instance.ControlledCar.Velocity > 1&&
+            {
+                World.Instance.ControlledCar.Brake = 100;
+                World.Instance.ControlledCar.Throttle -= 3;
+                World.Instance.ControlledCar.Deccelerte();
+                World.Instance.ControlledCar.SimulateBraking();
+
+            }
+            World.Instance.ControlledCar.IsEmergencyBreakOn = false;
         }
 
 

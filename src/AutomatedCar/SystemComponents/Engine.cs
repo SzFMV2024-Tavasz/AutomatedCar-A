@@ -25,6 +25,11 @@
 
         public override void Process()
         {
+            if (automatedCar.IsEmergencyBreakOn)
+            {
+                automatedCar.EmergencyBreak();
+            }
+
             if ((Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.D || (Packets.ControlledCarPacket.Transmissions)automatedCar.CarTransmission == Packets.ControlledCarPacket.Transmissions.N)
             {
 
@@ -89,12 +94,7 @@
                 automatedCar.SteeringWheelRotation--;
             }
 
-            if (automatedCar.IsEmergencyBreakOn)
-            {
-                  automatedCar.Brake = 100;
-                automatedCar.Deccelerte();
-                automatedCar.SimulateBraking();
-            }
+
 
             WorldObject rObject = automatedCar.DetectObjInFrontOfTheCar();
             if (rObject!=null)
@@ -109,7 +109,7 @@
                 automatedCar.ObjectInFrontOfDistance = 0;
                 automatedCar.ActionRequiredFromDriver = false;
             }
-            
+
 
         }
         private  double DistanceBetween(WorldObject from, WorldObject to)
