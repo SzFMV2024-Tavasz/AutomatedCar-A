@@ -447,6 +447,7 @@ namespace AutomatedCar.Models
                 {
                     Brake = eBrakeMax;
                 }
+                Throttle -= 5;
                 
                
 
