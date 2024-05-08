@@ -53,7 +53,7 @@ namespace AutomatedCar.Models
         public double Rpm { get; set; }
         public int Gear{ get; set; }
 
-        const double emBreakMax = 50;
+        const double emBreakMax = 75;
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }
@@ -131,7 +131,7 @@ namespace AutomatedCar.Models
         {
             if (Velocity <= emBreakMax)
             {
-                Brake = Math.Round(Velocity+10,2);
+                Brake = Math.Round(Velocity+5,2);
             }
             else
             {
