@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal class LaneKeeperPacket : ReactiveObject, ILaneKeeperPacket
+    public class LaneKeeperPacket : ReactiveObject, ILaneKeeperPacket
     {
         private bool isLaneKeeperOn;
         private bool isLaneKeepingPossible;

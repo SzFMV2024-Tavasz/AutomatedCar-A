@@ -55,19 +55,31 @@
 									</TransformGroup>
 								</Image.RenderTransform>
 							</Image>
-                            <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                            <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+								
                                 <TextBlock Grid.Row="0" Grid.Column="0">X:</TextBlock>
                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding X}"/>
+								
                                 <TextBlock Grid.Row="1" Grid.Column="0">Y:</TextBlock>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Y}"/>
+								
                                 <TextBlock Grid.Row="2" Grid.Column="0">Filename:</TextBlock>
                                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Filename}"/>
+								
                                 <TextBlock Grid.Row="3" Grid.Column="0">Rotation:</TextBlock>
                                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Rotation}"/>
+								
                                 <TextBlock Grid.Row="4" Grid.Column="0">Distance X:</TextBlock>
                                 <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Car.ControlledCar.VirtualFunctionBus.DummyPacket.DistanceX}"/>
+								
                                 <TextBlock Grid.Row="5" Grid.Column="0">Distance Y:</TextBlock>
                                 <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.DummyPacket.DistanceY}"/>
+								
+								<TextBlock Grid.Row="6" Grid.Column="0">Lane keeping status:</TextBlock>
+								<TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding LaneKeeperPacket.IsLaneKeeperOn}"/>
+								
+								<TextBlock Grid.Row="7" Grid.Column="0">Lane keeping available:</TextBlock>
+								<TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding LaneKeeperPacket.IsLaneKeepingPossible}"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>
