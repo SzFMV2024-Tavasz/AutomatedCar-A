@@ -26,6 +26,7 @@
             virtualFunctionBus.TempomatPacket = ATPacket;
             ATPacket.CarInFront = null;
             ATPacket.IsItOn = false;
+            ATPacket.WantedDistance = 0.8;
             
             
         }
