@@ -425,7 +425,7 @@ namespace AutomatedCar.Models
                 ActionRequiredFromDriver = true;
                 if (ratio<4)
                 {
-                    IsEmergencyBreakOn = true;
+                    //IsEmergencyBreakOn = true;
                 }
                 return false;
             }
@@ -447,7 +447,11 @@ namespace AutomatedCar.Models
                 {
                     Brake = eBrakeMax;
                 }
-                Throttle -= 5;
+                if (Throttle-50 > 0)
+                {
+                    Throttle -= 50;
+                }
+                
                 
                
 
