@@ -91,7 +91,7 @@
 
             //kettő közti távolság osztva a követő sebességével.
 
-            double DistanceInTime = Distance / World.Instance.ControlledCar.Speed;
+            double DistanceInTime = Distance / Math.Abs(ATPacket.CarInFront.Speed - World.Instance.ControlledCar.Speed);
 
             return DistanceInTime;
 
