@@ -16,7 +16,7 @@ namespace AutomatedCar.Views
         public MainWindow()
         {
             this.InitializeComponent();
-            CarFocusTimer = new Timer(FocusingOnCar, null, TimeSpan.Zero, TimeSpan.FromSeconds(0.001));
+            CarFocusTimer = new Timer(FocusingOnCar, null, TimeSpan.Zero, TimeSpan.FromSeconds(0.03));
         }
         public bool FocusCar=false;
         protected override void OnKeyDown(KeyEventArgs e)
