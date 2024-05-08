@@ -29,19 +29,29 @@
 
         public override void Process()
         {
-            
+            if (ATPacket.IsItOn)
+            {
+                if (ATPacket.CarInFront != null)
+                {
+                    CarInFront();
+                }
+            }
         }
 
 
         public void CarInFront()
         {
-            if (ATPacket.IsItOn)
-            {
-                if (ATPacket.CarInFront != null)
-                {
-
-                }
-            }
+            //if (ATPacket.IsItOn)
+            //{
+            //    if (ATPacket.CarInFront != null)
+            //    {
+                    if (ATPacket.CarInFront.Speed <= ATPacket.WantedSpeed)
+                    {
+                        ATPacket.WantedSpeed = (int)ATPacket.CarInFront.Speed;
+                    }
+                    
+            //    }
+            //}
         }
 
     }
