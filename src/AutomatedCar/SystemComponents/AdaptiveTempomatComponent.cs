@@ -38,7 +38,7 @@
                  ATPacket.CarInFront =  CarInFront();
                 if (ATPacket.CarInFront != null)
                 {
-
+                    ATPacket.CurrentDistance = DistanceBetweenCars();
                 }
             }
         }
@@ -88,6 +88,13 @@
             double DistanceY = Math.Abs(World.Instance.ControlledCar.Y - ATPacket.CarInFront.Y);
 
             double Distance = Math.Sqrt((DistanceX * DistanceX) + (DistanceY * DistanceY));
+
+            //kettő közti távolság osztva a követő sebességével.
+
+            double DistanceInTime = Distance / World.Instance.ControlledCar.Speed;
+
+            return DistanceInTime;
+
         }
 
 
