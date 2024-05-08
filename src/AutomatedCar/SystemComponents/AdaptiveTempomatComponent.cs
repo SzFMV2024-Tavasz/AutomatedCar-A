@@ -32,7 +32,10 @@
 
         public override void Process()
         {
-            
+            if (World.Instance.ControlledCar.IsEmergencyBreakOn)
+            {
+                ATPacket.IsItOn = false;
+            }
             if (ATPacket.IsItOn)
             {
                  ATPacket.CarInFront =  CarInFront();
