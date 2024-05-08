@@ -156,7 +156,7 @@ namespace AutomatedCar.ViewModels
 
         public void ToggleRadar()
         {
-            // World.Instance.DebugStatus.Radar = !World.Instance.DebugStatus.Radar;
+            World.Instance.ControlledCar.IsLaneKeeperOn = !World.Instance.ControlledCar.IsLaneKeeperOn;
         }
 
         public void ToggleUltrasonic()
