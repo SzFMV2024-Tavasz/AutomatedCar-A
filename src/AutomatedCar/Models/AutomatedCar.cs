@@ -25,7 +25,8 @@ namespace AutomatedCar.Models
             this.camera = new Camera(this.virtualFunctionBus);
             this.collision = new Collision(this.virtualFunctionBus);
             this.radar = new Radar(this.virtualFunctionBus);
-            this.laneKeeper = new LaneKeeper(this.virtualFunctionBus, this);
+            this.laneKeeper = new LaneKeeper(this.virtualFunctionBus);
+            this.IsLaneKeeperOn = false;
         }
 
         
@@ -58,6 +59,7 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
         public bool IsEmergencyBreakOn { get; set; }
+        public bool IsLaneKeeperOn { get; set; }
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
         public Transmissions CarTransmissionR { get; set; }
