@@ -1,116 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Avalonia;
-using Avalonia.Media;
+﻿using System.Collections.Generic;
 using AutomatedCar.Models;
 using AutomatedCar.SystemComponents.Packets.Collision;
+using System.Linq;
+using System;
+using Avalonia.Media;
+using Avalonia;
 
 namespace AutomatedCar.SystemComponents.Sensors
 {
-    public class Collision : AbstractSensor
+    public class Collision : SystemComponent
     {
+        private CollisionPacket packet;
+        private IEnumerable<WorldObject> collidableWorldObjects;
+
         public Collision(VirtualFunctionBus virtualFunctionBus)
-            : base(virtualFunctionBus, 360, 2)
+            : base(virtualFunctionBus)
         {
-            this.sensorPacket = new CollisionPacket();
-            this.virtualFunctionBus.CollisionPacket = (IReadOnlyCollisionPacket)this.sensorPacket;
-            virtualFunctionBus.RegisterComponent(this);
-            Console.WriteLine("Collision is on!");
+            this.packet = new CollisionPacket();
+            virtualFunctionBus.CollisionPacket = packet;
+            this.collidableWorldObjects = World.Instance.WorldObjects
+                .Where(
+                        obj => obj.Collideable
+                        && obj != World.Instance.ControlledCar
+                        && (obj.WorldObjectType == WorldObjectType.Tree
+                        // || obj.WorldObjectType == WorldObjectType.Car
+                        || obj.WorldObjectType == WorldObjectType.RoadSign)
+                        // || obj.WorldObjectType == WorldObjectType.Pedestrian)
+                );
+            Console.WriteLine("Collison is on!");
         }
 
         public override void Process()
         {
-            this.CalculateSensorData(World.Instance.ControlledCar, World.Instance.WorldObjects);
-            ((CollisionPacket)this.sensorPacket).IsCollided = DetectCollision();
-            Console.WriteLine(((CollisionPacket)this.sensorPacket).IsCollided);
-        }
-
-        public bool DetectCollision()
-        {
-            var collidableObjects = World.Instance.WorldObjects.Where(x => x != World.Instance.ControlledCar
-            && (x.Collideable || x.WorldObjectType == WorldObjectType.Other)).ToList();
-
-            PolylineGeometry newCarGeometry = this.ActualizeGeometry(World.Instance.ControlledCar.Geometry, World.Instance.ControlledCar);
-
-            foreach (var obj in collidableObjects)
+            this.packet.IsCollided = false;
+            var pointOfCar = GetCarPoints(World.Instance.ControlledCar);
+            foreach (WorldObject item in this.collidableWorldObjects)
             {
-                if (IntersectsWithObject(newCarGeometry, obj))
+                Console.WriteLine(item.Geometries.Count);
+                foreach (Point point in item.Geometries[0].Points)
                 {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool IntersectsWithObject(PolylineGeometry updatedGeometry, WorldObject obj)
-        {
-            foreach (var geom in obj.Geometries)
-            {
-                foreach (var item in geom.Points)
-                {
-                    Point updatedPoint = GetTransformedPoint(item, obj);
-
-                    if (updatedGeometry.FillContains(updatedPoint))
+                    if (pointOfCar.FillContains(new Point(point.X + item.X, point.Y + item.Y)))
                     {
-                        return true;
+                        this.packet.IsCollided = true;
                     }
                 }
             }
-
-            return false;
+            Console.WriteLine(this.packet.IsCollided);
         }
 
-        private PolylineGeometry ActualizeGeometry(PolylineGeometry oldGeom, WorldObject obj)
+        public static PolylineGeometry GetCarPoints(AutomatedCar.Models.AutomatedCar car)
         {
-            List<Point> updatedPoints = new List<Point>();
+            var carpoints = ((PolylineGeometry)car.Geometry).Points;
 
-            foreach (var item in oldGeom.Points)
+            Point[] points = new Point[((PolylineGeometry)car.Geometry).Points.Count];
+
+            for (int i = 0; i < carpoints.Count; i++)
             {
-                Point updatedPoint = GetTransformedPoint(item, obj);
-
-                updatedPoints.Add(updatedPoint);
+                points[i] = new Point(Math.Abs((int)carpoints[i].X + car.X), Math.Abs((int)carpoints[i].Y + car.Y));
             }
 
-            return new PolylineGeometry(updatedPoints, false);
-        }
-
-        private static Point GetTransformedPoint(Point geomPoint, WorldObject obj)
-        {
-            double angleInRad = DegToRad(obj.Rotation);
-
-            Point transformedPoint;
-
-            if (!obj.RotationPoint.IsEmpty)
-            {
-                // offset with the rotationPoint coordinate
-                Point offsettedPoint = new Point(geomPoint.X - obj.RotationPoint.X, geomPoint.Y - obj.RotationPoint.Y);
-
-                // now apply rotation
-                double rotatedX = (offsettedPoint.X * Math.Cos(angleInRad)) - (offsettedPoint.Y * Math.Sin(angleInRad));
-                double rotatedY = (offsettedPoint.X * Math.Sin(angleInRad)) + (offsettedPoint.Y * Math.Cos(angleInRad));
-
-                // offset with the actual coordinate
-                transformedPoint = new Point(rotatedX + obj.X, rotatedY + obj.Y);
-            }
-            else
-            {
-                // offset with the actual coordinate
-                transformedPoint = new Point(geomPoint.X + obj.X, geomPoint.Y + obj.Y);
-            }
-
-            return transformedPoint;
-        }
-
-        private static double DegToRad(double degrees)
-        {
-            return degrees * Math.PI / 180.0;
-        }
-
-        protected override bool IsRelevant(WorldObject worldObject)
-        {
-            return worldObject.Collideable;
+            return new PolylineGeometry(points, true);
         }
     }
 }

@@ -133,8 +133,6 @@ namespace AutomatedCar.SystemComponents.Sensors
                 }
             }
             this.sensorPacket.RelevantObjects = relevantObjects;
-
-            Debug.WriteLine(sensorPacket.RelevantObjects);
         }
     }
 }
