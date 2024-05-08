@@ -16,14 +16,12 @@
 
 
         AdaptiveTempomatPacket ATPacket;
-        RadarPacket RPacket;
         
         public AdaptiveTempomatComponent(VirtualFunctionBus virtualFunctionBus) : base(virtualFunctionBus)
         {
             
             ATPacket = new AdaptiveTempomatPacket();
             virtualFunctionBus.TempomatPacket = ATPacket;
-            virtualFunctionBus.RadarPacket = RPacket;
             ATPacket.CarInFront = null;
             ATPacket.IsItOn = false;
             
@@ -40,24 +38,26 @@
                 {
                     ATPacket.CurrentDistance = DistanceBetweenCars();
                 }
+                else
             }
         }
 
-            NPCCar temp;
+            
         public NPCCar CarInFront()
         {
-            var relevantObjects = RPacket.RelevantObjects;
-            if (relevantObjects != null)
+            NPCCar temp = null;
+            if (World.Instance.ControlledCar.VirtualFunctionBus.RadarPacket.DetectedObjects != null)
             {
+                var relevantObjects = World.Instance.ControlledCar.VirtualFunctionBus.RadarPacket.DetectedObjects;
                 foreach (var rObj in relevantObjects)
                 {
-                    if (rObj.GetType() is NPCCar)
+                    if (rObj is NPCCar)
                     {
-                        if (Math.Abs((((rObj as NPCCar).Rotation) - World.Instance.ControlledCar.Rotation)) <= 20)
+                        if (Math.Abs(((rObj.Rotation) - World.Instance.ControlledCar.Rotation)) <= 90)
                         {
                             temp = (NPCCar)rObj;
                         }
-                        else { temp = null; }
+                        
 
                     }
                     
