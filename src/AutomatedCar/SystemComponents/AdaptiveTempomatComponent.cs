@@ -38,7 +38,7 @@
                 {
                     ATPacket.CurrentDistance = DistanceBetweenCars();
                 }
-                else
+                
             }
         }
 
