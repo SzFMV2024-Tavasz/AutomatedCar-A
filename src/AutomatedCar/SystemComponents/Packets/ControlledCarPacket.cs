@@ -16,6 +16,8 @@
         private double throttlecar;
         private double steeringWheelRotation;
         private bool emergencybreakonoff;
+        private double objectInFrontOfDistance;
+        private bool actionRequiredFromDriver;
         public enum Transmissions
         {
             P, // Park
@@ -53,7 +55,16 @@
             get => this.steeringWheelRotation;
             set => this.RaiseAndSetIfChanged(ref this.steeringWheelRotation, value);
         }
-
+        public double ObjectInFrontOfDistance
+        {
+            get => this.objectInFrontOfDistance;
+            set => this.RaiseAndSetIfChanged(ref this.objectInFrontOfDistance, value);
+        }
+        public bool ActionRequiredFromDriver
+        {
+            get => this.actionRequiredFromDriver;
+            set => this.RaiseAndSetIfChanged(ref this.actionRequiredFromDriver, value);
+        }
         public double rpmCar
         {
             get => this.rpmcar;

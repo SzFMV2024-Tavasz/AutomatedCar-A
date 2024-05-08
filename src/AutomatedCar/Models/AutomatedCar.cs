@@ -3,7 +3,6 @@ namespace AutomatedCar.Models
     using Avalonia.Media;
     using global::AutomatedCar.SystemComponents.Sensors;
     using System;
-    using System.Runtime.CompilerServices;
     using SystemComponents;
 
     public class AutomatedCar : Car
@@ -21,6 +20,7 @@ namespace AutomatedCar.Models
             CarTransmissionL = Transmissions.X;
             CarTransmissionR = Transmissions.R;
             IsEmergencyBreakSafeWorking = true;
+            ActionRequiredFromDriver = false;
             if (this is UserControlledCar)
             {
                 new ControlledCarSensor(virtualFunctionBus);
@@ -61,6 +61,8 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
         public bool IsEmergencyBreakOn { get; set; }
+        public double ObjectInFrontOfDistance { get;set; }
+        public bool ActionRequiredFromDriver { get; set; }
         public bool IsEmergencyBreakSafeWorking { get; set; }
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
@@ -344,7 +346,7 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmissions.N;
             World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.X;
         }
-        public bool CheckIfEbNeeded()
+        public WorldObject DetectObjInFrontOfTheCar()
         {
             //check if object is in front of the car
             //var closestObjectToCar = this.virtualFunctionBus.RadarPacket.ClosestObject;
@@ -369,29 +371,28 @@ namespace AutomatedCar.Models
                     // Ellenõrizzük, hogy a (x2, y2) pont rajta van-e a vektoron
                     double angle = (90 + World.Instance.ControlledCar.Rotation) * Math.PI / 180.0;
 
-                    for (int i = -10; i < 10; i++)
+                    for (int i = -30; i < 30; i++)
                     {
                         if (IsPointOnVector(x1, y1, angle, x2 + i, y2))
                         {
                             //objektum az autó elõtt van
-                            return true;
+                            return obj;
                         }
                     }
-                    for (int j = -10; j < 10; j++)
+                    for (int j = -30; j < 30; j++)
                     {
                         if (IsPointOnVector(x1, y1, angle, x2, y2 + j))
                         {
                             //objektum az autó elõtt van
-                            return true;
+                            return obj;
                         }
                     }
                 }
             }
-
-            return false;
+            return null;
         }
 
-        public static bool IsPointOnVector(double x1, double y1, double angle, double x2, double y2)
+        public bool IsPointOnVector(double x1, double y1, double angle, double x2, double y2)
         {
             // A vektor irányvektorának kiszámítása
             double directionX = Math.Cos(angle);
@@ -415,6 +416,26 @@ namespace AutomatedCar.Models
             // Ha a cosTheta közel 1 vagy -1, akkor a pont rajta van a vektoron
             return Math.Abs(cosTheta - 1) < 0.000001 || Math.Abs(cosTheta + 1) < 0.000001;
         }
+
+        public bool CheckSafeDistance(double dist)
+        {
+            double ratio = dist / Velocity;
+            if (ratio<7)
+            {
+                ActionRequiredFromDriver = true;
+                if (ratio<4)
+                {
+                    IsEmergencyBreakOn = true;
+                }
+                return false;
+            }
+            else
+            {
+                ActionRequiredFromDriver = false;
+                return true;
+            }
+        }
+
 
     }
 }

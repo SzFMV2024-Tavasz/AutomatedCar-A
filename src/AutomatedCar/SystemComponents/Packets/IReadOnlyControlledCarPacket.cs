@@ -10,6 +10,9 @@
         double throttleCar { get; }
         double SteeringWheelRotation { get; }
         bool EmergencyBreakOnOff { get; }
+        bool ActionRequiredFromDriver { get; }
+        double ObjectInFrontOfDistance { get; }
+
         Packets.ControlledCarPacket.Transmissions Transmission { get; }
         Packets.ControlledCarPacket.Transmissions TransmissionL { get; }
     Packets.ControlledCarPacket.Transmissions TransmissionR { get; }
