@@ -13,6 +13,13 @@
         private bool isLaneKeepingPossible;
         private string debug;
 
+        public LaneKeeperPacket()
+        {
+            this.isLaneKeeperOn = false;
+            this.isLaneKeepingPossible = false;
+            this.debug = "";
+        }
+
         public bool IsLaneKeeperOn
         {
             get => this.isLaneKeeperOn;

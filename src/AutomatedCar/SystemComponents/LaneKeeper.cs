@@ -14,34 +14,33 @@
     public class LaneKeeper : SystemComponent
     {
         private VirtualFunctionBus virtualFunctionBus;
-        private AutomatedCar automatedCar;
 
         private LaneKeeperPacket LaneKeeperPacket { get; set; }
 
-        public LaneKeeper(VirtualFunctionBus virtualFunctionBus, AutomatedCar automatedCar) : base(virtualFunctionBus)
+        public LaneKeeper(VirtualFunctionBus virtualFunctionBus) : base(virtualFunctionBus)
         {
             this.virtualFunctionBus = virtualFunctionBus;
             this.LaneKeeperPacket = new LaneKeeperPacket();
             virtualFunctionBus.RegisterComponent(this);
-            this.automatedCar = automatedCar;
         }
 
-        private void CheckLane()
+        private void CheckLane(AutomatedCar automatedCar)
         {
-            if (this.automatedCar.CarTransmission == AutomatedCar.Transmissions.D || this.automatedCar.CarTransmission == AutomatedCar.Transmissions.R)
+            if (true)
             {
-                var carCenterRotationPoint = new Point(this.automatedCar.X, this.automatedCar.Y);
-                var extended = new Point(this.automatedCar.X + 50, this.automatedCar.Y + 50);
-                var carCenter = Utils.RotatePoint(extended, this.automatedCar.RotationPoint, this.automatedCar.Rotation);
-                int distancetreshold = 50;
-                var Roads = World.Instance.WorldObjects.Where(obj => obj.WorldObjectType  == WorldObjectType.Road);
-                var niceRoads = Roads.Where(obj => obj.Filename.Contains("45") || obj.Filename.Contains("6") || obj.Filename.Contains("straight"));
-                WorldObject closestRoad = niceRoads.FirstOrDefault();
-                double closesDistance = Utils.DistanceBetween(FindClosestLanePoint(closestRoad, carCenter), carCenter);
-                foreach (var road in niceRoads )
+                var carCenterRotationPoint = new Point(automatedCar.RotationPoint.X, automatedCar.RotationPoint.Y);
+                var extended = new Point(automatedCar.X, automatedCar.Y);
+                var carCenterPoint = new Point(automatedCar.X, automatedCar.Y);
+                var extendedRotatedFromCar = RotatePoint(extended, carCenterPoint, automatedCar.Rotation);
+                int distancetreshold = 150;
+                var allRoads = World.Instance.WorldObjects.Where(obj => obj.WorldObjectType  == WorldObjectType.Road);
+                var relevantRoads = allRoads.Where(obj => obj.Filename.Contains("45") || obj.Filename.Contains("6") || obj.Filename.Contains("straight"));
+                WorldObject closestRoad = relevantRoads.FirstOrDefault();
+                double closesDistance = Utils.DistanceBetween(this.FindClosestLanePoint(closestRoad, extendedRotatedFromCar), extendedRotatedFromCar);
+                foreach (var road in relevantRoads )
                 {
-                    var closestPoint = FindClosestLanePoint(road, carCenter);
-                    double distance = Utils.DistanceBetween(closestPoint, carCenter);
+                    var closestPoint = this.FindClosestLanePoint(road, extendedRotatedFromCar);
+                    double distance = Utils.DistanceBetween(closestPoint, extendedRotatedFromCar);
                     if (distance < closesDistance)
                     {
                         closestRoad = road;
@@ -49,76 +48,94 @@
                     }
                 }
 
-                if (closestRoad != null && closesDistance<100)
+                if (closestRoad != null && closesDistance < distancetreshold)
                 {
-                    var closestPoint = FindClosestLanePoint(closestRoad, carCenter);
-                    double rotationAbs = this.automatedCar.Rotation;
-                    if (this.automatedCar.Rotation < 0)
+                    this.LaneKeeperPacket.IsLaneKeepingPossible = true;
+                    var closestPoint = this.FindClosestLanePoint(closestRoad, extendedRotatedFromCar);
+                    double rotationAbs = automatedCar.Rotation;
+                    if (automatedCar.Rotation < 0)
                     {
-                        rotationAbs = 360 + this.automatedCar.Rotation;
+                        rotationAbs = 360 - Math.Abs(automatedCar.Rotation);
                     }
 
-
-                    if (closestPoint != null)
+                    if (automatedCar.IsLaneKeeperOn)
                     {
-                        // ^
-                        if (rotationAbs >= 315 || rotationAbs < 45)
-                        {
-                            if(this.automatedCar.Y > closestPoint.Y)
-                            {
-                                OnLeftEvent();
-                            }
-                            else
-                            {
-                                OnRightEvent();
-                            }
-                        }
+                        if (closestPoint != null)
+                                            {
+                                                // ^
+                                                if (rotationAbs >= 315 || rotationAbs < 45)
+                                                {
+                                                    if(automatedCar.X > closestPoint.X)
+                                                    {
+                                                        OnLeftEvent(automatedCar);
+                                                    }
+                                                    else
+                                                    {
+                                                        OnRightEvent(automatedCar);
+                                                    }
+                                                }
 
-                        // >
-                        if (rotationAbs >= 45 && rotationAbs < 135)
-                        {
-                            if (this.automatedCar.X > closestPoint.X)
-                            {
-                                OnLeftEvent();
-                            }
-                            else
-                            {
-                                OnRightEvent();
-                            }
-                        }
+                                                // >
+                                                if (rotationAbs >= 45 && rotationAbs < 135)
+                                                {
+                                                    if (automatedCar.Y > closestPoint.Y)
+                                                    {
+                                                        OnLeftEvent(automatedCar);
+                                                    }
+                                                    else
+                                                    {
+                                                        OnRightEvent(automatedCar);
+                                                    }
+                                                }
 
-                        // v
-                        if (rotationAbs >= 135 && rotationAbs < 225)
-                        {
-                            if (this.automatedCar.Y < closestPoint.Y)
-                            {
-                                OnLeftEvent();
-                            }
-                            else
-                            {
-                                OnRightEvent();
-                            }
-                        }
+                                                // v
+                                                if (rotationAbs >= 135 && rotationAbs < 225)
+                                                {
+                                                    if (automatedCar.X < closestPoint.X)
+                                                    {
+                                                        OnLeftEvent(automatedCar);
+                                                    }
+                                                    else
+                                                    {
+                                                        OnRightEvent(automatedCar);
+                                                    }
+                                                }
 
-                        // <
-                        if (rotationAbs >= 225 && rotationAbs < 315)
-                        {
-                            if (this.automatedCar.X < closestPoint.X)
-                            {
-                                OnLeftEvent();
-                            }
-                            else
-                            {
-                                OnRightEvent();
-                            }
-                        }
+                                                // <
+                                                if (rotationAbs >= 225 && rotationAbs < 315)
+                                                {
+                                                    if (automatedCar.Y < closestPoint.Y)
+                                                    {
+                                                        OnLeftEvent(automatedCar);
+                                                    }
+                                                    else
+                                                    {
+                                                        OnRightEvent(automatedCar);
+                                                    }
+                                                }
+                                            }
                     }
                 }
                 else
                 {
                     this.LaneKeeperPacket.IsLaneKeepingPossible = false;
+                    this.LaneKeeperPacket.IsLaneKeeperOn = false;
                 }
             }
+        }
+
+        static Point RotatePoint(Point pointToRotate, Point centerPoint, double angleInDegrees)
+        {
+            double angleInRadians = angleInDegrees * (Math.PI / 180);
+            double cosTheta = Math.Cos(angleInRadians);
+            double sinTheta = Math.Sin(angleInRadians);
+            var x = (int)
+                    (cosTheta * (pointToRotate.X - centerPoint.X) -
+                    sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X);
+            var y = (int)
+                    (sinTheta * (pointToRotate.X - centerPoint.X) +
+                    cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y);
+            return new Point(x, y);
         }
 
         private Point FindClosestLanePoint(WorldObject road, Point carCenter)
@@ -126,11 +143,13 @@
             var laneGeometry = road.Geometries[1];
             if (laneGeometry != null)
             {
+                
                 var roadPoint = new Point(road.X, road.Y);
                 PolylineGeometry absolute = new PolylineGeometry();
                 foreach (Point p in laneGeometry.Points)
                 {
                     Point newpoint = new Point(p.X + road.X, p.Y + road.Y);
+                    //Point rotated = RotatePoint(newpoint, roadPoint, road.Rotation);
                     absolute.Points.Add(newpoint);
                 }
 
@@ -142,24 +161,29 @@
             return carCenter;
         }
 
-        protected virtual void OnLeftEvent()
+        protected virtual void OnLeftEvent(AutomatedCar automatedCar)
         {
-            automatedCar.SteeringWheelRotation = -2;
+            automatedCar.SteeringWheelRotation = -1;
             automatedCar.MovementTurnLeft();
             LaneKeeperPacket.Debug = "left";
         }
 
-        protected virtual void OnRightEvent()
+        protected virtual void OnRightEvent(AutomatedCar automatedCar)
         {
-            automatedCar.SteeringWheelRotation = 2;
+            automatedCar.SteeringWheelRotation = 1;
             automatedCar.MovementTurnRight();
             LaneKeeperPacket.Debug = "right";
+        }
+
+        public void ToggleLaneKeeper()
+        {
+            World.Instance.ControlledCar.IsLaneKeeperOn = !World.Instance.ControlledCar.IsLaneKeeperOn;
         }
 
 
         public override void Process()
         {
-            CheckLane();
+            CheckLane(World.Instance.ControlledCar);
         }
     }
 }

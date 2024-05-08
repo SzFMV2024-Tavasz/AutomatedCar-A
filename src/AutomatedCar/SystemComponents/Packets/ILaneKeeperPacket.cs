@@ -10,8 +10,8 @@
 
     public interface ILaneKeeperPacket
     {
-        bool IsLaneKeeperOn { get; }
-        bool IsLaneKeepingPossible { get; }
+        bool IsLaneKeeperOn { get; set; }
+        bool IsLaneKeepingPossible { get; set; }
         string Debug { get; }
     }
 }
