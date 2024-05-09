@@ -3,7 +3,6 @@ namespace AutomatedCar.Models
     using Avalonia.Media;
     using global::AutomatedCar.SystemComponents.Sensors;
     using System;
-    using System.Runtime.CompilerServices;
     using SystemComponents;
 
     public class AutomatedCar : Car
@@ -20,6 +19,9 @@ namespace AutomatedCar.Models
             this.ZIndex = 10;
             CarTransmissionL = Transmissions.X;
             CarTransmissionR = Transmissions.R;
+            IsEmergencyBreakSafeWorking = true;
+            ActionRequiredFromDriver = false;
+            
             if (this is UserControlledCar)
             {
                 new ControlledCarSensor(virtualFunctionBus);
@@ -51,7 +53,7 @@ namespace AutomatedCar.Models
         public double SteeringWheelRotation { get; set; }
         public double Rpm { get; set; }
         public int Gear{ get; set; }
-        
+        public const int eBrakeMax = 75;
         public bool CanGoUp { get; set; } //Check if car can go up or down, or rotate
         public bool CanGoDown { get; set; }
         public bool CanRotate { get; set; }
@@ -60,6 +62,9 @@ namespace AutomatedCar.Models
         public bool KeyLeftPressed { get; set; }
         public bool KeyRightPressed { get; set; }
         public bool IsEmergencyBreakOn { get; set; }
+        public double ObjectInFrontOfDistance { get;set; }
+        public bool ActionRequiredFromDriver { get; set; }
+        public bool IsEmergencyBreakSafeWorking { get; set; }
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
         public Transmissions CarTransmissionR { get; set; }
@@ -76,6 +81,7 @@ namespace AutomatedCar.Models
         public void Stop()
         {
             this.virtualFunctionBus.Stop();
+            
         }
         public void Accelerate()
         {
@@ -190,10 +196,10 @@ namespace AutomatedCar.Models
                 }
             }
         }
-
+        
         public void SimulateBraking()
         {
-            double brakeIntensity = World.Instance.ControlledCar.Brake;// / 100.0;
+            double brakeIntensity = World.Instance.ControlledCar.Brake;
             double velocity = World.Instance.ControlledCar.Speed;
 
             if (velocity == 0)
@@ -201,7 +207,6 @@ namespace AutomatedCar.Models
                 return;
             }
 
-            velocity *=1-(brakeIntensity/90);
             velocity *= 1 - (brakeIntensity / 100);
 
             if (velocity < 0)
@@ -221,6 +226,7 @@ namespace AutomatedCar.Models
 
         public void MovementForward()
         {
+            
             int pixelsPerKm = 50 * 1000;
 
             double angleRadians = World.Instance.ControlledCar.Rotation * Math.PI / 180.0;
@@ -252,7 +258,16 @@ namespace AutomatedCar.Models
             {
                 World.Instance.ControlledCar.Speed = speedKmPerHour;
                 World.Instance.ControlledCar.Velocity = speedKmPerHour / 36;
+                if (World.Instance.ControlledCar.Velocity > 60)
+                {
+                    IsEmergencyBreakSafeWorking = false;
+                }
+                else
+                {
+                    IsEmergencyBreakSafeWorking = true;
+                }
             }
+            
         }
         public void MovementBackward()
         {
@@ -332,6 +347,121 @@ namespace AutomatedCar.Models
             World.Instance.ControlledCar.CarTransmissionL = AutomatedCar.Transmissions.N;
             World.Instance.ControlledCar.CarTransmissionR = AutomatedCar.Transmissions.X;
         }
+        public WorldObject DetectObjInFrontOfTheCar()
+        {
+            //check if object is in front of the car
+            //var closestObjectToCar = this.virtualFunctionBus.RadarPacket.ClosestObject;
+            //WorldObject obj=closestObjectToCar.GetRelevantObject();
+
+            var relevantObjectToCar = this.virtualFunctionBus.RadarPacket.RelevantObjects;
+            //WorldObject obj = relevantObjectToCar.;
+            foreach (var item in relevantObjectToCar)
+            {
+                WorldObject obj = item.GetRelevantObject();
+
+                if (obj != null && obj.Collideable)
+                {
+                    //ControlledCar position
+                    double x1 = this.X;
+                    double y1 = this.Y;
+
+                    //Relevant object position
+                    double x2 = obj.X;
+                    double y2 = obj.Y;
+
+                    // Ellen�rizz�k, hogy a (x2, y2) pont rajta van-e a vektoron
+                    double angle = (90 + World.Instance.ControlledCar.Rotation) * Math.PI / 180.0;
+
+                    for (int i = -90; i < 90; i++)
+                    {
+                        if (IsPointOnVector(x1, y1, angle, x2 + i, y2))
+                        {
+                            //objektum az aut� el�tt van
+                            return obj;
+                        }
+                    }
+                    for (int j = -90; j < 90; j++)
+                    {
+                        if (IsPointOnVector(x1, y1, angle, x2, y2 + j))
+                        {
+                            //objektum az aut� el�tt van
+                            return obj;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public bool IsPointOnVector(double x1, double y1, double angle, double x2, double y2)
+        {
+            // A vektor ir�nyvektor�nak kisz�m�t�sa
+            double directionX = Math.Cos(angle);
+            double directionY = Math.Sin(angle);
+
+            // A pont �s az eredeti pont k�z�tti vektor kisz�m�t�sa
+            double vectorX = x2 - x1;
+            double vectorY = y2 - y1;
+
+            // Skal�ris szorzat kisz�m�t�sa
+            double dotProduct = vectorX * directionX + vectorY * directionY;
+
+            // Ha a skal�ris szorzat 0, akkor a pontok mer�legesek, teh�t nem esnek egy vonalra
+            if (dotProduct == 0)
+                return false;
+
+            // Az ir�nyvektor �s a pont k�z�tti sz�g kisz�m�t�sa
+            double vectorMagnitude = Math.Sqrt(vectorX * vectorX + vectorY * vectorY);
+            double cosTheta = dotProduct / (vectorMagnitude * Math.Sqrt(directionX * directionX + directionY * directionY));
+
+            // Ha a cosTheta k�zel 1 vagy -1, akkor a pont rajta van a vektoron
+            return Math.Abs(cosTheta - 1) < 0.000001 || Math.Abs(cosTheta + 1) < 0.000001;
+        }
+
+        public bool CheckSafeDistance(double dist)
+        {
+            double ratio = dist / Velocity;
+            if (ratio<7)
+            {
+                ActionRequiredFromDriver = true;
+                if (ratio<4)
+                {
+                    IsEmergencyBreakOn = true;
+                }
+                return false;
+            }
+            else
+            {
+                ActionRequiredFromDriver = false;
+                return true;
+            }
+        }
+        public void EmergencyBreak()
+        {
+            if (World.Instance.ControlledCar.Throttle>1) //World.Instance.ControlledCar.Velocity > 1&&
+            {
+                if (Velocity <= eBrakeMax)
+                {
+                    Brake = Velocity + 5;
+                }
+                else
+                {
+                    Brake = eBrakeMax;
+                }
+                if (Throttle-2 > 0)
+                {
+                    Throttle -= 2;
+                }
+                
+                
+               
+
+            }
+            //World.Instance.ControlledCar.IsEmergencyBreakOn = false;
+            //World.Instance.ControlledCar.Throttle = 0;
+            //World.Instance.ControlledCar.Velocity = 0;
+        }
+
 
     }
 }
