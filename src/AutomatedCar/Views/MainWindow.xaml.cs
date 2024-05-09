@@ -5,12 +5,18 @@ namespace AutomatedCar.Views
     using Avalonia.Controls;
     using Avalonia.Input;
     using Avalonia.Markup.Xaml;
+    using System;
+    using System.Threading;
+    using Avalonia.Threading;
 
     public class MainWindow : Window
     {
+        ScrollViewer CarScrollViewer { get; set; }
+        private readonly Timer CarFocusTimer;
         public MainWindow()
         {
             this.InitializeComponent();
+            CarFocusTimer = new Timer(FocusingOnCar, null, TimeSpan.Zero, TimeSpan.FromSeconds(0.03));
         }
         public bool FocusCar=false;
         protected override void OnKeyDown(KeyEventArgs e)
@@ -33,6 +39,7 @@ namespace AutomatedCar.Views
             if (Keyboard.IsKeyDown(Key.Down))
             {
                 viewModel.CourseDisplay.KeyDown();
+                viewModel.Dashboard.TurnOffTempomat();
             }
 
             if (Keyboard.IsKeyDown(Key.Left))
@@ -57,6 +64,7 @@ namespace AutomatedCar.Views
             if (Keyboard.IsKeyDown(Key.Space))
             {
                 viewModel.CourseDisplay.Space();
+                viewModel.Dashboard.TurnOffTempomat();
             }
             if (Keyboard.IsKeyDown(Key.D1))
             {
@@ -110,19 +118,32 @@ namespace AutomatedCar.Views
                 viewModel.CourseDisplay.TransmissionDown();
             }
 
-            var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
-            viewModel.CourseDisplay.FocusCar(scrollViewer);
-        }
-        void FocusOnCarWhileMoving()
-        {
-            FocusCar = true;
-            MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
-            var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
-            while (World.Instance.ControlledCar.Velocity>0)
+
+            if (Keyboard.IsKeyDown(Key.M))
             {
-                viewModel.CourseDisplay.FocusCar(scrollViewer);
+                viewModel.Dashboard.OnOffTempomat();
             }
-            FocusCar = false;
+            if (Keyboard.IsKeyDown(Key.T))
+            {
+                viewModel.Dashboard.NextWantedDistance();
+            }
+            if (Keyboard.IsKeyDown(Key.Add))
+            {
+                viewModel.Dashboard.AddWantedSpeed();
+            }
+            if (Keyboard.IsKeyDown(Key.Subtract))
+            {
+                viewModel.Dashboard.SubtractWantedSpeed();
+            }
+
+            if (Keyboard.IsKeyDown(Key.F))
+            {
+                FocusCar = !FocusCar;
+            }
+
+            //var scrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
+
+            //viewModel.CourseDisplay.FocusCar(scrollViewer);
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
@@ -133,12 +154,21 @@ namespace AutomatedCar.Views
             viewModel.CourseDisplay.KeyDownToFalse();
             viewModel.CourseDisplay.KeyLeftToFalse();
             viewModel.CourseDisplay.KeyRightToFalse();
-            viewModel.CourseDisplay.EmegencyBreakToFalse();
+            //viewModel.CourseDisplay.EmegencyBreakToFalse();
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            CarScrollViewer = this.Get<CourseDisplayView>("courseDisplay").Get<ScrollViewer>("scrollViewer");
+        }
+        
+        private void FocusingOnCar(object state)
+        {
+            if (FocusCar)
+            {
+                Dispatcher.UIThread.Invoke(() =>(DataContext as MainWindowViewModel).CourseDisplay.FocusCar(CarScrollViewer));
+            }
         }
     }
 }

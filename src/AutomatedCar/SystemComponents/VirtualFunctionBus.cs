@@ -19,6 +19,8 @@ namespace AutomatedCar.SystemComponents
 
         public ILaneKeeperPacket LaneKeeperPacket { get; set; }
 
+        public ITempomatPacket TempomatPacket {get; set;}
+
         public void RegisterComponent(SystemComponent component)
         {
             this.components.Add(component);

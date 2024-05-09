@@ -85,6 +85,8 @@ namespace AutomatedCar.ViewModels
             World.Instance.ControlledCar.IsLaneKeeperOn = false;
         }
 
+
+
         public void KeyRight()
         {
             World.Instance.ControlledCar.KeyRightPressed= true;
@@ -202,5 +204,9 @@ namespace AutomatedCar.ViewModels
         {
             World.Instance.ControlledCar.IsEmergencyBreakOn = false;
         }
+
+        
     }
+
+    
 }

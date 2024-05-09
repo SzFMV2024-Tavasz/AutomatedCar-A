@@ -17,7 +17,7 @@
             //this.controlledCar = controlledCar;
             this.CarPacket = new ControlledCarPacket();
             base.virtualFunctionBus.ControlledCarPacket = CarPacket;
-            this.virtualFunctionBus.RegisterComponent(this);
+            //this.virtualFunctionBus.RegisterComponent(this);
         }
 
         public override void Process()
@@ -30,6 +30,9 @@
             CarPacket.TransmissionL = (Packets.ControlledCarPacket.Transmissions)World.Instance.ControlledCar.CarTransmissionL;
             CarPacket.TransmissionR = (Packets.ControlledCarPacket.Transmissions)World.Instance.ControlledCar.CarTransmissionR;
             CarPacket.rpmCar = World.Instance.ControlledCar.Rpm;
+            CarPacket.EmergencyBreakOnOff = World.Instance.ControlledCar.IsEmergencyBreakSafeWorking;
+            CarPacket.ObjectInFrontOfDistance=World.Instance.ControlledCar.ObjectInFrontOfDistance;
+            CarPacket.ActionRequiredFromDriver=World.Instance.ControlledCar.ActionRequiredFromDriver;
         }
     }
 }
