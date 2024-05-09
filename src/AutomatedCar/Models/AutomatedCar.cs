@@ -21,6 +21,7 @@ namespace AutomatedCar.Models
             CarTransmissionR = Transmissions.R;
             IsEmergencyBreakSafeWorking = true;
             ActionRequiredFromDriver = false;
+            
             if (this is UserControlledCar)
             {
                 new ControlledCarSensor(virtualFunctionBus);
@@ -368,14 +369,14 @@ namespace AutomatedCar.Models
                     double x2 = obj.X;
                     double y2 = obj.Y;
 
-                    // Ellenõrizzük, hogy a (x2, y2) pont rajta van-e a vektoron
+                    // Ellenï¿½rizzï¿½k, hogy a (x2, y2) pont rajta van-e a vektoron
                     double angle = (90 + World.Instance.ControlledCar.Rotation) * Math.PI / 180.0;
 
                     for (int i = -90; i < 90; i++)
                     {
                         if (IsPointOnVector(x1, y1, angle, x2 + i, y2))
                         {
-                            //objektum az autó elõtt van
+                            //objektum az autï¿½ elï¿½tt van
                             return obj;
                         }
                     }
@@ -383,7 +384,7 @@ namespace AutomatedCar.Models
                     {
                         if (IsPointOnVector(x1, y1, angle, x2, y2 + j))
                         {
-                            //objektum az autó elõtt van
+                            //objektum az autï¿½ elï¿½tt van
                             return obj;
                         }
                     }
@@ -394,26 +395,26 @@ namespace AutomatedCar.Models
 
         public bool IsPointOnVector(double x1, double y1, double angle, double x2, double y2)
         {
-            // A vektor irányvektorának kiszámítása
+            // A vektor irï¿½nyvektorï¿½nak kiszï¿½mï¿½tï¿½sa
             double directionX = Math.Cos(angle);
             double directionY = Math.Sin(angle);
 
-            // A pont és az eredeti pont közötti vektor kiszámítása
+            // A pont ï¿½s az eredeti pont kï¿½zï¿½tti vektor kiszï¿½mï¿½tï¿½sa
             double vectorX = x2 - x1;
             double vectorY = y2 - y1;
 
-            // Skaláris szorzat kiszámítása
+            // Skalï¿½ris szorzat kiszï¿½mï¿½tï¿½sa
             double dotProduct = vectorX * directionX + vectorY * directionY;
 
-            // Ha a skaláris szorzat 0, akkor a pontok merõlegesek, tehát nem esnek egy vonalra
+            // Ha a skalï¿½ris szorzat 0, akkor a pontok merï¿½legesek, tehï¿½t nem esnek egy vonalra
             if (dotProduct == 0)
                 return false;
 
-            // Az irányvektor és a pont közötti szög kiszámítása
+            // Az irï¿½nyvektor ï¿½s a pont kï¿½zï¿½tti szï¿½g kiszï¿½mï¿½tï¿½sa
             double vectorMagnitude = Math.Sqrt(vectorX * vectorX + vectorY * vectorY);
             double cosTheta = dotProduct / (vectorMagnitude * Math.Sqrt(directionX * directionX + directionY * directionY));
 
-            // Ha a cosTheta közel 1 vagy -1, akkor a pont rajta van a vektoron
+            // Ha a cosTheta kï¿½zel 1 vagy -1, akkor a pont rajta van a vektoron
             return Math.Abs(cosTheta - 1) < 0.000001 || Math.Abs(cosTheta + 1) < 0.000001;
         }
 
