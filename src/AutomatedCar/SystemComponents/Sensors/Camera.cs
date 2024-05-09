@@ -40,6 +40,7 @@ namespace AutomatedCar.SystemComponents.Sensors
             }
 
             ((CameraPacket)this.sensorPacket).Roads = roads;
+            
         }
     }
 }

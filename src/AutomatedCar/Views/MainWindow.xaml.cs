@@ -39,6 +39,7 @@ namespace AutomatedCar.Views
             if (Keyboard.IsKeyDown(Key.Down))
             {
                 viewModel.CourseDisplay.KeyDown();
+                viewModel.Dashboard.TurnOffTempomat();
             }
 
             if (Keyboard.IsKeyDown(Key.Left))
@@ -63,6 +64,7 @@ namespace AutomatedCar.Views
             if (Keyboard.IsKeyDown(Key.Space))
             {
                 viewModel.CourseDisplay.Space();
+                viewModel.Dashboard.TurnOffTempomat();
             }
             if (Keyboard.IsKeyDown(Key.D1))
             {
@@ -115,6 +117,25 @@ namespace AutomatedCar.Views
             {
                 viewModel.CourseDisplay.TransmissionDown();
             }
+
+
+            if (Keyboard.IsKeyDown(Key.M))
+            {
+                viewModel.Dashboard.OnOffTempomat();
+            }
+            if (Keyboard.IsKeyDown(Key.T))
+            {
+                viewModel.Dashboard.NextWantedDistance();
+            }
+            if (Keyboard.IsKeyDown(Key.Add))
+            {
+                viewModel.Dashboard.AddWantedSpeed();
+            }
+            if (Keyboard.IsKeyDown(Key.Subtract))
+            {
+                viewModel.Dashboard.SubtractWantedSpeed();
+            }
+
             if (Keyboard.IsKeyDown(Key.F))
             {
                 FocusCar = !FocusCar;

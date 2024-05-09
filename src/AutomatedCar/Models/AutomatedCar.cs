@@ -28,8 +28,10 @@ namespace AutomatedCar.Models
                 this.camera = new Camera(this.virtualFunctionBus);
                 this.collision = new Collision(this.virtualFunctionBus);
                 this.radar = new Radar(this.virtualFunctionBus);
+                new AdaptiveTempomatComponent(virtualFunctionBus);
             }
             
+
         }
 
         
@@ -68,6 +70,8 @@ namespace AutomatedCar.Models
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
         public Transmissions CarTransmissionR { get; set; }
+
+
 
         public PolylineGeometry Geometry { get; set; }
 
