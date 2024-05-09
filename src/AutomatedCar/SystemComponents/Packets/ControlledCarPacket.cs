@@ -15,6 +15,9 @@
         private double brakecar;
         private double throttlecar;
         private double steeringWheelRotation;
+        private bool emergencybreakonoff;
+        private double objectInFrontOfDistance;
+        private bool actionRequiredFromDriver;
         public enum Transmissions
         {
             P, // Park
@@ -31,15 +34,18 @@
         {
             get => this.transmission;
             set => this.RaiseAndSetIfChanged(ref this.transmission, value);
-        }public Transmissions TransmissionL
+        }
+        public Transmissions TransmissionL
         {
             get => this.transmissionL;
             set => this.RaiseAndSetIfChanged(ref this.transmissionL, value);
-        }public Transmissions TransmissionR
+        }
+        public Transmissions TransmissionR
         {
             get => this.transmissionR;
             set => this.RaiseAndSetIfChanged(ref this.transmissionR, value);
-        }public double kmhCar
+        }
+        public double kmhCar
         {
             get => this.kmhcar;
             set => this.RaiseAndSetIfChanged(ref this.kmhcar, value);
@@ -49,7 +55,16 @@
             get => this.steeringWheelRotation;
             set => this.RaiseAndSetIfChanged(ref this.steeringWheelRotation, value);
         }
-
+        public double ObjectInFrontOfDistance
+        {
+            get => this.objectInFrontOfDistance;
+            set => this.RaiseAndSetIfChanged(ref this.objectInFrontOfDistance, value);
+        }
+        public bool ActionRequiredFromDriver
+        {
+            get => this.actionRequiredFromDriver;
+            set => this.RaiseAndSetIfChanged(ref this.actionRequiredFromDriver, value);
+        }
         public double rpmCar
         {
             get => this.rpmcar;
@@ -65,6 +80,10 @@
             get => this.throttlecar;
             set => this.RaiseAndSetIfChanged(ref this.throttlecar, value);
         }
-
+        public bool EmergencyBreakOnOff
+        {
+            get => this.emergencybreakonoff;
+            set => this.RaiseAndSetIfChanged(ref this.emergencybreakonoff, value);
+        }
     }
 }

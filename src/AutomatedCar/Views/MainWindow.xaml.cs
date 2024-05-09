@@ -154,7 +154,7 @@ namespace AutomatedCar.Views
             viewModel.CourseDisplay.KeyDownToFalse();
             viewModel.CourseDisplay.KeyLeftToFalse();
             viewModel.CourseDisplay.KeyRightToFalse();
-            viewModel.CourseDisplay.EmegencyBreakToFalse();
+            //viewModel.CourseDisplay.EmegencyBreakToFalse();
         }
 
         private void InitializeComponent()
