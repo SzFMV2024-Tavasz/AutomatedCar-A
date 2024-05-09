@@ -21,28 +21,13 @@ namespace AutomatedCar.Models
 
         public event EventHandler<PropertyChangedEventArgs> PropertyChangedEvent;
 
-        private int x;
-        private int y;
-        private double throttle;
-        private double brake;
-        public enum Transmission
-        {
-            P, // Park
-            R, // Reverse
-            N, // Neutral
-            D,  // Drive
-            X //null value, to show nothing if cant transmissionup or down 
-        }
-        private Transmission transmission;
-        private Transmission transmissionL;
-        private Transmission transmissionR;
-
-
+        private double x;
+        private double y;
 
 
         private double rotation;
 
-        public WorldObject(int x, int y, string filename, int zindex = 1, bool collideable = false, WorldObjectType worldObjectType = WorldObjectType.Other)
+        public WorldObject(double x, double y, string filename, int zindex = 1, bool collideable = false, WorldObjectType worldObjectType = WorldObjectType.Other)
         {
             this.X = x;
             this.Y = y;
@@ -64,7 +49,7 @@ namespace AutomatedCar.Models
             }
         }
 
-        public int X
+        public double X
         {
             get => this.x;
             set
@@ -74,7 +59,7 @@ namespace AutomatedCar.Models
             }
         }
 
-        public int Y
+        public double Y
         {
             get => this.y;
             set
@@ -83,54 +68,6 @@ namespace AutomatedCar.Models
                 this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Y)));
             }
         }
-
-        public double Throttle
-        {
-            get => this.throttle;
-            set
-            {
-                this.throttle = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Throttle)));
-            }
-        }
-
-        public double Brake
-        {
-            get => this.brake;
-            set
-            {
-                this.brake = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Brake)));
-            }
-        }
-        public Transmission CarTransmission
-        {
-            get { return transmission; }
-            set
-            {
-                this.transmission = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmission)));
-            }
-        }
-        public Transmission CarTransmissionL
-        {
-            get { return transmissionL; }
-            set
-            {
-                this.transmissionL = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmissionL)));
-            }
-        }
-        public Transmission CarTransmissionR
-        {
-            get { return transmissionR; }
-            set
-            {
-                this.transmissionR = value;
-                this.PropertyChangedEvent?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CarTransmissionR)));
-            }
-        }
-        
 
         public Point RotationPoint { get; set; }
 

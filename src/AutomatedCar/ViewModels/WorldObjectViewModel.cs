@@ -27,12 +27,12 @@
             this.RaisePropertyChanged(args.PropertyName);
         }
 
-        public int X
+        public double X
         {
             get => this.worldObject.X;
         }
         
-        public int Y
+        public double Y
         {
             get => this.worldObject.Y;
         }
@@ -41,6 +41,7 @@
         {
             get => this.worldObject.Rotation;
         }
+
 
         public int ZIndex 
         {
@@ -82,26 +83,6 @@
         {
             get => this.worldObject.WorldObjectType;
         }
-        public double Throttle
-        {
-            get=>this.worldObject.Throttle;
-        }
-        public double Brake
-        {
-            get => this.worldObject.Brake;
-        }
-        public string CarTransmission
-        {
-            get => this.worldObject.CarTransmission.ToString();
-            
-        }
-        public string CarTransmissionL
-        {
-            get => this.worldObject.CarTransmissionL.ToString();
-        }
-        public string CarTransmissionR
-        {
-            get => this.worldObject.CarTransmissionR.ToString();
-        }
+
     }
 }

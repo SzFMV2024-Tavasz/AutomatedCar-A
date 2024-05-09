@@ -28,47 +28,58 @@
                         <StackPanel>
                             <TextBlock Text="F1: Help"/>
                             <Grid ColumnDefinitions="2*,2*" RowDefinitions="50,15">
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Revolution}" FontSize="40" TextAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Car.VirtualFunctionBus.LaneKeeperPacket.debug}" FontSize="40" TextAlignment="Center"/> 
                                 <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Center">rpm</TextBlock>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Velocity}" FontSize="40" TextAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.ControlledCarPacket.kmhCar}" FontSize="40" TextAlignment="Center"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Center">km/h</TextBlock>
                             </Grid>
                             <Separator Height="15"></Separator>
                             <Grid ColumnDefinitions="2*,6*,2*" RowDefinitions="30,15">
-                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding CarTransmissionL}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding CarTransmissionR}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
-								<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CarTransmission}" FontSize="20" TextAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Car.VirtualFunctionBus.ControlledCarPacket.TransmissionL}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding Car.VirtualFunctionBus.ControlledCarPacket.TransmissionR}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center"/>
+								<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.ControlledCarPacket.Transmission}" FontSize="20" TextAlignment="Center"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="Gear" TextAlignment="Center"/>
                             </Grid>
                             <Separator Height="15"></Separator>
                             <TextBlock Text="Throttle"/>
-                            <ProgressBar Value="{Binding Throttle}"></ProgressBar>
+                            <ProgressBar Value="{Binding Car.VirtualFunctionBus.ControlledCarPacket.throttleCar}"></ProgressBar>
                             <TextBlock Text="Brake"/>
-                            <ProgressBar Value="{Binding Brake}"></ProgressBar>
+                            <ProgressBar Value="{Binding Car.VirtualFunctionBus.ControlledCarPacket.brakeCar}"></ProgressBar>
                             <Separator Height="12"></Separator>
 							<Image
                                 Width="90" Height="90"
-                                Source="resm:AutomatedCar.Assets.steering-wheel.png?assembly=AutomatedCar"
-                                RenderTransformOrigin="{Binding RotationPoint, Converter={x:Static visualization:RenderTransformOriginTransformer.Instance}}">
+                                Source="resm:AutomatedCar.Assets.steering-wheel.png?assembly=AutomatedCar" >
 								<Image.RenderTransform>
 									<TransformGroup>
-										<RotateTransform Angle="{Binding Rotation}"/>
+										<RotateTransform Angle="{Binding Car.VirtualFunctionBus.ControlledCarPacket.SteeringWheelRotation}"/>
 									</TransformGroup>
 								</Image.RenderTransform>
 							</Image>
-                            <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                            <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+								
                                 <TextBlock Grid.Row="0" Grid.Column="0">X:</TextBlock>
                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding X}"/>
+								
                                 <TextBlock Grid.Row="1" Grid.Column="0">Y:</TextBlock>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Y}"/>
+								
                                 <TextBlock Grid.Row="2" Grid.Column="0">Filename:</TextBlock>
                                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Filename}"/>
+								
                                 <TextBlock Grid.Row="3" Grid.Column="0">Rotation:</TextBlock>
                                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Rotation}"/>
+								
                                 <TextBlock Grid.Row="4" Grid.Column="0">Distance X:</TextBlock>
-                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding VirtualFunctionBus.DummyPacket.DistanceX}"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Car.ControlledCar.VirtualFunctionBus.DummyPacket.DistanceX}"/>
+								
                                 <TextBlock Grid.Row="5" Grid.Column="0">Distance Y:</TextBlock>
-                                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding VirtualFunctionBus.DummyPacket.DistanceY}"/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Car.VirtualFunctionBus.DummyPacket.DistanceY}"/>
+								
+								<TextBlock Grid.Row="6" Grid.Column="0">Lane keeping status:</TextBlock>
+								<TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding LaneKeeperPacket.IsLaneKeeperOn}"/>
+								
+								<TextBlock Grid.Row="7" Grid.Column="0">Lane keeping available:</TextBlock>
+								<TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding LaneKeeperPacket.IsLaneKeepingPossible}"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

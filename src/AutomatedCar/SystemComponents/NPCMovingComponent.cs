@@ -163,8 +163,8 @@
                 {
                     next = car.Route.RoutePoints[car.Route.CurrentPointID + 1];
                 }
-                xDiff = next.X - car.X;
-                yDiff = next.Y - car.Y;
+                xDiff = (int)next.X - (int)car.X;
+                yDiff = (int)next.Y - (int)car.Y;
             }
 
 

@@ -15,6 +15,10 @@ namespace AutomatedCar.SystemComponents
 
         public IReadOnlySensorPacket RadarPacket { get; set; }
 
+        public IReadOnlyControlledCarPacket ControlledCarPacket { get; set; }
+
+        public ILaneKeeperPacket LaneKeeperPacket { get; set; }
+
         public void RegisterComponent(SystemComponent component)
         {
             this.components.Add(component);
