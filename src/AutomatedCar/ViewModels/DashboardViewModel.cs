@@ -1,6 +1,7 @@
 namespace AutomatedCar.ViewModels
 {
     using AutomatedCar.Models;
+    using AutomatedCar.SystemComponents.Packets;
     using ReactiveUI;
 
     public class DashboardViewModel : ViewModelBase
@@ -10,6 +11,7 @@ namespace AutomatedCar.ViewModels
         public DashboardViewModel(AutomatedCar controlledCar)
         {
             this.ControlledCar = new CarViewModel(controlledCar);
+        
         }
         public void OnOffTempomat()
         {

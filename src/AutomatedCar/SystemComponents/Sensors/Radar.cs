@@ -24,7 +24,7 @@ namespace AutomatedCar.SystemComponents.Sensors
 
         protected override bool IsRelevant(WorldObject worldObject)
         {
-            return true;
+            return worldObject.Collideable;
         }
     }
 }

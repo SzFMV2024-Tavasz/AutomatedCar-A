@@ -11,6 +11,7 @@ namespace AutomatedCar.Models
         private Radar radar;
         private Camera camera;
         private Collision collision;
+        private LaneKeeper laneKeeper;
 
         public AutomatedCar(int x, int y, string filename)
             : base(x, y, filename)
@@ -29,9 +30,9 @@ namespace AutomatedCar.Models
                 this.collision = new Collision(this.virtualFunctionBus);
                 this.radar = new Radar(this.virtualFunctionBus);
                 new AdaptiveTempomatComponent(virtualFunctionBus);
+                this.laneKeeper = new LaneKeeper(this.virtualFunctionBus);
+                this.IsLaneKeeperOn = false;
             }
-            
-
         }
 
         
@@ -67,6 +68,7 @@ namespace AutomatedCar.Models
         public double ObjectInFrontOfDistance { get;set; }
         public bool ActionRequiredFromDriver { get; set; }
         public bool IsEmergencyBreakSafeWorking { get; set; }
+        public bool IsLaneKeeperOn { get; set; }
         public Transmissions CarTransmission { get; set; }
         public Transmissions CarTransmissionL { get; set; }
         public Transmissions CarTransmissionR { get; set; }
@@ -225,7 +227,6 @@ namespace AutomatedCar.Models
         {
             this.camera.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
             this.radar.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
-            this.collision.RelativeLocation = new Avalonia.Point(this.Geometry.Bounds.Center.X, this.Geometry.Bounds.Center.Y / 2);
         }
 
         public void MovementForward()
